@@ -40,7 +40,7 @@ class Menu
         return [
 
             // Inicio
-            'Inicio' => [
+            'Dashboard' => [
                 'submenu' => 0,
                 'ruta' => route('home.user'),
                 'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
@@ -50,7 +50,7 @@ class Menu
             // Fin inicio
 
             // Añadir Saldo
-            'Ecommerce' => [
+            'Tienda' => [
                 'submenu' => 0,
                 'ruta' => route('shop'),
                 'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
@@ -60,7 +60,7 @@ class Menu
             // Fin añadir saldo
 
             // Organización
-            'Organización' => [
+            'Negocio' => [
                 'submenu' => 1,
                 'ruta' => 'javascript:;',
                 'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
@@ -68,19 +68,19 @@ class Menu
                 'complementoruta' => '',
                 'submenus' => [
                     [
-                        'name' => 'Arbol',
+                        'name' => 'Arbol Binario',
                         'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
                         'ruta' => route('genealogy_type', 'tree'),
                         'complementoruta' => ''
                     ],
                     [
-                        'name' => 'Referidos Directos',
+                        'name' => 'Arbol Unilevel',
                         'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
                         'ruta' => route('genealogy_list_network', 'direct'),
                         'complementoruta' => ''
                     ],
                     [
-                        'name' => 'Referidos en Red',
+                        'name' => 'Directos',
                         'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
                         'ruta' => route('genealogy_list_network', 'network'),
                         'complementoruta' => ''
@@ -104,7 +104,7 @@ class Menu
                         'complementoruta' => ''
                     ],
                     [
-                        'name' => 'Culminadas',
+                        'name' => 'Culminados',
                         'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
                         'ruta' => route('inversiones.index', 2),
                         'complementoruta' => '',
@@ -122,13 +122,13 @@ class Menu
                 'complementoruta' => '',
                 'submenus' => [
                     [
-                        'name' => 'Pagos',
+                        'name' => 'Wallet',
                         'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
                         'ruta' => route('payments.index'),
                         'complementoruta' => ''
                     ],
                     [
-                        'name' => 'Billetera',
+                        'name' => 'Retiros',
                         'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
                         'ruta' => route('wallet.index'),
                         'complementoruta' => '',
@@ -142,6 +142,15 @@ class Menu
                 ],
             ],
             // Fin Financiero
+            // Soporte
+            'Soporte' => [
+                'submenu' => 0,
+                'ruta' => '',
+                'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
+                'icon' => 'feather icon-help-circle',
+                'complementoruta' => '',
+            ],
+            // Fin Soporte
 
         ];
     }
@@ -329,8 +338,17 @@ class Menu
                 'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
                 'icon' => 'feather icon-credit-card',
                 'complementoruta' => '',
-            ]
+            ],
             //Fin Billetera
+            // Soporte
+            'Soporte' => [
+                'submenu' => 0,
+                'ruta' => '',
+                'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
+                'icon' => 'feather icon-help-circle',
+                'complementoruta' => '',
+            ],
+            //Fin Soporte
 
         ];
     }

@@ -74,7 +74,7 @@ Route::prefix('dashboard')->middleware('menu', 'auth')->group(function ()
     //Ruta para los usuarios
     Route::prefix('user')->group(function(){
     
-        Route::get('kyc', 'UserController@kyc')->name('kyc');
+        //Route::get('kyc', 'UserController@kyc')->name('kyc');
 
         Route::get('profile', 'UserController@editProfile')->name('profile');
 
