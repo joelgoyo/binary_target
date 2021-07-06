@@ -8,7 +8,7 @@
 
     <link rel="shortcut icon" href="{{ asset('assets/img/sistema/favicon.png') }}" type="image/x-icon">
     
-    <title>HDLRS</title>
+    <title>BINARY TARGET</title>
     {{-- Styles --}}
     @include('layouts.componenteDashboard.styles')
     {{-- Fin Styles --}}
