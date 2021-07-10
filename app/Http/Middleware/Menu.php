@@ -172,16 +172,16 @@ class Menu
             'icon' => 'feather icon-shopping-cart',
             'complementoruta' => '',
                 'submenus' => [
-                    [
-                        'name' => 'Grupos',
-                        'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
-                        'ruta' => route('group.index'),
-                        'complementoruta' => ''
-                    ],
+                    // [
+                    //     'name' => 'Grupos',
+                    //     'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
+                    //     'ruta' => route('group.index'),
+                    //     'complementoruta' => ''
+                    // ],
                     [
                         'name' => 'Paquetes',
                         'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
-                        'ruta' => route('package.index'),
+                        'ruta' => route('package.create'),
                         'complementoruta' => ''
                     ],
                     [

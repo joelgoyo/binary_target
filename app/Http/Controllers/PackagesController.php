@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Groups;
 use App\Models\Packages;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -20,8 +19,6 @@ class PackagesController extends Controller
          try {
              // title
              View::share('titleg', 'Paquetes - Grupos');
-
-             $categories = Groups::all()->where('status', 1);
 
             return view('manager_services.services.index', compact('categories'));
          } catch (\Throwable $th) {
@@ -41,16 +38,16 @@ class PackagesController extends Controller
             // title
             View::share('titleg', 'Paquetes - Agregar');
 
-            $categories = Groups::all()->where('status', 1);
-            if (!empty(request()->category)) {
+            // $categories = Groups::all()->where('status', 1);
+            // if (!empty(request()->category)) {
                 
-                $category = Groups::find(request()->category);
-                $services = $category->getPackage;
-                $name_category = $category->name;
-                $idgrupo = $category->id;
-            }
+            //     $category = Groups::find(request()->category);
+                $services = Packages::all();
+            //     $name_category = $category->name;
+            //     $idgrupo = $category->id;
+            // }
 
-           return view('manager_services.services.create', compact('categories', 'services','name_category', 'idgrupo'));
+           return view('manager_services.services.create', compact('services'));
         } catch (\Throwable $th) {
             Log::error('Packages - create -> Error: '.$th);
             abort(403, "Ocurrio un error, contacte con el administrador");
@@ -67,16 +64,17 @@ class PackagesController extends Controller
     {
         $validate = $request->validate([
             'name' => ['required'],
-            'group_id' => ['required'],
-            'minimum_deposit' => ['required', 'numeric'],
-            'expired' => ['required', 'date']
+            'price' => ['required', 'numeric']
+            // 'group_id' => ['required'],
+            // 'minimum_deposit' => ['required', 'numeric'],
+            // 'expired' => ['required', 'date']
         ]);
 
         try {
             if ($validate) {
                 Packages::create($request->all());
-                $route = route('package.index').'?category='.$request->group_id;
-                return redirect($route)->with('msj-success', 'Nuevo Servicio Creado');
+                $route = route('package.create');
+                return redirect($route)->with('msj-success', 'Nuevo Paquete Creado');
             }
         } catch (\Throwable $th) {
             Log::error('Packages - store -> Error: '.$th);
@@ -95,9 +93,8 @@ class PackagesController extends Controller
     {
         try {
             $service = Packages::find($id);
-            $category = $service->group_id;
             $service->delete();
-            $route = route('package.index').'?category='.$category;
+            $route = route('package.create');
             return redirect($route)->with('msj-success', 'Servicio '.$id.' Eliminado');
         } catch (\Throwable $th) {
             Log::error('Packages - destroy -> Error: '.$th);
@@ -142,27 +139,27 @@ class PackagesController extends Controller
 
     public function update(Request $request, $id)
     {
-
              $validate = $request->validate([
                 'name' => ['required'],
-                'group_id' => ['required'],
-                'minimum_deposit' => ['required', 'numeric'],
-                'expired' => ['required', 'date']
+                'price' => ['required', 'numeric']
+                // 'group_id' => ['required'],
+                // 'minimum_deposit' => ['required', 'numeric'],
+                // 'expired' => ['required', 'date']
              ]);
 
          try {
              if ($validate) {
                  $service = Packages::find($id);
                  $service->name = $request->name;
-                 $service->group_id = $request->group_id;
-                 $service->minimum_deposit = $request->minimum_deposit;
-                 $service->expired = $request->expired;
+                //  $service->group_id = $request->group_id;
+                //  $service->minimum_deposit = $request->minimum_deposit;
+                //  $service->expired = $request->expired;
                  $service->price = $request->price;
                  $service->status = $request->status;
-                 $service->description = $request->description;
+                //  $service->description = $request->description;
                  $service->save();
-                 $route = route('package.index').'?category='.$request->group_id;
-                 return redirect($route)->with('msj-success', 'Servicio '.$id.' Actualizado ');
+                 $route = route('package.create');
+                 return redirect($route)->with('msj-success', 'Producto '.$id.' Actualizado ');
              }
          } catch (\Throwable $th) {
             Log::error('Packages - update -> Error: '.$th);
