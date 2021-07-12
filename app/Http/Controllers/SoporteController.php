@@ -17,9 +17,9 @@ class SoporteController extends Controller
     public function index()
     {
         //
-        $soporte = Soporte::orderBy('id', 'desc')->get();
+        $soportes = Soporte::orderBy('id', 'desc')->get();
 
-        return view('soporte.index', compact('soporte'));
+        return view('soporte.index', compact('soportes'));
     }
 
     /**
