@@ -122,7 +122,7 @@ class TreeController extends Controller
             return view('genealogy.tree', compact('trees', 'type', 'base'));
         } catch (\Throwable $th) {
             Log::error('Tree - moretree -> Error: '.$th);
-            abort(403, "Ocurrio un error, contacte con el administrador");
+            abort(403, "Ocurrio un error, contacte con el administrador"); 
         }
     }
 
