@@ -22,7 +22,7 @@ class TreeController extends Controller
     {
         try {
             //Titulo
-            View::share('titleg', 'Arbol');
+            View::share('titleg', 'Arbol '.ucfirst($type));
             $trees = $this->getDataEstructura(Auth::id(), $type);
 
             $type = ucfirst($type);
@@ -113,16 +113,19 @@ class TreeController extends Controller
     {
         try {
             // titulo
-            View::share('titleg', 'Arbol');
+            View::share('titleg', 'Arbol '.ucfirst($type));
             $id = base64_decode($id);
+            $base = User::find($id);
+            if ($base == null) {
+                return redirect()->back()->with('msj-danger', 'El ID N°: '.$id.' No se encuentra registrado');
+            }
             $trees = $this->getDataEstructura($id, $type);
             $type = ucfirst($type);
-            $base = User::find($id);
             $base->logoarbol = asset('assets/img/sistema/favicon.png');
             return view('genealogy.tree', compact('trees', 'type', 'base'));
         } catch (\Throwable $th) {
             Log::error('Tree - moretree -> Error: '.$th);
-            abort(403, "Ocurrio un error, contacte con el administrador");
+            abort(403, "Ocurrio un error, contacte con el administrador"); 
         }
     }
 
@@ -203,9 +206,9 @@ class TreeController extends Controller
      * @param integer $nivel - nivel
      * @param string $typeTree - tipo de usuario
      * @param boolean $allNetwork - si solo se va a traer la informacion de los directos o todos mis hijos
-     * @return void
+     * @return array
      */
-    public function getChidrens2($parent, $array_tree_user, $nivel, $typeTree, $allNetwork)
+    public function getChidrens2($parent, $array_tree_user, $nivel, $typeTree, $allNetwork): array
     {   
         try {
             if (!is_array($array_tree_user))

@@ -17,8 +17,8 @@ class CreateOrdenPurchasesTable extends Migration
             $table->bigIncrements('id')->unsigned();
             $table->bigInteger('iduser')->unsigned();;
             $table->foreign('iduser')->references('id')->on('users');
-            $table->bigInteger('group_id')->unsigned();
-            $table->foreign('group_id')->references('id')->on('groups');
+            // $table->bigInteger('group_id')->unsigned();
+            // $table->foreign('group_id')->references('id')->on('groups');
             $table->bigInteger('package_id')->unsigned();
             $table->foreign('package_id')->references('id')->on('packages');
             $table->integer('cantidad');
