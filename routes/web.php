@@ -142,5 +142,6 @@ Route::prefix('dashboard')->middleware('menu', 'auth')->group(function ()
 
         
     });
-
+    
+    Route::resource('/soporte', 'SoporteController')->except(['edit', 'update']);
 });
