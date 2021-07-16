@@ -19,7 +19,7 @@ class Menu
     {
         $menu = null;
         if (Auth::check()) {
-            $menu = $this->menuUsuario(); 
+            $menu = $this->menuUsuario();
             if (Auth::user()->admin == 1) {
                 $menu = $this->menuAdmin();
             }
@@ -88,7 +88,7 @@ class Menu
                 ],
             ],
             // Fin Organización
-       
+
             //Inverisones
             'Inverisones' => [
                 'submenu' => 1,
@@ -145,7 +145,7 @@ class Menu
 
         ];
     }
-    
+
     /**
      * Permite Obtener el menu del admin
      *
@@ -219,7 +219,7 @@ class Menu
                     [
                         'name' => 'Arbol',
                         'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
-                        'ruta' => route('genealogy_type', 'matriz'),
+                        'ruta' => route('genealogy_type', 'tree'),
                         'complementoruta' => ''
                     ],
                 ],
@@ -265,7 +265,7 @@ class Menu
                 ],
             ],
             // Fin Inverisones
- 
+
             // Liquidaciones
             'Liquidaciones' => [
                 'submenu' => 1,
