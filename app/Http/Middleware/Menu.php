@@ -128,7 +128,7 @@ class Menu
                         'complementoruta' => ''
                     ],
                     [
-                        'name' => 'Billetera',
+                        'name' => 'Wallet',
                         'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
                         'ruta' => route('wallet.index'),
                         'complementoruta' => '',
