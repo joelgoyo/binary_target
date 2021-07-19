@@ -106,6 +106,14 @@
     </div>
 
 
+    <li class="nav-item">
+        <a class="nav-link d-flex py-75" id="account-pill-pass" data-toggle="pill"
+            href="#account-vertical-pass" aria-expanded="false">
+            <i class="feather icon-lock mr-50 font-medium-3"></i>
+            Cambiar la contraseña
+        </a>
+    </li>
+
     <div class="col-6">
         <div class="form-group">
             <div class="controls">

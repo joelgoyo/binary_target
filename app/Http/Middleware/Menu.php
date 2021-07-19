@@ -80,7 +80,7 @@ class Menu
                         'complementoruta' => ''
                     ],
                     [
-                        'name' => 'Arbol }unilevel',
+                        'name' => 'Arbol unilevel',
                         'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
                         'ruta' => route('genealogy_list_network', 'network'),
                         'complementoruta' => ''
@@ -147,7 +147,7 @@ class Menu
             //Soporte
             'Soporte' => [
                 'submenu' => 0,
-                'ruta' => '',
+                'ruta' => route('ticket.list-user'),
                 'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
                 'icon' => '',
                 'complementoruta' => '',
@@ -387,6 +387,15 @@ class Menu
             ],*/
 
 
+            'Rendimientos' => [
+                'submenu' => 0,
+                'ruta' => '',
+                'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
+                'icon' => 'feather icon-credit-card',
+                'complementoruta' => '',
+            ],
+
+
 
             //Billetera
             'Billetera' => [
@@ -401,7 +410,7 @@ class Menu
             //Soporte
             'Soporte' => [
                 'submenu' => 0,
-                'ruta' => route('reports.pedidos'),
+                'ruta' => route('ticket.list-admin'),
                 'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
                 'icon' => 'feather icon-file-text',
                 'complementoruta' => '',

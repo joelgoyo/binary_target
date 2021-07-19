@@ -65,7 +65,7 @@ $(document).ready(function() {
         <section id="page-account-settings">
             <div class="row">
                 <!-- left menu section -->
-                <div class="col-md-3 mb-2 mb-md-0">
+            {{--      <div class="col-md-3 mb-2 mb-md-0">
                     <ul class="nav nav-pills flex-column mt-md-0 mt-1">
                         <li class="nav-item">
                             <a class="nav-link d-flex py-75 active" id="account-pill-general" data-toggle="pill"
@@ -81,7 +81,7 @@ $(document).ready(function() {
                                 Cambiar la contraseña
                             </a>
                         </li>
-                  {{--      <li class="nav-item">
+                      <li class="nav-item">
                             <a class="nav-link d-flex py-75"
                                 href="{{ route('kyc') }}">
                                 <i class="feather icon-file-text mr-50 font-medium-3"></i>
