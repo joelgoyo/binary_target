@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use App\Models\PorcentajeUtilidad;
 
 class InversionController extends Controller
 {
@@ -33,7 +34,7 @@ class InversionController extends Controller
             foreach ($inversiones as $inversion) {
                 $inversion->correo = $inversion->getInversionesUser->email;
             }
-            
+
             return view('inversiones.index', compact('inversiones'));
         } catch (\Throwable $th) {
             Log::error('InversionController - index -> Error: '.$th);
@@ -48,7 +49,7 @@ class InversionController extends Controller
      * @param integer $orden - ID de la compra Comprada
      * @param float $invertido - Monto Total Invertido
      * @param string $vencimiento - Fecha de Vencimiento del paquete
-     * @param integer $iduser - ID del usuario 
+     * @param integer $iduser - ID del usuario
      * @return void
      */
     public function saveInversion(int $paquete, int $orden, float $invertido, string $vencimiento, int $iduser)
@@ -106,14 +107,14 @@ class InversionController extends Controller
                     ['status', '=', 1]
                 ])->first();
             }
-        
+
             if ($inversion != null) {
-             
+
                 $capital = ($inversion->capital + $ganacia);
                 $inversion->ganacia = ($inversion->ganacia + $ganacia);
-                $inversion->capital = $capital;      
+                $inversion->capital = $capital;
                 $inversion->porcentaje_fondo = $porcentaje;
-          
+
                 $inversion->save();
             }
         } catch (\Throwable $th) {
@@ -139,16 +140,31 @@ class InversionController extends Controller
                     ['status', '=', 1]
                 ])->first();
             }
-        
+
             if ($inversion != null) {
-                
+
                 $inversion->porcentaje_fondo = $porcentaje;
-          
+
                 $inversion->save();
             }
         } catch (\Throwable $th) {
             Log::error('InversionController - updateGanancia -> Error: '.$th);
             abort(403, "Ocurrio un error, contacte con el administrador");
         }
+    }
+
+    public function updatePorcentajeGanancia(Request $request)
+    {
+        $porcentaje = $request->porcentaje_ganancia / 100;
+
+        $porcentajeUtilidad = PorcentajeUtilidad::orderBy('id', 'desc')->first();
+
+        if($porcentajeUtilidad == null){
+            PorcentajeUtilidad::create(['porcentaje_utilidad' => $porcentaje]);
+        }else{
+            $porcentajeUtilidad->update(['porcentaje_utilidad' => $porcentaje]);
+        }
+
+        return redirect()->back()->with('msj-success', 'Porcentaje actualizado correctamente');
     }
 }

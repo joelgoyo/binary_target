@@ -256,20 +256,15 @@ class Menu
                         'ruta' => route('inversiones.index', 2),
                         'complementoruta' => '',
                     ],
+                    [
+                        'name' => 'Activacion Manual',
+                        'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
+                        'ruta' => route('inversiones.index', 2),
+                        'complementoruta' => '',
+                    ],
                 ],
             ],
             // Fin Inverisones
-
-            //Activacion manual
-            'Activacion Manual' => [
-                'submenu' => 0,
-                'ruta' => 'javascript:;',
-                'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
-                'icon' => 'feather icon-activity',
-                'complementoruta' => '',
-            ],
-            //Fin activacion manual
-
 
             // Liquidaciones
             'Liquidaciones' => [
@@ -347,22 +342,24 @@ class Menu
                         'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
                         'ruta' => route('inversiones.checkStatus'),
                         'complementoruta' => ''
-                    ]
+                    ],
+                    [
+                        'name' => 'Rangos',
+                        'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
+                        'ruta' => '',
+                        'complementoruta' => ''
+                    ],
+                    [
+                        'name' => 'Rendimientos',
+                        'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
+                        'ruta' => '',
+                        'complementoruta' => ''
+                    ],
                 ],
             ],
 
              // Fin Informes
 
-
-            //Rangos
-            'Rangos' => [
-                'submenu' => 0,
-                'ruta' => '',
-                'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
-                'icon' => 'feather icon-file-text',
-                'complementoruta' => '',
-            ],
-            //Fin Rangos
 
          /*   'Crons' => [
                 'submenu' => 1,
@@ -385,18 +382,6 @@ class Menu
                     ]
                 ]
             ],*/
-
-
-            'Rendimientos' => [
-                'submenu' => 0,
-                'ruta' => '',
-                'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
-                'icon' => 'feather icon-credit-card',
-                'complementoruta' => '',
-            ],
-
-
-
             //Billetera
             'Billetera' => [
                 'submenu' => 0,
