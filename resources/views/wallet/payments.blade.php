@@ -12,10 +12,12 @@
 
                                 <tr class="text-center text-white bg-purple-alt2">                                
                                     <th>ID</th>
-                                    <th>Fecha</th>                          
-                                    <th>Billetera</th>
+                                    <th>Fecha</th> 
+                                    <th>Usuario</th>                          
+                                    <th>Descripcion</th>
                                     <th>Monto</th>
                                     <th>Estado</th>
+                                    <th>Hash</th>
                                 </tr>
 
                             </thead>
@@ -26,6 +28,7 @@
                                 <tr class="text-center">
                                     <td>{{$item->id}}</td>
                                     <td>{{$item->created_at}}</td>
+                                    <td>{{$wallet->getWalletUser->fullname}}</td>
                                     <td>{{$item->getWalletUser->wallet_address}}</td>
                                     <td>{{$item->monto}}</td>
                                     @if ($item->status == '0')
@@ -35,6 +38,7 @@
                                     @elseif($item->status == '2')
                                     <td>Cancelado</td>
                                     @endif
+                                    <td>@isset($item->getLiquidation->hash){{$item->getLiquidation->hash}} @endisset</td>
                                 </tr>
                                 @endforeach
                                
