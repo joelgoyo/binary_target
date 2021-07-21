@@ -1,7 +1,7 @@
 <form action="{{ route('profile.update',$user->id) }}" method="POST"
     enctype="multipart/form-data">
     @csrf
-    @method('PATCH') 
+    @method('PATCH')
     <div class="media">
         <div class="custom-file">
             <label class="custom-file-label" for="photoDB">Seleccione su
@@ -26,14 +26,14 @@
         </div>
         <div class="col"></div>
     </div>
-    
+
     <hr>
- 
+
     <div class="row">
         <div class="col-12">
             <div class="form-group">
                 <div class="controls">
-                    <h2 class="font-weight-bold">Datos Personales</h2>
+                    <h2 class="font-weight-bold">Datos Personales </h2>
                 </div>
             </div>
         </div>
@@ -104,6 +104,33 @@
             </div>
         </div>
     </div>
+
+
+    <li class="nav-item">
+        <a class="nav-link d-flex py-75" id="account-pill-pass" data-toggle="pill"
+            href="#account-vertical-pass" aria-expanded="false">
+            <i class="feather icon-lock mr-50 font-medium-3"></i>
+            Cambiar la contraseña
+        </a>
+    </li>
+
+    <div class="col-6">
+        <div class="form-group">
+            <div class="controls">
+            <label for="account-api">Billetera</label>
+            <input type="text" id="account-api" class="form-control"
+                placeholder="wallet_address" name="wallet_address"
+                value="{{ Auth::user()->wallet_address }}">
+
+        </div>
+    </div>
+        <a href="https://accounts.binance.com/es/register" target="_blank"
+        class="waves-effect waves-light"> <b>¿No tiene billetera? Abre una cuenta en binance</b></a>
+
+    </div>
+
+
+
     <hr>
     <div class="row">
         <div class="col-12">
@@ -113,7 +140,7 @@
                 </div>
             </div>
         </div>
-  
+
         <div class="col-12">
             <div class="form-group">
                 <div class="controls">
@@ -130,6 +157,7 @@
                 </div>
             </div>
         </div>
+
         <div class="col-12">
             <div class="form-group">
                 <div class="controls">
@@ -141,6 +169,7 @@
                 </div>
             </div>
         </div>
+
         <div class="col-12 d-flex flex-sm-row flex-column justify-content-end">
             <button type="submit"
                 class="btn btn-primary mr-sm-1 mb-1 mb-sm-0 waves-effect waves-light">GUARDAR</button>
