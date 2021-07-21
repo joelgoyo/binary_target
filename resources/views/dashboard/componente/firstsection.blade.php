@@ -62,9 +62,9 @@
                         @endif
                   
                         @if (Auth::user()->dni == NULL)
-                        {{-- <p class="card-text">
+                        <p class="card-text">
                             <a class="btn btn-flat-primary padding-button-short bg-white mt-1 waves-effect waves-light" href="{{ route('kyc') }}">Verificación KYC <i class="far fa-copy"></i></a>
-                        </p>     --}}
+                        </p>    
                         @endif
 
                     </div>

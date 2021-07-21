@@ -20,12 +20,12 @@ class ReporteController extends Controller
     public function indexPedidos()
     {
         $ordenes = $this->getOrdenes(0);
-        
+
         return view('reports.perdido', compact('ordenes'));
     }
 
     /**
-     * Permitener las ordenes 
+     * Permitener las ordenes
      *
      * @param integer $limite Si limite es igua a 0 es igual a sin limite
      * @return object
@@ -40,7 +40,7 @@ class ReporteController extends Controller
 
         foreach ($ordenes as $orden) {
             $orden->name = $orden->getOrdenUser->fullname;
-            $orden->grupo = $orden->getGroupOrden->name;
+          //  $orden->grupo = $orden->getGroupOrden->name;
             $orden->paquete = $orden->getPackageOrden->name;
         }
 
@@ -91,14 +91,14 @@ class ReporteController extends Controller
      * @return object
      */
     private function getPucharseGraphig(): object
-    {    
+    {
         $ordenes = OrdenPurchases::whereDate('created_at', '>', Carbon::now()->subDays(30))
                                 ->where('status', '<', '2')
                                 ->selectRaw('SUM(total) as total, DAY(created_at) as dia, MONTH(created_at) as mes')
                                 ->orderBy('mes')->orderBy('dia')
                                 ->groupByRaw('DAY(created_at)')->get();
-        
-        
+
+
         $label = [];
         $monto = [];
         foreach ($ordenes as $orden) {
@@ -112,7 +112,7 @@ class ReporteController extends Controller
         ]);
         return $data;
     }
-    
+
     /**
      * Permite todos las inversiones compradas
      *

@@ -23,7 +23,7 @@ Route::prefix('dashboard')->middleware('menu', 'auth')->group(function ()
 {
 
     // Inicio
-    Route::get('/home', 'HomeController@index')->name('home');
+    Route::get('/home', 'HomeController@indexUser')->name('home');
      // Inicio de usuarios
     Route::get('/home-user', 'HomeController@indexUser')->name('home.user');
     // Ruta para obtener la informacion de la graficas del dashboard
@@ -70,11 +70,11 @@ Route::prefix('dashboard')->middleware('menu', 'auth')->group(function ()
         Route::get('/update/{side}/binary', 'HomeController@updateSideBinary')->name('ajax.update.side.binary');
     });
 
-    
+
     //Ruta para los usuarios
     Route::prefix('user')->group(function(){
-    
-        //Route::get('kyc', 'UserController@kyc')->name('kyc');
+
+        Route::get('kyc', 'UserController@kyc')->name('kyc');
 
         Route::get('profile', 'UserController@editProfile')->name('profile');
 
@@ -106,18 +106,18 @@ Route::prefix('dashboard')->middleware('menu', 'auth')->group(function ()
      */
     Route::prefix('admin')->middleware('checkrole')->group(function ()
     {
-   
+
         //Agregar servicios
         Route::prefix('products')->group(function ()
         {
-            //Rutas para los grupos 
+            //Rutas para los grupos
             Route::resource('group', 'GroupsController');
             //Rutas para los paquetes
             Route::resource('package', 'PackagesController');
-        }); 
+        });
 
-         //Ruta de liquidacion 
-        Route::prefix('settlement')->group(function() 
+         //Ruta de liquidacion
+        Route::prefix('settlement')->group(function()
         {
             //Ruta liquidaciones realizadas
             Route::get('/', 'LiquidactionController@index')->name('settlement');
@@ -139,8 +139,27 @@ Route::prefix('dashboard')->middleware('menu', 'auth')->group(function ()
             Route::get('commission', 'ReporteController@indexComision')->name('reports.comision');
 
         });
+        Route::put('updatePorcentajeGanancia', 'InversionController@updatePorcentajeGanancia')->name('updatePorcentajeGanancia');
 
-        
+
+    });
+
+     //Ruta de los Tickets
+     Route::prefix('tickets')->group(function(){
+        Route::get('ticket-create','TicketsController@create')->name('ticket.create');
+        Route::post('ticket-store','TicketsController@store')->name('ticket.store');
+
+        // Para el usuario
+        Route::get('ticket-edit-user/{id}','TicketsController@editUser')->name('ticket.edit-user');
+        Route::patch('ticket-update-user/{id}','TicketsController@updateUser')->name('ticket.update-user');
+        Route::get('ticket-list-user','TicketsController@listUser')->name('ticket.list-user');
+        Route::get('ticket-show-user/{id}','TicketsController@showUser')->name('ticket.show-user');
+
+        // Para el Admin
+        Route::get('ticket-edit-admin/{id}','TicketsController@editAdmin')->name('ticket.edit-admin');
+        Route::patch('ticket-update-admin/{id}','TicketsController@updateAdmin')->name('ticket.update-admin');
+        Route::get('ticket-list-admin','TicketsController@listAdmin')->name('ticket.list-admin');
+        Route::get('ticket-show-admin/{id}','TicketsController@showAdmin')->name('ticket.show-admin');
     });
 
 });
