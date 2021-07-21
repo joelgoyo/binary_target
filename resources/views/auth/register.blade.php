@@ -118,6 +118,15 @@ $referred = DB::table('users')
                         <div class="form-group row">
 
                             <div class="col-md-12">
+                                <input id="email-confirm" type="email" class="form-control"
+                                    name="email_confirmation" required autocomplete="new-email"
+                                    placeholder="confirme su correo electronico">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+
+                            <div class="col-md-12">
                                 <input id="password" type="password"
                                     class="form-control @error('password') is-invalid @enderror" name="password"
                                     required autocomplete="new-password" placeholder="Ingrese una contraseña">

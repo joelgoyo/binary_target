@@ -283,6 +283,11 @@
                                                         </div>
                                                     </div>
                                                 </div> --}}
+                                                <a class="nav-link d-flex py-75"
+                                href="{{ route('kyc') }}">
+                                <i class="feather icon-file-text mr-50 font-medium-3"></i>
+                                Verificar KYC
+                            </a>
 
                                                 <div class="col-12 d-flex flex-sm-row flex-column justify-content-end">
                                                     <button type="submit"

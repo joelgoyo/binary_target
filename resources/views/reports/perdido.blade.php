@@ -13,8 +13,8 @@
                                 <tr class="text-white bg-purple-alt2">                                
                                     <th>ID</th>
                                     <th>Usuario</th>
-                                    <th>Fecha de Creación</th>
                                     <th>Paquete</th>
+                                    <th>Fecha de Creación</th>
                                     <th>Monto</th>
                                     <th>Estado</th>
                                 </tr>
