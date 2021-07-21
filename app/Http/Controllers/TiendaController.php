@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Groups;
-use App\Models\OrdenPurchases;
 use App\Models\Packages;
-use Illuminate\Support\Facades\View;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use App\Models\OrdenPurchases;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\View;
 use App\Http\Controllers\InversionController;
 
 
@@ -21,7 +22,7 @@ class TiendaController extends Controller
     public function __construct()
     {
         $this->inversionController = new InversionController();
-        $this->apis_key_nowpayments = 'J9KX1AC-8BE4VYV-MQ51VMT-QVWVZTW';
+        $this->apis_key_nowpayments = 'YH0WTN1-5T64QQC-MRVZZPE-0DSX41R';
     }
     
     /**
@@ -33,10 +34,17 @@ class TiendaController extends Controller
     {
         try {
             // title
-            View::share('titleg', 'Tienda - Grupos');
-            $categories = Groups::all()->where('status', 1);
-
-            return view('shop.index', compact('categories'));
+            View::share('titleg', 'Tienda');
+            $invertido = User::find(Auth::user()->id)->getInversiones->where('status', 1)->sortBy('invertido')->last();
+            // dd($invertido); 
+            $packages = Packages::orderBy('id', 'desc')->paginate();
+            
+            // $invertido = Auth::user()->inversionMasAlta();
+            if(isset($invertido)){
+                $invertido = $invertido->invertido;
+            }
+            
+            return view('shop.index', compact('packages', 'invertido'));
         } catch (\Throwable $th) {
             Log::error('Tienda - Index -> Error: '.$th);
             abort(403, "Ocurrio un error, contacte con el administrador");
@@ -66,18 +74,19 @@ class TiendaController extends Controller
     /**
      * Lleva a la vista de productos de un paquete en especificio
      *
-     * @param integer $idgroup
+     * @param integer $idpackage
      * @return void
      */
-    public function products($idgroup)
+    public function products($idpackage)
     {
         try {
             // title
             View::share('titleg', 'Tienda - Productos');
-            $category = Groups::find($idgroup);
-            $services = $category->getPackage->where('status', 1);
-            
-            return view('shop.products', compact('services'));
+            $package = Packages::find($idpackage);
+            // $category = Packages::find($idpackage);
+            // $services = $category->getPackage->where('status', 1);
+            dd($package);
+            return view('shop.products', compact('package'));
         } catch (\Throwable $th) {
             Log::error('Tienda - products -> Error: '.$th);
             abort(403, "Ocurrio un error, contacte con el administrador");
@@ -93,41 +102,79 @@ class TiendaController extends Controller
     public function procesarOrden(Request $request)
     {
         $validate = $request->validate([
-            'idproduct' => 'required',
-            'deposito' => 'required|numeric|min:20'
+            'idproduct' => 'required'
         ]);
-    
-        try {
+        
+        //try {
             if ($validate) {
                 $paquete = Packages::find($request->idproduct);
-
-                $porcentaje = ($request->deposito * 0.03);
-                $total = ($request->deposito + $porcentaje);
+                $inv = User::find(Auth::user()->id)->getInversiones->where('status', 1)->sortBy('invertido')->last();
+                if(isset($inv->invertido)){
+                    
+                    $inversion = $inv;
+                    $pagado = $inversion->invertido;
+                    
+                    $nuevoInvertido = ($paquete->price - $pagado); 
+                    $porcentaje = ($nuevoInvertido * 0.03);
+                    
+                    $total = ($nuevoInvertido + $porcentaje);
+                    //ACTUALIZAMOS LA INVERSION
+                    /*
+                    $inversion->invertido += $nuevoInvertido;
+                    $inversion->capital += $nuevoInvertido;
+                    $inversion->max_ganancia = $inversion->invertido * 2;
+                    $inversion->restante += $nuevoInvertido * 2;
+                    $inversion->save();
+                    */
+                    $data = [
+                        'iduser' => Auth::id(),
+                        'package_id' => $paquete->id,
+                        'cantidad' => 1,
+                        'total' => $total,
+                        'monto' => $nuevoInvertido
+                    ];
                 
-                $data = [
-                    'iduser' => Auth::id(),
-                    'group_id' => $paquete->getGroup->id,
-                    'package_id' => $paquete->id,
-                    'cantidad' => $request->deposito,
-                    'total' => $total
-                ];
+                    //$orden = OrdenPurchases::findOrFail($inversion->orden_id)->update($data);
+                    $data['idorden'] = $this->saveOrden($data);
+                    $data['descripcion'] = "Upgrade al paquete " . $paquete->name;
+                    //$data['inversion_id'] = $inversion->id;  
+                    
+                }else{
+                    $porcentaje = ($paquete->price * 0.03);
 
-                $data['idorden'] = $this->saveOrden($data);
-                $data['descripcion'] = $paquete->description;
-                //$data['Amount'] = $request->deposito;
+                    $total = ($paquete->price + $porcentaje);
+                    $data = [
+                        'iduser' => Auth::id(),
+                        'package_id' => $paquete->id,
+                        'cantidad' => 1,
+                        'total' => $total,
+                        'monto' => $paquete->price
+                    ];
+                    
+                    $data['idorden'] = $this->saveOrden($data);
+                    $data['descripcion'] = $paquete->description;    
+                }
+                
+                
+               
+
                 $url = $this->generalUrlOrden($data);
+            //    dd($url);
                 if (!empty($url)) {
                     return redirect($url);
 
                 }else{
-                    OrdenPurchases::where('id', $data['idorden'])->delete();
-                    return redirect()->back()->with('msj-info', 'Problemas al general la orden, intente mas tarde');
+
+                   OrdenPurchases::where('id', $data['idorden'])->delete();
+                   return redirect()->back()->with('msj-info', 'Problemas al general la orden, intente mas tarde');
                 }
+
+
             }
-        } catch (\Throwable $th) {
+        /*} catch (\Throwable $th) {
             Log::error('Tienda - procesarOrden -> Error: '.$th);
-            abort(403, "Ocurrio un error, contacte con el administrador");
-        }
+            abort(403, "Ocurrio un error (1) , contacte con el administrador");
+        }*/
     }
 
     /**

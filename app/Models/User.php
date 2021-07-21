@@ -3,13 +3,17 @@
 namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+
+use App\Notifications\MailResetPasswordNotification as ResetPasswordNotification;
 
 
 class User extends Authenticatable
 
 {
+    use HasFactory;
     use Notifiable;
 
     protected $table = 'users';
@@ -20,9 +24,10 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'last_name', 'email', 'password', 'whatsapp',
+        'name', 'last_name', 'username', 'email', 'password', 'whatsapp',
         'fullname', 'referred_id', 'binary_id', 'admin', 'balance', 'status',
-        'wallet', 'address', 'binary_side', 'binary_side_register', 'dni', 'photoDB', 'wallet_address'
+        'wallet', 'address', 'binary_side', 'binary_side_register', 'dni',
+        'photoDB', 'wallet_address', 'point_rank', 'rank_id'
     ];
 
     /**
@@ -72,28 +77,57 @@ class User extends Authenticatable
      */
     public function getUserOrden()
     {
-        return $this->hasMany('App\Models\OrdenPurchases', 'iduser');
+        return $this->belongsTo('App\Models\OrdenPurchases', 'id', 'iduser');
     }
 
-    /**
-     * Permite obtener las Inversiones asociadas a un usuario
-     *
-     * @return void 
-     */
-    public function getUserInversiones()
+    public function getInversiones()
     {
         return $this->hasMany('App\Models\Inversion', 'iduser');
     }
 
-    public function montoInvertido()
+    public function inversionMasAlta()
     {
-        $monto = 0;
-        foreach($this->getUserInversiones as $inversion){
-            if($inversion->status == 1){
-                $monto+= $inversion->invertido;
-            }
-        }
+        return $this->getInversiones()->where('status', 1)->orderBy('invertido', 'desc')->first();
+        //->sortByDesc('invertido')
+    }
 
-        return number_format($monto,2);
+    public function saldoDisponible()
+    {
+        return number_format($this->getWallet->where('status', 0)->where('tipo_transaction', 0)->sum('monto'), 2);
+    }
+
+    public function gananciaActual()
+    {   
+        if(isset($this->inversionMasAlta()->ganacia) && $this->inversionMasAlta()->ganacia != null){
+            return number_format($this->inversionMasAlta()->ganacia, 2);
+        }else{
+            return number_format(0, 2);
+        }
+        
+    }
+
+    public function progreso()
+    {
+        if(isset($this->inversionMasAlta()->max_ganancia) && isset($this->inversionMasAlta()->restante)){
+            $total = $this->inversionMasAlta()->max_ganancia - $this->inversionMasAlta()->restante;
+
+            if($this->inversionMasAlta()->max_ganancia != null && $this->inversionMasAlta()->max_ganancia != 0){
+                $operacion = ($total * 100) / $this->inversionMasAlta()->max_ganancia;
+            }else{
+                $operacion = 0;
+            }
+        }else{
+            $operacion = 0;
+        }
+        return $operacion;
+    }
+
+    public function fechaActivo()
+    {
+        if($this->inversionMasAlta() != null){
+            return $this->inversionMasAlta()->created_at->format('Y-m-d');
+        }else{
+            return "";
+        }
     }
 }
