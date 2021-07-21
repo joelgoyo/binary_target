@@ -137,6 +137,8 @@ Route::prefix('dashboard')->middleware('menu', 'auth')->group(function ()
         Route::prefix('reports')->group(function(){
             Route::get('purchase', 'ReporteController@indexPedidos')->name('reports.pedidos');
             Route::get('commission', 'ReporteController@indexComision')->name('reports.comision');
+            Route::get('Rendimientos', 'ReporteController@rendimientos')->name('reports.rendimientos');
+
 
         });
         Route::put('updatePorcentajeGanancia', 'InversionController@updatePorcentajeGanancia')->name('updatePorcentajeGanancia');
