@@ -15,6 +15,35 @@ $new = \App\Models\News::where('status', '1')->get();
 @push('page_css')
 <link rel="stylesheet" type="text/css" href="{{asset('assets/app-assets/css/pages/dashboard-analytics.css')}}">
 <link rel="stylesheet" type="text/css" href="{{asset('assets/app-assets/css/pages/card-analytics.css')}}">
+<style>
+    input[type='radio']:after {
+        width: 20px;
+        height: 20px;
+        border-radius: 15px;
+        top: -4px;
+        left: -1px;
+        position: relative;
+        background-color: #002614;
+        content: '';
+        display: inline-block;
+        visibility: visible;
+        border: 2px solid #00BE54;
+    }
+
+    input[type='radio']:checked:after {
+        width: 20px;
+        height: 20px;
+        border-radius: 15px;
+        top: -2px;
+        left: -1px;
+        position: relative;
+        background-color: #00BE54;
+        content: '';
+        display: inline-block;
+        visibility: visible;
+        border: 2px solid #00BE54;
+    }
+</style>
 @endpush
 
 {{-- page vendor js --}}
