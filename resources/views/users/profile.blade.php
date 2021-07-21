@@ -24,7 +24,7 @@ $(document).ready(function() {
                 previewPersistedFile("{{asset('storage/'.$user->photoDB)}}", 'photo_preview');
           @endif
         });
-   
+
 
 
     function previewFile(input, preview_id) {
@@ -65,7 +65,7 @@ $(document).ready(function() {
         <section id="page-account-settings">
             <div class="row">
                 <!-- left menu section -->
-                <div class="col-md-3 mb-2 mb-md-0">
+            {{--      <div class="col-md-3 mb-2 mb-md-0">
                     <ul class="nav nav-pills flex-column mt-md-0 mt-1">
                         <li class="nav-item">
                             <a class="nav-link d-flex py-75 active" id="account-pill-general" data-toggle="pill"
@@ -81,14 +81,14 @@ $(document).ready(function() {
                                 Cambiar la contraseña
                             </a>
                         </li>
-                        <li class="nav-item">
+                      <li class="nav-item">
                             <a class="nav-link d-flex py-75"
                                 href="{{ route('kyc') }}">
                                 <i class="feather icon-file-text mr-50 font-medium-3"></i>
                                 Verificar KYC
                             </a>
                         </li>
-
+                              --}}
                         {{-- <li class="nav-item">
                             <a class="nav-link d-flex py-75"
                                 href="{{ route('profile.change-password')}}">
@@ -105,14 +105,14 @@ $(document).ready(function() {
                         </li> --}}
                     </ul>
                 </div>
- 
+
                 <!-- right content section -->
                 <div class="col-md-9">
                     <div class="card">
                         <div class="card-content">
                             <div class="card-body">
                                 <div class="tab-content">
-                                    
+
                                     <div role="tabpanel" class="tab-pane active" id="account-vertical-general"
                                         aria-labelledby="account-pill-general" aria-expanded="true">
 
@@ -127,7 +127,7 @@ $(document).ready(function() {
 
                                     </div>
 
-                         
+
 
                                 </div>
 
@@ -135,7 +135,7 @@ $(document).ready(function() {
                                     aria-labelledby="account-pill-social" aria-expanded="false">
 
                                     @include('users.componenteProfile.api-profile')
-                                   
+
                                 </div> --}}
 
                             </div>
