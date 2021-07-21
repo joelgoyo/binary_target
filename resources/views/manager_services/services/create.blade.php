@@ -55,9 +55,9 @@
                                 <tr class="text-center text-white bg-purple-alt2">
                                     <th>ID</th>
                                     <th>Nombre</th>
-                                    <th>Deposito Minimo</th>
-                                    <th>Fecha Vencimiento</th>
-                                    <th>Description</th>
+                                    <th>Price</th>
+                                    {{-- <th>Fecha Vencimiento</th> --}}
+                                    {{-- <th>Description</th> --}}
                                     <th>Estado</th>
                                     <th>Acción</th>
                                 </tr>
@@ -67,13 +67,13 @@
                                 <tr class="text-center">
                                     <td>{{$service->id}}</td>
                                     <td>{{$service->name}}</td>
-                                    <td>{{$service->minimum_deposit}}</td>
-                                    <td>{{date('d-m-Y', strtotime($service->expired))}}</td>
-                                    <td>
+                                    <td>{{$service->price}}</td>
+                                    {{-- <td>{{date('d-m-Y', strtotime($service->expired))}}</td> --}}
+                                    {{-- <td>
                                         <button class="btn btn-info" onclick="vm_adminService.getDescription('{{$service->id}}')">
                                             <i class="fa fa-eye"></i>
                                         </button>
-                                    </td>
+                                    </td> --}}
                                     <td>
                                         @if ($service->status == 1)
                                             <span class="badge badge-success text-white">Activo</span>

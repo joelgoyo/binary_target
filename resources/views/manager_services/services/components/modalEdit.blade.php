@@ -17,11 +17,11 @@
                         <div class="row">
                             <div class="col-12">
                                 <fieldset class="form-group">
-                                    <label for="">Package Name</label>
+                                    <label for="">Nombre</label>
                                     <input type="text" name="name" class="form-control" required v-model="Service.name">
                                 </fieldset>
                             </div>
-                            <div class="col-12">
+                            {{-- <div class="col-12">
                                 <fieldset class="form-group">
                                     <label for="">Elige una Categoria</label>
                                     <select name="group_id" id="" class="form-control" required v-model="Service.group_id">
@@ -31,19 +31,19 @@
                                         @endforeach
                                     </select>
                                 </fieldset>
-                            </div>
+                            </div> --}}
                             <div class="col-12 col-md-6">
                                 <fieldset class="form-group">
-                                    <label for="">Deposito Minimo</label>
-                                    <input type="number" name="minimum_deposit" class="form-control" required v-model="Service.minimum_deposit">
+                                    <label for="">Price</label>
+                                    <input type="number" name="price" class="form-control" required v-model="Service.price">
                                 </fieldset>
                             </div>
-                            <div class="col-12 col-md-6">
+                            {{-- <div class="col-12 col-md-6">
                                 <fieldset class="form-group">
                                     <label for="">Fecha Vencimiento</label>
                                     <input type="date" name="expired" class="form-control" required v-model="Service.expired">
                                 </fieldset>
-                            </div>
+                            </div> --}}
                         
                             <div class="col-12 col-md-6">
                                 <fieldset class="form-group">
@@ -55,12 +55,12 @@
                                     </select>
                                 </fieldset>
                             </div>
-                            <div class="col-12">
+                            {{-- <div class="col-12">
                                 <fieldset class="form-group">
                                     <label for="">Descripcion</label>
                                     <textarea name="description" class="form-control" id="summernoteEdit"></textarea>
                                 </fieldset>
-                            </div>
+                            </div> --}}
                             <div class="col-12">
                                 <fieldset class="form-group text-center">
                                     <button type="submit" class="btn btn-primary">Agregar</button>

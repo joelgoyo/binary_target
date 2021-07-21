@@ -10,13 +10,13 @@
                         <table class="table w-100 nowrap scroll-horizontal-vertical myTable table-striped w-100">
                             <thead class="">
 
-                                <tr class="text-center text-white bg-purple-alt2">                                
+                                <tr class="text-white bg-purple-alt2">                                
                                     <th>ID</th>
-                                    <th>Correo</th>
+                                    <th>Usuario</th>
+                                    <th>Fecha de Creación</th>
                                     <th>Paquete</th>
                                     <th>Monto</th>
                                     <th>Estado</th>
-                                    <th>Fecha de Creación</th>
                                 </tr>
 
                             </thead>
@@ -25,22 +25,21 @@
                                 @foreach ($ordenes as $orden)
                                 <tr class="text-center">
                                     <td>{{$orden->id}}</td>
-                                    <td>{{$orden->getOrdenUser->email}}</td>
-                                    <td>{{$orden->grupo}} - {{$orden->paquete}}</td>
+                                    <td>{{$orden->getOrdenUser->fullname}}</td>
+                                    <td>{{$orden->paquete}}</td>
+                                    <td>{{date('Y-M-d', strtotime($orden->created_at))}}</td>
                                     <td>{{$orden->total}}</td>
 
                                     @if ($orden->status == '0')
-                                    <td> <a class=" btn btn-info text-white text-bold-600" data-toggle="modal" data-target="#ModalStatus{{$orden->id}}">Esperando</a></td>
+                                    <td> <a class=" btn btn-info text-white text-bold-600" data-toggle="modal" data-target="#ModalStatus{{$orden->id}}">En espera</a></td>
                                     @elseif($orden->status == '1')
                                     <td> <a class=" btn btn-success text-white text-bold-600">Aprobado</a></td>
                                     @elseif($orden->status >= '2')
-                                    <td> <a class=" btn btn-danger text-white text-bold-600">Cancelado</a></td>
+                                    <td> <a class=" btn btn-danger text-white text-bold-600">Rechazado</a></td>
                                     @endif
-
-                                    <td>{{date('Y-M-d', strtotime($orden->created_at))}}</td>
                                 </tr>
 
-                                <!-- Modal -->
+                                {{-- <!-- Modal -->
                                 <div class="modal fade" id="ModalStatus{{$orden->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
@@ -71,7 +70,7 @@
                                         </form>
                                         </div>
                                     </div>
-                                </div>
+                                </div> --}}
                                 @endforeach
                                
                             </tbody>

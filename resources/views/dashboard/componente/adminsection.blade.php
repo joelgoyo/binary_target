@@ -42,8 +42,15 @@
                     <div class="order-2 order-md-1">
                         <p class="card-text mt-3">Invita a tus amigos <br> y gana una comision</p>
                         <h4 class="card-title text-white">¡Todo es mejor con <br> amigos!</h4>
-                        <p class="card-text">
-                            <button class="btn btn-flat-primary padding-button-short bg-white mt-1 waves-effect waves-light" onclick="getlink()">Copiar link de referido <i class="fa fa-copy"></i></button>
+                        <div class="row">
+                            <div class="col-12 text-center">Lado Binario Activo: <b>{{(Auth::user()->binary_side_register == 'I') ? 'Izquierdo' : 'Derecho'}}</b> </div>
+                            <div class="col-12 col-sm-6 text-center">
+                                <button class="btn btn-flat-primary padding-button-short bg-white mt-1 waves-effect waves-light" v-on:click="updateBinarySide('I')">Lado Izquierdo <i class="fa fa-copy"></i></button>
+                            </div>
+                            <div class="col-12 col-sm-6 text-center">
+                                <button class="btn btn-flat-primary padding-button-short bg-white mt-1 waves-effect waves-light" v-on:click="updateBinarySide('D')">Lado Derecho <i class="fa fa-copy"></i></button>
+                            </div>
+                        </div>
                         </p>
                     </div>
                 </div>
