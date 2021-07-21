@@ -16,9 +16,9 @@ class UserTableSeeder extends Seeder
         try {
             User::create([
                 'name' => 'Admin',
-                'last_name' => 'HDLR',
-                'fullname' => 'Admin HDLR',
-                'email' => 'admin@hdlr.com',
+                'last_name' => 'Binary Stage',
+                'fullname' => 'Admin Binary Stage',
+                'email' => 'admin@binarystage.com',
                 'admin' => '1',
                 'password' => Hash::make('12345678'),
                 'whatsapp' => '23423423423432',

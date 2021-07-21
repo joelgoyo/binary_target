@@ -16,18 +16,18 @@
         document.execCommand("copy");
         document.body.removeChild(aux);
 
-        let lado = (side == 'I') ? 'Izquierda' : 'Derecha'
+        let lado = (side == 'I') ? 'Izquierdo' : 'Derecho'
 
         Swal.fire({
             title: "Link Copiado",
-            text: "Ya puedes pegarlo en su navegador",
+            text: "Ya puedes pegarlo en su navegador, Activo el Lado: "+lado,
             type: "success",
             confirmButtonClass: 'btn btn-primary',
             buttonsStyling: false,
         }).then(function(result){
-                // if (result.value) {
-                //     window.location.reload();
-                // }
+                if (result.value) {
+                    window.location.reload();
+                }
             });
     }
 </script>

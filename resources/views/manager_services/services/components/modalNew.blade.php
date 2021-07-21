@@ -31,21 +31,21 @@
                                     </select>
                                 </fieldset>
                             </div> --}}
-                            <input type="hidden" name="group_id" value="{{$idgrupo}}">
-                            <div class="col-12 col-md-6">
+                            {{-- <input type="hidden" name="group_id" value="{{$idgrupo}}"> --}}
+                            <div class="col-12 col-md-12">
                                 <fieldset class="form-group">
-                                    <label for="">Deposito Minimo</label>
-                                    <input type="number" name="minimum_deposit" class="form-control" required step="any">
+                                    <label for="">Price</label>
+                                    <input type="number" name="price" class="form-control" required step="any">
                                 </fieldset>
                             </div>
-                            <div class="col-12 col-md-6">
+                            {{-- <div class="col-12 col-md-6">
                                 <fieldset class="form-group">
                                     <label for="">Fecha Vencimiento</label>
                                     <input type="date" name="expired" class="form-control" required>
                                 </fieldset>
-                            </div>
+                            </div> --}}
                     
-                            <div class="col-12 col-md-6">
+                            <div class="col-12">
                                 <fieldset class="form-group">
                                     <label for="">Estado</label>
                                     <select name="status" class="form-control custom-select">
@@ -55,12 +55,12 @@
                                     </select>
                                 </fieldset>
                             </div>
-                            <div class="col-12">
+                            {{-- <div class="col-12">
                                 <fieldset class="form-group">
                                     <label for="">Descripcion</label>
                                     <textarea name="description" class="form-control" id="summernoteNew"></textarea>
                                 </fieldset>
-                            </div>
+                            </div> --}}
                             <div class="col-12">
                                 <fieldset class="form-group text-center">
                                     <button type="submit" class="btn btn-primary">Agregar</button>
