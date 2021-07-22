@@ -58,7 +58,7 @@ Route::prefix('dashboard')->middleware('menu', 'auth')->group(function ()
         Route::get('/', 'TiendaController@index')->name('shop');
         Route::get('/groups/{idgroup}/products', 'TiendaController@products')->name('shop.products');
         Route::get('procces/{id}', 'TiendaController@procesarOrden')->name('shop.procces');
-        Route::post('/ipn', 'TiendaController@ipn')->name('shop.ipn');
+        // Route::post('/ipn', 'TiendaController@ipn')->name('shop.ipn');
         Route::get('{orden}/{status}/estado', 'TiendaController@statusProcess')->name('shop.proceso.status');
         Route::get('orden-history', 'TiendaController@ordenHistory')->name('shop.orden.history');
         Route::post('cambiarStatus', 'TiendaController@cambiar_status')->name('cambiarStatus');
@@ -73,7 +73,7 @@ Route::prefix('dashboard')->middleware('menu', 'auth')->group(function ()
 
     //Ruta para los usuarios
     Route::prefix('user')->group(function(){
-
+    
         Route::get('kyc', 'UserController@kyc')->name('kyc');
 
         Route::get('profile', 'UserController@editProfile')->name('profile');
@@ -148,6 +148,7 @@ Route::prefix('dashboard')->middleware('menu', 'auth')->group(function ()
 
     });
 
+
      //Ruta de los Tickets
      Route::prefix('tickets')->group(function(){
         Route::get('ticket-create','TicketsController@create')->name('ticket.create');
@@ -168,3 +169,4 @@ Route::prefix('dashboard')->middleware('menu', 'auth')->group(function ()
     
     Route::resource('/soporte', 'SoporteController')->except(['edit', 'update']);
 });
+
