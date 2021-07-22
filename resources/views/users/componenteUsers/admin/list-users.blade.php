@@ -37,12 +37,9 @@
                             <thead class="">
                                 <tr class="text-center text-white bg-purple-alt2">
                                     <th>ID</th>
-                                    <th>Perfil</th>
+                                    <th>Usuario</th>
                                     <th>Email</th>
-                                    <th>Kyc</th>
-                                    <th>Rol</th>
                                     <th>Estado</th>
-                                    <th>Fecha de Creacion</th>
                                     <th>Accion</th>
                                 </tr>
                             </thead>
@@ -53,22 +50,6 @@
                                     <td>{{ $item->id}}</td>
                                     <td>{{ $item->fullname}}</td>
                                     <td>{{ $item->email}}</td>
-
-                                    @if ($item->dni != NULL && $item->status == '0')
-                                    <td><span class="text-primary">Verificar</span></td>
-                                    @elseif ($item->dni == NULL)
-                                    <td>No Disponible</td>
-                                    @elseif ($item->dni != NULL && $item->status == '1')
-                                    <td>Verificado</td>
-                                    @endif
-
-                                    @if ($item->admin == '1')
-                                    <td>Administrador</td>
-                                    @else
-                                    <td>Normal</td>
-                                    @endif
-                                    
-
                                     @if ($item->status == '0')
                                     <td>Inactivo</td>
                                     @elseif($item->status == '1')
@@ -82,12 +63,11 @@
                                     @elseif($item->status == '5')
                                     <td>Eliminado</td>
                                     @endif
-                                    <td>{{ $item->created_at}}</td>
                                     <td>
                                     
-                                    @if ($item->dni != NULL && $item->status == 0)
-                                     <a href="{{ route('users.show-user',$item->id) }}" class="btn btn-warning text-bold-600"><i class="fa fa-check-square-o "></i></a>
-                                    @endif
+                                    {{-- @if ($item->dni != NULL && $item->status == 0) --}}
+                                     {{-- <a href="{{ route('users.show-user',$item->id) }}" class="btn btn-warning text-bold-600"><i class="fa fa-check-square-o "></i></a> --}}
+                                    {{-- @endif --}}
                                     
                                     @if(Auth::user()->id == $item->id)
                                     <a href="{{ route('profile') }}" class="btn btn-secondary text-bold-600"><i class="fa fa-pencil"></i></a>

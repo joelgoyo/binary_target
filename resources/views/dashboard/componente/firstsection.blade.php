@@ -62,9 +62,9 @@
                         @endif
                   
                         @if (Auth::user()->dni == NULL)
-                        {{-- <p class="card-text">
+                        <p class="card-text">
                             <a class="btn btn-flat-primary padding-button-short bg-white mt-1 waves-effect waves-light" href="{{ route('kyc') }}">Verificación KYC <i class="far fa-copy"></i></a>
-                        </p>     --}}
+                        </p>    
                         @endif
 
                     </div>
@@ -79,10 +79,16 @@
                     <img src="{{asset('assets/img/sistema/card-img.svg')}}" alt="element 03" width="250" height="250"
                         class="float-right px-1">
                     <h4 class="card-text mt-3">Invita a tus amigos <br> y gana una comision</h4>
-                    <p class="card-text">
-                        <button class="btn btn-flat-primary padding-button-short bg-white mt-1 waves-effect waves-light" onclick="getlink()">Copiar link de referido <i class="fa fa-copy"></i></button>
-                    </p>
                     <h4 class="card-title text-white">¡Todo es mejor con amigos!</h4>
+                    <div class="row">
+                        <div class="col-12 text-center">Lado Binario Activo: <b>{{(Auth::user()->binary_side_register == 'I') ? 'Izquierdo' : 'Derecho'}}</b> </div>
+                        <div class="col-12 col-sm-6 text-center">
+                            <button class="btn btn-flat-primary padding-button-short bg-white mt-1 waves-effect waves-light" v-on:click="updateBinarySide('I')">Lado Izquierdo <i class="fa fa-copy"></i></button>
+                        </div>
+                        <div class="col-12 col-sm-6 text-center">
+                            <button class="btn btn-flat-primary padding-button-short bg-white mt-1 waves-effect waves-light" v-on:click="updateBinarySide('D')">Lado Derecho <i class="fa fa-copy"></i></button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

@@ -9,15 +9,30 @@
 @section('content')
 
     <div class="padre">
+        <div class="card">
+            <div class="card-body p-1 text-center">
+                <div class="row">
+                    <div class="col-12 col-sm-8">
+                        <input type="number" name="" id="iduser" required class="form-control" placeholder="ID Usuario">
+                    </div>
+                    <div class="col-12 col-sm-4">
+                        <button class="btn btn-info" onclick="searchUser('{{strtolower($type)}}')">Buscar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <hr>
+
         <div class="card d-none shadow-lg" style="margin-bottom: 0px;" id="tarjeta">
             <div class="card-body p-1">
                 <div class="row no-gutters">
                     <div class="col-4">
-                        <img class="float-left rounded-circle shadow-lg" id="imagen" width="96" height="96">     
+                        <img class="float-left rounded-circle shadow-lg" id="imagen" width="96" height="96">
                     </div>
                     <div class="col-8">
-                        <div class="ml-1"><span class="font-weight-bold">Nombre:</span> <span id="nombre"></span></div> 
-            
+                        <div class="ml-1"><span class="font-weight-bold">Nombre:</span> <span id="nombre"></span></div>
+
                         <div class="ml-1"><span class="font-weight-bold">Inversion:</span> <span id="inversion"></span></div>
 
                         <div class="ml-1 mb-1"><span class="font-weight-bold">Estado:</span> <span id="estado"></span></div>
@@ -96,16 +111,16 @@
     @endif
 
     <script type="text/javascript">
-    
+
         function tarjeta(data, url){
             //console.log('assets/img/sistema/favicon.png');
             $('#nombre').text(data.fullname);
             if(data.photoDB == null){
-                $('#imagen').attr('src', "{{ asset('/assets/img/sistema/favicon.png') }}" );   
+                $('#imagen').attr('src', "{{ asset('/assets/img/sistema/favicon.png') }}" );
             }else{
-                $('#imagen').attr('src', '/storage/'+data.photoDB);    
+                $('#imagen').attr('src', '/storage/'+data.photoDB);
             }
-            
+
             $('#ver_arbol').attr('href', url);
             $('#inversion').text(data.inversion);
             if(data.status == 0){
@@ -115,8 +130,16 @@
             }else if(data.status == 2){
                 $('#estado').html('<span class="badge badge-danger">Eliminado</span>');
             }
-            
+
             $('#tarjeta').removeClass('d-none');
+        }
+
+        function searchUser(type){
+            let iduser = $('#iduser').val();
+            if (iduser != '') {
+                let ruta = route('genealogy_type_id', [type, btoa(iduser)])
+                window.location.href = ruta
+            }
         }
     </script>
 @endsection

@@ -4,7 +4,7 @@
         <ul class="nav navbar-nav flex-row">
             <li class="nav-item mr-auto">
                 <a class="navbar-brand " href="{{route('home')}}">
-                     <img src="{{ asset('assets/img/BINARYTARGET-white.png') }}" class="mb-2" height="150">
+                     <img src="{{ asset('assets/img/HDLRS-side.png') }}" height="150">
                      {{-- <div class="brand-logo"></div>  --}}
                     {{-- <h2 class="brand-text mb-0">Vuexy</h2> --}}
                 </a>

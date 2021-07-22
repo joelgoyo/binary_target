@@ -2,28 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Groups;
-use App\Models\OrdenPurchases;
+use App\Models\User;
 use App\Models\Packages;
-use Illuminate\Support\Facades\View;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use App\Models\OrdenPurchases;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\View;
 use App\Http\Controllers\InversionController;
+use Hexters\CoinPayment\CoinPayment;
+use Hexters\CoinPayment\Helpers\CoinPaymentHelper;
 
 
 class TiendaController extends Controller
 {
 
-    public $apis_key_nowpayments;
-    public $inversionController;
-
-    public function __construct()
-    {
-        $this->inversionController = new InversionController();
-        $this->apis_key_nowpayments = 'J9KX1AC-8BE4VYV-MQ51VMT-QVWVZTW';
-    }
-    
+       
     /**
      * Lleva a la vista de la tienda
      *
@@ -33,10 +27,17 @@ class TiendaController extends Controller
     {
         try {
             // title
-            View::share('titleg', 'Tienda - Grupos');
-            $categories = Groups::all()->where('status', 1);
-
-            return view('shop.index', compact('categories'));
+            View::share('titleg', 'Tienda');
+            $invertido = User::find(Auth::user()->id)->getInversiones->where('status', 1)->sortBy('invertido')->last();
+            // dd($invertido); 
+            $packages = Packages::orderBy('id', 'desc')->paginate();
+            
+            // $invertido = Auth::user()->inversionMasAlta();
+            if(isset($invertido)){
+                $invertido = $invertido->invertido;
+            }
+            
+            return view('shop.index', compact('packages', 'invertido'));
         } catch (\Throwable $th) {
             Log::error('Tienda - Index -> Error: '.$th);
             abort(403, "Ocurrio un error, contacte con el administrador");
@@ -66,18 +67,19 @@ class TiendaController extends Controller
     /**
      * Lleva a la vista de productos de un paquete en especificio
      *
-     * @param integer $idgroup
+     * @param integer $idpackage
      * @return void
      */
-    public function products($idgroup)
+    public function products($idpackage)
     {
         try {
             // title
             View::share('titleg', 'Tienda - Productos');
-            $category = Groups::find($idgroup);
-            $services = $category->getPackage->where('status', 1);
-            
-            return view('shop.products', compact('services'));
+            $package = Packages::find($idpackage);
+            // $category = Packages::find($idpackage);
+            // $services = $category->getPackage->where('status', 1);
+            dd($package);
+            return view('shop.products', compact('package'));
         } catch (\Throwable $th) {
             Log::error('Tienda - products -> Error: '.$th);
             abort(403, "Ocurrio un error, contacte con el administrador");
@@ -90,44 +92,213 @@ class TiendaController extends Controller
      * @param Request $request
      * @return void
      */
-    public function procesarOrden(Request $request)
-    {
-        $validate = $request->validate([
-            'idproduct' => 'required',
-            'deposito' => 'required|numeric|min:20'
-        ]);
-    
-        try {
-            if ($validate) {
-                $paquete = Packages::find($request->idproduct);
-
-                $porcentaje = ($request->deposito * 0.03);
-                $total = ($request->deposito + $porcentaje);
+    /////////////////////////////////////////////////////////////////////////////////////////////////
+    // public function procesarOrden(Request $request)
+    // {
+    //     $validate = $request->validate([
+    //         'idproduct' => 'required'
+    //     ]);
+        
+    //     //try {
+    //         if ($validate) {
+    //             $paquete = Packages::find($request->idproduct);
+    //             $inv = User::find(Auth::user()->id)->getInversiones->where('status', 1)->sortBy('invertido')->last();
+    //             if(isset($inv->invertido)){
+                    
+    //                 $inversion = $inv;
+    //                 $pagado = $inversion->invertido;
+                    
+    //                 $nuevoInvertido = ($paquete->price - $pagado); 
+    //                 $porcentaje = ($nuevoInvertido * 0.03);
+                    
+    //                 $total = ($nuevoInvertido + $porcentaje);
+    //                 //ACTUALIZAMOS LA INVERSION
+    //                 /*
+    //                 $inversion->invertido += $nuevoInvertido;
+    //                 $inversion->capital += $nuevoInvertido;
+    //                 $inversion->max_ganancia = $inversion->invertido * 2;
+    //                 $inversion->restante += $nuevoInvertido * 2;
+    //                 $inversion->save();
+    //                 */
+    //                 $data = [
+    //                     'iduser' => Auth::id(),
+    //                     'package_id' => $paquete->id,
+    //                     'cantidad' => 1,
+    //                     'total' => $total,
+    //                     'monto' => $nuevoInvertido
+    //                 ];
                 
-                $data = [
-                    'iduser' => Auth::id(),
-                    'group_id' => $paquete->getGroup->id,
-                    'package_id' => $paquete->id,
-                    'cantidad' => $request->deposito,
-                    'total' => $total
-                ];
+    //                 //$orden = OrdenPurchases::findOrFail($inversion->orden_id)->update($data);
+    //                 $data['idorden'] = $this->saveOrden($data);
+    //                 $data['descripcion'] = "Upgrade al paquete " . $paquete->name;
+    //                 //$data['inversion_id'] = $inversion->id;  
+                    
+    //             }else{
+    //                 $porcentaje = ($paquete->price * 0.03);
 
-                $data['idorden'] = $this->saveOrden($data);
-                $data['descripcion'] = $paquete->description;
-                //$data['Amount'] = $request->deposito;
-                $url = $this->generalUrlOrden($data);
-                if (!empty($url)) {
-                    return redirect($url);
+    //                 $total = ($paquete->price + $porcentaje);
+    //                 $data = [
+    //                     'iduser' => Auth::id(),
+    //                     'package_id' => $paquete->id,
+    //                     'cantidad' => 1,
+    //                     'total' => $total,
+    //                     'monto' => $paquete->price
+    //                 ];
+                    
+    //                 $data['idorden'] = $this->saveOrden($data);
+    //                 $data['descripcion'] = $paquete->description;    
+    //             }
+                
+                
+               
 
-                }else{
-                    OrdenPurchases::where('id', $data['idorden'])->delete();
-                    return redirect()->back()->with('msj-info', 'Problemas al general la orden, intente mas tarde');
+    //             $url = $this->generalUrlOrden($data);
+    //         //    dd($url);
+    //             if (!empty($url)) {
+    //                 return redirect($url);
+
+    //             }else{
+
+    //                OrdenPurchases::where('id', $data['idorden'])->delete();
+    //                return redirect()->back()->with('msj-info', 'Problemas al general la orden, intente mas tarde');
+    //             }
+
+
+    //         }
+    //     /*} catch (\Throwable $th) {
+    //         Log::error('Tienda - procesarOrden -> Error: '.$th);
+    //         abort(403, "Ocurrio un error (1) , contacte con el administrador");
+    //     }*/
+    // }
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    public function procesarOrden($id)
+    {
+        // dd($id);
+        $product = Packages::find($id);
+        $user = Auth::user()->id;
+        // $data = Order::latest('id')->first();
+        // $hayData = $data? $data->id+1 : 1;
+
+        $infoOrden = [
+            'user_id' => Auth::user()->id,
+            'product_id' => $product->id,
+            'amount' => $product->price,
+            'status' => '0'
+        ];
+
+        // $transacion = [
+        //     'amountTotal' => $product->price,
+        //     'note' => 'Compra de paquete: '.$product->name.' por un precio de '.$product->price,
+        //     'order_id' => $this->guardarOrden($infoOrden),
+        //     'tipo' => 'Compra de un paquete',
+        //     'tipo_transacion' => 3,
+        //     'buyer_name' => Auth::user()->firstname,
+        //     'buyer_email' => Auth::user()->email,
+        //     'redirect_url' => url('/'),
+        //     'cancel_url' => url('/')
+        // ];
+        // $transacion['items'][] = [
+        //     'itemDescription' => 'Compra de paquete '.$product->name,
+        //     'itemPrice' => $product->price, // USD
+        //     'itemQty' => (INT) 1,
+        //     'itemSubtotalAmount' => $product->price // USD
+        // ];
+        $ruta = \CoinPayment::generatelink($infoOrden);
+        return redirect($ruta);
+
+        // try{
+        //     $product = ProductWarehouse::find($id);
+        //     $user = Auth::user()->id;
+        //     $data = Order::latest('id')->first();
+        //     $hayData = $data? $data->id+1 : 1;
+
+        //     $transaction['order_id'] =  $hayData; // invoice number
+        //     $transaction['amountTotal'] = (FLOAT) 210;
+        //     $transaction['note'] = "Compra de Producto";
+        //     $transaction['buyer_name'] = Auth::user()->firstname;
+        //     $transaction['buyer_email'] = Auth::user()->email;
+        //     $transaction['redirect_url'] = url('/'); // When Transaction was comleted
+        //     $transaction['cancel_url'] = url('/'); // When user click cancel link
+
+        //     $transaction['items'][] = [
+        //         'itemDescription' => $product->name,
+        //         'itemPrice' => (FLOAT) $product->price, // USD
+        //         'itemQty' => (INT) 1,
+        //         'itemSubtotalAmount' => (FLOAT) $product->price*1 // USD
+        //       ];
+
+        //     $transaction['payload'] = [
+        //         'foo' => [
+        //        'bar' => 'baz'
+        //     ]
+        //  ];
+
+
+        //     return redirect(CoinPayment::generatelink($transaction));
+        // } catch (\Throwable $th) {
+        //     Log::error('LinkCoinpayment -> '.$th);
+        // }  
+
+    }
+
+    public function linkCoinPayMent(object $producto, int $idcompra, int $abono)
+    {
+        try {
+            $iduser = Auth::user()->id;
+
+            // $checkRentabilidad1 = DB::table('log_rentabilidad')->where([
+            //     ['iduser', '=', $iduser],
+            //     ['progreso', '<', 100],
+            //     ['nivel_minimo_cobro', '=', 0]
+            // ])->first();
+
+            // $resta = 0;
+            // if ($checkRentabilidad1 != null) {
+            //     $resta = $checkRentabilidad1->precio;
+            // }
+            
+            $controllerWallet = new WalletController();
+            $subtotal = (FLOAT) ($producto->meta_value);
+            $total = 0;
+            $wallet = 0;
+            $fee = $result = 0;
+            if ($abono == 1) {
+                $wallet = Auth::user()->wallet_amount;
+                $fee = ($subtotal * 0.045);
+                $result = ($subtotal + $fee);
+                $total = ($result - $wallet);
+            }else{
+                $total = $subtotal;
+            }
+            if ($total > 0) {
+                if ($wallet > 0) {
+                    $descripcion = 'Descuento del paquete con el saldo de la wallet';
+                    $controllerWallet->saveRetiro(Auth::user()->ID, $wallet, $descripcion, 0, $wallet);
                 }
+                $transaction['order_id'] = $idcompra; // invoice number
+                $transaction['amountTotal'] = $total;
+                $transaction['note'] = $producto->post_content;
+                $transaction['buyer_name'] = Auth::user()->display_name;
+                $transaction['buyer_email'] = Auth::user()->user_email;
+                $transaction['redirect_url'] = route('tienda.estado', ['pendiente']); // When Transaction was comleted
+                $transaction['cancel_url'] = route('tienda.estado', ['cancelada']); // When user click cancel link
+                $transaction['items'][] = [
+                    'itemDescription' => 'Producto '.$producto->post_title,
+                    'itemPrice' => (FLOAT) $total, // USD
+                    'itemQty' => (INT) 1,
+                    'itemSubtotalAmount' => (FLOAT) $total // USD
+                ];
+                return CoinPayment::generatelink($transaction);
+            }else{
+                $descripcion = 'Renovacion de nuevo paquete';
+                $controllerWallet->saveRetiro(Auth::user()->ID, $result, $descripcion, $result, $result);
+                return 'pagado';
             }
         } catch (\Throwable $th) {
-            Log::error('Tienda - procesarOrden -> Error: '.$th);
-            abort(403, "Ocurrio un error, contacte con el administrador");
-        }
+            Log::error('LinkCoinpayment -> '.$th);
+        }        
     }
 
     /**
