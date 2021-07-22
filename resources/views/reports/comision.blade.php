@@ -10,7 +10,7 @@
                         <table class="table w-100 nowrap scroll-horizontal-vertical myTable table-striped">
                             <thead class="">
 
-                                <tr class="text-center text-white bg-purple-alt2">                                
+                                <tr class="text-center text-white bg-purple-alt2">
                                     <th>ID</th>
                                     <th>Usuario</th>
                                     <th>Referido</th>
@@ -44,7 +44,7 @@
                                     <td>{{date('Y-M-d', strtotime($wallet->created_at))}}</td>
                                 </tr>
                                 @endforeach
-                               
+
                             </tbody>
                         </table>
                     </div>

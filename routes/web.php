@@ -23,7 +23,7 @@ Route::prefix('dashboard')->middleware('menu', 'auth')->group(function ()
 {
 
     // Inicio
-    Route::get('/home', 'HomeController@index')->name('home');
+    Route::get('/home', 'HomeController@indexUser')->name('home');
      // Inicio de usuarios
     Route::get('/home-user', 'HomeController@indexUser')->name('home.user');
     // Ruta para obtener la informacion de la graficas del dashboard
@@ -57,7 +57,7 @@ Route::prefix('dashboard')->middleware('menu', 'auth')->group(function ()
     {
         Route::get('/', 'TiendaController@index')->name('shop');
         Route::get('/groups/{idgroup}/products', 'TiendaController@products')->name('shop.products');
-        Route::post('/procces', 'TiendaController@procesarOrden')->name('shop.procces');
+        Route::get('procces/{id}', 'TiendaController@procesarOrden')->name('shop.procces');
         Route::post('/ipn', 'TiendaController@ipn')->name('shop.ipn');
         Route::get('{orden}/{status}/estado', 'TiendaController@statusProcess')->name('shop.proceso.status');
         Route::get('orden-history', 'TiendaController@ordenHistory')->name('shop.orden.history');
@@ -70,7 +70,7 @@ Route::prefix('dashboard')->middleware('menu', 'auth')->group(function ()
         Route::get('/update/{side}/binary', 'HomeController@updateSideBinary')->name('ajax.update.side.binary');
     });
 
-    
+
     //Ruta para los usuarios
     Route::prefix('user')->group(function(){
     
@@ -106,18 +106,18 @@ Route::prefix('dashboard')->middleware('menu', 'auth')->group(function ()
      */
     Route::prefix('admin')->middleware('checkrole')->group(function ()
     {
-   
+
         //Agregar servicios
         Route::prefix('products')->group(function ()
         {
-            //Rutas para los grupos 
+            //Rutas para los grupos
             Route::resource('group', 'GroupsController');
             //Rutas para los paquetes
             Route::resource('package', 'PackagesController');
-        }); 
+        });
 
-         //Ruta de liquidacion 
-        Route::prefix('settlement')->group(function() 
+         //Ruta de liquidacion
+        Route::prefix('settlement')->group(function()
         {
             //Ruta liquidaciones realizadas
             Route::get('/', 'LiquidactionController@index')->name('settlement');
@@ -137,10 +137,34 @@ Route::prefix('dashboard')->middleware('menu', 'auth')->group(function ()
         Route::prefix('reports')->group(function(){
             Route::get('purchase', 'ReporteController@indexPedidos')->name('reports.pedidos');
             Route::get('commission', 'ReporteController@indexComision')->name('reports.comision');
+            Route::get('Rendimientos', 'ReporteController@rendimientos')->name('reports.rendimientos');
+
 
         });
+        Route::put('updatePorcentajeGanancia', 'InversionController@updatePorcentajeGanancia')->name('updatePorcentajeGanancia');
 
-        
+
     });
 
+
+     //Ruta de los Tickets
+     Route::prefix('tickets')->group(function(){
+        Route::get('ticket-create','TicketsController@create')->name('ticket.create');
+        Route::post('ticket-store','TicketsController@store')->name('ticket.store');
+
+        // Para el usuario
+        Route::get('ticket-edit-user/{id}','TicketsController@editUser')->name('ticket.edit-user');
+        Route::patch('ticket-update-user/{id}','TicketsController@updateUser')->name('ticket.update-user');
+        Route::get('ticket-list-user','TicketsController@listUser')->name('ticket.list-user');
+        Route::get('ticket-show-user/{id}','TicketsController@showUser')->name('ticket.show-user');
+
+        // Para el Admin
+        Route::get('ticket-edit-admin/{id}','TicketsController@editAdmin')->name('ticket.edit-admin');
+        Route::patch('ticket-update-admin/{id}','TicketsController@updateAdmin')->name('ticket.update-admin');
+        Route::get('ticket-list-admin','TicketsController@listAdmin')->name('ticket.list-admin');
+        Route::get('ticket-show-admin/{id}','TicketsController@showAdmin')->name('ticket.show-admin');
+    });
+    
+    Route::resource('/soporte', 'SoporteController')->except(['edit', 'update']);
 });
+

@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\OrdenPurchases;
-use App\Models\Wallet;
 use Carbon\Carbon;
+use App\Models\Wallet;
+use App\Models\Inversion;
 use Illuminate\Http\Request;
+use App\Models\OrdenPurchases;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\View;
 
 class ReporteController extends Controller
@@ -20,12 +22,12 @@ class ReporteController extends Controller
     public function indexPedidos()
     {
         $ordenes = $this->getOrdenes(0);
-        
+
         return view('reports.perdido', compact('ordenes'));
     }
 
     /**
-     * Permitener las ordenes 
+     * Permitener las ordenes
      *
      * @param integer $limite Si limite es igua a 0 es igual a sin limite
      * @return object
@@ -40,7 +42,7 @@ class ReporteController extends Controller
 
         foreach ($ordenes as $orden) {
             $orden->name = $orden->getOrdenUser->fullname;
-            $orden->grupo = $orden->getGroupOrden->name;
+          //  $orden->grupo = $orden->getGroupOrden->name;
             $orden->paquete = $orden->getPackageOrden->name;
         }
 
@@ -91,14 +93,14 @@ class ReporteController extends Controller
      * @return object
      */
     private function getPucharseGraphig(): object
-    {    
+    {
         $ordenes = OrdenPurchases::whereDate('created_at', '>', Carbon::now()->subDays(30))
                                 ->where('status', '<', '2')
                                 ->selectRaw('SUM(total) as total, DAY(created_at) as dia, MONTH(created_at) as mes')
                                 ->orderBy('mes')->orderBy('dia')
                                 ->groupByRaw('DAY(created_at)')->get();
-        
-        
+
+
         $label = [];
         $monto = [];
         foreach ($ordenes as $orden) {
@@ -112,7 +114,7 @@ class ReporteController extends Controller
         ]);
         return $data;
     }
-    
+
     /**
      * Permite todos las inversiones compradas
      *
@@ -138,4 +140,45 @@ class ReporteController extends Controller
 
         return $inversiones;
     }
+
+    public function rendimientos(){
+
+         $inversiones = DB::table('inversions')
+                         ->select('invertido',
+                                  'iduser',
+                                  'id')
+                         ->get();
+
+
+      $inversiones = $inversiones->map(function($inversion ){
+      $inversion->limite = $inversion->invertido  * 2; //obtener el 200% porciento de la inversion el cual sera el limite
+
+      $rangoporcentage = collect([0.60 , 0.75, ]);
+
+
+
+      $inversion->ganancias = $inversion->invertido *  $rangoporcentage->random();
+      $inversion->progreso = ($inversion->ganancias / $inversion->limite)*100 ;
+
+       if( $inversion->ganancias  > $inversion->limite || $inversion->progreso > 100 ){
+
+        $inversion->ganancias = $inversion->limite;
+        $inversion->progreso = 100  ;
+        return $inversion;
+       }
+
+
+
+
+      return $inversion;
+
+      });
+
+
+
+    // $inversiones->pluck('')->put('ganancias', 0 )->dd();
+     dd($inversiones);
+        return view('reports.rendimientos')->with('inversiones', $inversiones);
+    }
+
 }

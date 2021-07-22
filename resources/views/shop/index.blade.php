@@ -17,25 +17,31 @@
             <div class="card-content">
                 <div class="card-body card-dashboard">
                     <div class="row">
-                    @foreach ($categories->chunk(3) as $items)
-                        
-                            @foreach ($items as $grupo)
-                            <div class="col-12 col-md-4">
-                                <a href="{{route('shop.products', $grupo->id)}}">
-                                    <div class="card text-white">
-                                        <img class="card-img" src="{{asset('storage/'.$grupo->img)}}" alt="{{$grupo->name}}">
-                                        <div class=" ">
-                                            <div style="position: relative; top:100%; width: 100%;">
-                                            <h4 class="card-title text-white text-center bg-primary d-block" style="font-size: 2em;">{{$grupo->name}}</h4>
-                                            </div>
+                        @foreach ($packages as $items)
+                            <div class="col col-md-4">
+                                <div class="card text-center" style="background:#13192E">
+                                    <div class="card-body">
+                                        <div class="card-header d-flex align-items-center">
+                                            <img src="{{asset('assets/img/packages/'.$items->price.'.jpeg')}}" alt="" style="width: 100%; heigh:100%;">
                                         </div>
+                                        {{-- <form action="{{route('shop.procces', $items->id)}}" method="GET" target="_blank" class="d-inline"> --}}
+                                        @csrf
+                                        <button type="submit" style="background: #cb9b32;" class="btn btn-block text-white" @if($invertido >= $items->price) disabled @endif>
+                                            <a target="_blank" href="{{route('shop.procces', $items->id)}}">
+                                                @if($invertido == null)
+                                                Comprar
+                                            @else
+                                                Upgrade
+                                            @endif
+                                            </a>
+                                        </button>    
+                                      
+                                        {{-- </form> --}}
                                     </div>
-                                </a>
-                            </div>
-                            @endforeach                            
-                        
-                    @endforeach
-                    </div>
+                                </div>
+                            </div>  
+                        @endforeach
+                    </div> 
                 </div>
             </div>
         </div>

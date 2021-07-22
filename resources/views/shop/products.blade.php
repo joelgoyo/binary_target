@@ -42,12 +42,15 @@
                                 <label for="group_id">Elige un paquete:</label>
                                 <select name="group_id" id="group_id" class="form-control" required v-model="Service.group_id">
                                     <option value="" disabled selected>Elige una opcion</option>
-                                    @foreach ($services->chunk(3) as $items)
-                                        @foreach ($items as $product)
-                                            <option minimum_deposit="{{$product->minimum_deposit}}" description="{{$product->description}}" name="{{$product->name}}" value="{{$product->id}}">{{$product->name}} - {{$product->expired}}</option>
-
-                                        @endforeach
-                                    @endforeach
+                                    {{-- @foreach ($services->chunk(3) as $items) --}}
+                                        {{-- @foreach ($items as $product) --}}
+                                            {{-- <option minimum_deposit="{{$product->minimum_deposit}}" description="{{$product->description}}" name="{{$product->name}}" value="{{$product->id}}">{{$product->name}} - {{$product->expired}}</option> --}}
+                                            {{-- {{dd($package)}} --}}
+                                            {{-- @foreach ($package as $item) --}}
+                                            <option name="{{$package->name}}" value="{{$package->id}}">{{$package->name}}</option>
+                                            {{-- @endforeach --}}
+                                        {{-- @endforeach --}}
+                                    {{-- @endforeach --}}
                                 </select>
                             </fieldset>
                         </div>
@@ -61,11 +64,11 @@
                         </div>
                     </div>
 
-                    <div class="modal fade" id="modalCompra" tabindex="-1" aria-labelledby="modalCompraLabel{{$product->id}}" aria-hidden="true">
+                    <div class="modal fade" id="modalCompra" tabindex="-1" aria-labelledby="modalCompraLabel{{$package->id}}" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="modalCompraLabel{{$product->id}}">Compra</h5>
+                                    <h5 class="modal-title" id="modalCompraLabel{{$package->id}}">Compra</h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                     </button>
@@ -116,7 +119,7 @@
                     {{--
                     @foreach ($services->chunk(3) as $items)
                         <div class="row">
-                            @foreach ($items as $product)
+                            @foreach ($items as $package)
                             <div class="col-12 col-md-4">
                                 <div class="card border-success text-center bg-transparent">
                                     <div class="card-content d-flex">

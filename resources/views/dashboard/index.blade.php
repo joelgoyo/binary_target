@@ -24,6 +24,35 @@
             flex-direction: row-reverse;
         }
     }
+
+    input[type='radio']:after {
+        width: 20px;
+        height: 20px;
+        border-radius: 15px;
+        top: -4px;
+        left: -1px;
+        position: relative;
+        background-color: #002614;
+        content: '';
+        display: inline-block;
+        visibility: visible;
+        border: 2px solid #00BE54;
+    }
+
+    input[type='radio']:checked:after {
+        width: 20px;
+        height: 20px;
+        border-radius: 15px;
+        top: -2px;
+        left: -1px;
+        position: relative;
+        background-color: #00BE54;
+        content: '';
+        display: inline-block;
+        visibility: visible;
+        border: 2px solid #00BE54;
+    }
+
 </style>
 @endpush
 
@@ -60,7 +89,7 @@
     @include('dashboard.componente.secondsection')
     {{-- Fin Segundo Seccion --}}
     {{-- Tercera Seccion --}}
-    @include('dashboard.componente.thirdsection')
+    {{--@include('dashboard.componente.thirdsection')--}}
     {{-- Fin Tercera Seccion --}}
     @endif
 

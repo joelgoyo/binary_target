@@ -13,11 +13,11 @@
                                 <tr class="text-center text-white bg-purple-alt2">                                
                                     <th>ID</th>
                                     <th>Fecha</th> 
-                                    <th>Usuario</th>                          
+                                    <th>Usuario</th> 
                                     <th>Descripcion</th>
                                     <th>Monto</th>
-                                    <th>Estado</th>
                                     <th>Hash</th>
+                                    <th>Estado</th>
                                 </tr>
 
                             </thead>
@@ -28,9 +28,10 @@
                                 <tr class="text-center">
                                     <td>{{$item->id}}</td>
                                     <td>{{$item->created_at}}</td>
-                                    <td>{{$wallet->getWalletUser->fullname}}</td>
-                                    <td>{{$item->getWalletUser->wallet_address}}</td>
-                                    <td>{{$item->monto}}</td>
+                                    <td>{{$item->getWalletReferred->fullname}}</td>
+                                    <td>{{$item->descripcion}}</td>
+                                      <td>$ {{number_format($item->monto,2)}}</td>
+                                     <td>{{$item->hash}}</td>
                                     @if ($item->status == '0')
                                     <td>En espera</td>
                                     @elseif($item->status == '1')
@@ -38,7 +39,6 @@
                                     @elseif($item->status == '2')
                                     <td>Cancelado</td>
                                     @endif
-                                    <td>@isset($item->getLiquidation->hash){{$item->getLiquidation->hash}} @endisset</td>
                                 </tr>
                                 @endforeach
                                

@@ -92,10 +92,10 @@ class CierreComisionController extends Controller
                 $paquete = Packages::find($request->package_id);
                 $request['group_id'] = $paquete->group_id;
                 $request['cierre'] = Carbon::now();
-          
+
                 $cierre = CierreComision::create($request->all());
                 if($request->saldoFinal_anterior > 0){
-                    $ganacia = ($cierre->s_inicial - $request->saldoFinal_anterior);    
+                    $ganacia = ($cierre->s_inicial - $request->saldoFinal_anterior);
                 }else{
                     $ganacia = 0;
                 }
@@ -103,26 +103,26 @@ class CierreComisionController extends Controller
                 //dump($cierre->s_final);
                 if($cierre->s_inicial < 1){
                     $comisiones = $this->generateComision($ganacia, $cierre->package_id, $cierre->group_id, $cierre->s_final);
-             
+
                     foreach ($comisiones as $comision) {
-                       
+
                         $this->inversionController->updateGanancia($comision['iduser'], $paquete->id, $comision['comision'], $comision['ordenId'], $comision['porcentaje']);
                         //$wallet = $this->walletController->payComision($comision['comision'], $comision['iduser'], $comision['referido'], $cierre->id);
-                  
+
                     }
                 }else{
                     //REPARTICION DE GANANCIA
                     //$ganancia = ($cierre->s_inicial - $request->saldoFinal_anterior);
-                
+
                     $this->repartirGanancia($cierre->package_id, $ganacia);
 
                      $comisiones = $this->generateComision($ganacia, $cierre->package_id, $cierre->group_id, $cierre->s_final);
 
                      foreach ($comisiones as $comision) {
-                       
+
                         $this->inversionController->updatePorcentaje($comision['iduser'], $paquete->id, $comision['comision'], $comision['ordenId'], $comision['porcentaje']);
                         //$wallet = $this->walletController->payComision($comision['comision'], $comision['iduser'], $comision['referido'], $cierre->id);
-                  
+
                     }
                 }
 
@@ -135,7 +135,7 @@ class CierreComisionController extends Controller
     }
 
     /**
-     * Permite general el pago de las comisiones 
+     * Permite general el pago de las comisiones
      *
      * @param float $ganancia
      * @param integer $paquete
@@ -146,9 +146,9 @@ class CierreComisionController extends Controller
     private function generateComision($ganancia, $paquete, $grupo, $saldo_cierre): object
     {
         try {
-           
-            
-            $ordenes = Inversion::where([   
+
+
+            $ordenes = Inversion::where([
                 ['package_id', '=', $paquete],
             ])
             ->select(
@@ -159,7 +159,7 @@ class CierreComisionController extends Controller
             ->get();
             //return $ordenes;
             $data = collect();
-            
+
             foreach ($ordenes as $orden) {
                 $porcentaje = ($orden->capital / $saldo_cierre);
                 $data->push([
@@ -170,7 +170,7 @@ class CierreComisionController extends Controller
                     'ordenId' => $orden->getOrdenInversion->id
                 ]);
             }
-        
+
             return $data;
         } catch (\Throwable $th) {
             Log::error('CierreComision - generateComision -> Error: '.$th);
@@ -181,18 +181,18 @@ class CierreComisionController extends Controller
     public function repartirGanancia($package_id, $ganancia)
     {
         try {
-            $inversiones = Inversion::where([   
+            $inversiones = Inversion::where([
                             ['package_id', '=', $package_id],
                         ])
             ->get();
-            
+
             //return $ordenes;
             $comisiones = collect();
-            
+
             foreach ($inversiones as $inversion) {
 
                 if($inversion->porcentaje_fondo != null && $inversion->porcentaje_fondo > 0.00){
-            
+
                     $comisiones->push([
                         'porcentaje' => $inversion->porcentaje_fondo,
                         'iduser' => $inversion->iduser,
@@ -204,9 +204,9 @@ class CierreComisionController extends Controller
             }
 
             foreach ($comisiones as $comision) {
-                           
+
                 $this->inversionController->updateGanancia($comision['iduser'], $package_id, $comision['comision'], $comision['ordenId'], $comision['porcentaje']);
-          
+
             }
             return $comisiones;
         } catch (\Throwable $th) {
@@ -220,11 +220,11 @@ class CierreComisionController extends Controller
         $inversiones = Inversion::where('status_por_pagar', '1')->get();
 
         $comisiones = collect();
-            
+
         foreach ($inversiones as $inversion) {
 
             //if($inversion->porcentaje_fondo != null && $inversion->porcentaje_fondo > 0.00){
-        
+
                 $comisiones->push([
                     'porcentaje' => $inversion->porcentaje_fondo,
                     'iduser' => $inversion->iduser,
@@ -233,7 +233,7 @@ class CierreComisionController extends Controller
                     'ordenId' => $inversion->getOrdenInversion->id,
                     'inversion_id' => $inversion->id,
                     'orden_id' => $inversion->orden_id,
-                    'package_id' => $inversion->package_id 
+                    'package_id' => $inversion->package_id
                 ]);
             //}
         }
@@ -277,12 +277,12 @@ class CierreComisionController extends Controller
                     ['status', '=', '1'],
                     ['package_id', '=', $id]
                 ])->get()->sum('cantidad');
-            }    
+            }
             // $ingreso = $paquete->getOrdenPurchase->where('status', '1')->sum('total');
                                         // ->whereDate('created_at', Carbon::now()->format('Ymd'))
                                         // ->sum('total');
             $paquete->save();
-            
+
             $data = collect([
                 'paquete' => $paquete->getGroup->name.' - '.$paquete->name,
                 'saldo_final' => ($ultimoSaldo != null)? $ultimoSaldo->s_final : 0,

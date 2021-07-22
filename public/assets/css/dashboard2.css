@@ -1,28 +1,28 @@
 .headerBalance{
-    background: #13192E;
+    background: #002614;
     color: #ffffff;
     padding: 4px;
     border-radius: 6px;
 }
 
 .bg-purple-alt{
-    background: #13192E !important;
+    background: #002614 !important;
 }
 
 .bg-purple-alt2{
-    background: #13192E !important;
+    background: #002614 !important;
 }
 
 .bg-red-alt{
-    background: #13192E !important;
+    background: #002614 !important;
 }
 
 .pagination .page-item.active .page-link{
-    background: #13192E !important;
+    background: #002614 !important;
 }
 
 .text-red-alt{
-    color: #13192E !important;
+    color: #002614 !important;
 }
 
 .padding-button-short{
@@ -36,5 +36,5 @@
 }
 
 .main-menu.bg-purple-alt.menu-light .navigation > li.open > a{
-    background: #13192E !important;
+    background: #002614 !important;
 }
