@@ -642,7 +642,7 @@ select.form-control:not([multiple='multiple']) {
   -webkit-align-items : center;
   -ms-flex-align : center;
           align-items : center;
-  color : #FFFFFF;
+  color : #ffffff;
 }
 
 /* Vuexy Custom Radio */

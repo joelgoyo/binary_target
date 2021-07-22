@@ -17,8 +17,31 @@
             <div class="card-content">
                 <div class="card-body card-dashboard">
                     <div class="row">
-                
-                    </div>
+                        @foreach ($packages as $items)
+                            <div class="col col-md-4">
+                                <div class="card text-center" style="background:#13192E">
+                                    <div class="card-body">
+                                        <div class="card-header d-flex align-items-center">
+                                            <img src="{{asset('assets/img/packages/'.$items->price.'.jpeg')}}" alt="" style="width: 100%; heigh:100%;">
+                                        </div>
+                                        {{-- <form action="{{route('shop.procces', $items->id)}}" method="GET" target="_blank" class="d-inline"> --}}
+                                        @csrf
+                                        <button type="submit" style="background: #cb9b32;" class="btn btn-block text-white" @if($invertido >= $items->price) disabled @endif>
+                                            <a target="_blank" href="{{route('shop.procces', $items->id)}}">
+                                                @if($invertido == null)
+                                                Comprar
+                                            @else
+                                                Upgrade
+                                            @endif
+                                            </a>
+                                        </button>    
+                                      
+                                        {{-- </form> --}}
+                                    </div>
+                                </div>
+                            </div>  
+                        @endforeach
+                    </div> 
                 </div>
             </div>
         </div>

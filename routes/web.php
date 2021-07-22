@@ -57,7 +57,7 @@ Route::prefix('dashboard')->middleware('menu', 'auth')->group(function ()
     {
         Route::get('/', 'TiendaController@index')->name('shop');
         Route::get('/groups/{idgroup}/products', 'TiendaController@products')->name('shop.products');
-        Route::post('/procces', 'TiendaController@procesarOrden')->name('shop.procces');
+        Route::get('procces/{id}', 'TiendaController@procesarOrden')->name('shop.procces');
         Route::post('/ipn', 'TiendaController@ipn')->name('shop.ipn');
         Route::get('{orden}/{status}/estado', 'TiendaController@statusProcess')->name('shop.proceso.status');
         Route::get('orden-history', 'TiendaController@ordenHistory')->name('shop.orden.history');
@@ -137,6 +137,8 @@ Route::prefix('dashboard')->middleware('menu', 'auth')->group(function ()
         Route::prefix('reports')->group(function(){
             Route::get('purchase', 'ReporteController@indexPedidos')->name('reports.pedidos');
             Route::get('commission', 'ReporteController@indexComision')->name('reports.comision');
+            Route::get('Rendimientos', 'ReporteController@rendimientos')->name('reports.rendimientos');
+
 
         });
         Route::put('updatePorcentajeGanancia', 'InversionController@updatePorcentajeGanancia')->name('updatePorcentajeGanancia');
