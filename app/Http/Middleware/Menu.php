@@ -122,13 +122,18 @@ class Menu
                 'complementoruta' => '',
                 'submenus' => [
                     [
+
                         'name' => 'Pagos',
+
                         'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
                         'ruta' => route('payments.index'),
                         'complementoruta' => ''
                     ],
                     [
+
+
                         'name' => 'Wallet',
+
                         'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
                         'ruta' => route('wallet.index'),
                         'complementoruta' => '',
@@ -259,6 +264,12 @@ class Menu
                         'name' => 'Activas',
                         'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
                         'ruta' => route('inversiones.index', 1),
+                        'complementoruta' => ''
+                    ],
+                     [
+                        'name' => 'pendientes',
+                        'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
+                        'ruta' => '',
                         'complementoruta' => ''
                     ],
                     [

@@ -73,7 +73,7 @@ Route::prefix('dashboard')->middleware('menu', 'auth')->group(function ()
 
     //Ruta para los usuarios
     Route::prefix('user')->group(function(){
-
+    
         Route::get('kyc', 'UserController@kyc')->name('kyc');
 
         Route::get('profile', 'UserController@editProfile')->name('profile');
@@ -146,6 +146,7 @@ Route::prefix('dashboard')->middleware('menu', 'auth')->group(function ()
 
     });
 
+
      //Ruta de los Tickets
      Route::prefix('tickets')->group(function(){
         Route::get('ticket-create','TicketsController@create')->name('ticket.create');
@@ -166,3 +167,4 @@ Route::prefix('dashboard')->middleware('menu', 'auth')->group(function ()
     
     Route::resource('/soporte', 'SoporteController')->except(['edit', 'update']);
 });
+
