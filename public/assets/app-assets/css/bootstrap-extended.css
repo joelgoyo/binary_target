@@ -3444,7 +3444,7 @@ _:-ms-lang(x), .toast-bs-container {
 }
 
 .modal .modal-header {
-  background-color : #F8F8F8;
+  background-color : #002614;
   border-radius : 0.42rem;
   padding : 0.8rem;
   border-bottom : none;
@@ -3465,7 +3465,7 @@ _:-ms-lang(x), .toast-bs-container {
 .modal .modal-header .close span {
   font-weight : 400;
   font-size : 2rem;
-  color : #13192E;
+  color : #ffffff;
 }
 .modal .modal-header .close:hover, .modal .modal-header .close:focus, .modal .modal-header .close:active {
   opacity : 1;

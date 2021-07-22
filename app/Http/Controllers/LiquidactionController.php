@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\View;
 use App\Http\Controllers\WalletController;
+use Illuminate\Support\Facades\Auth;
 
 class LiquidactionController extends Controller
 {
@@ -459,5 +460,60 @@ class LiquidactionController extends Controller
 
         $liquidacion->status = 2;
         $liquidacion->save();
+    }
+
+    public function retirarSaldo(Request $request)
+    {
+        try {  
+            $user = Auth::user();
+    
+            $comisiones = Wallet::where([
+                ['iduser', '=', $user->id],
+                ['status', '=', 0],
+                ['tipo_transaction', '=', 0],
+            ])->get();
+
+            $bruto = $comisiones->whereNotIn('tipo_comision', [0])->sum('monto');
+            $bruto2 = $comisiones->where('tipo_comision', 0);
+            if($bruto2 != null){
+                foreach($bruto2 as $valores){
+                    $fecha = $valores->created_at->addMonths(3);
+                    dump($fecha);
+                }
+            }
+            dd($bruto2);
+            $bruto = $bruto + $bruto2;
+            dd($bruto);
+            if ($bruto < 50) {
+                return redirect()->back()->with('msj-danger', 'El monto minimo de retirar es 60 Usd');
+            }
+
+            $feed = ($bruto * 0.05);
+            $total = ($bruto - $feed);
+          
+            $arrayLiquidation = [
+                'iduser' => $user->id,
+                'total' => $total,
+                'monto_bruto' => $bruto,
+                'feed' => $feed,
+                'hash',
+                'wallet_used' => $user->wallet_address,
+                'status' => 0,
+            ];
+            $idLiquidation = $this->saveLiquidation($arrayLiquidation);
+            
+            if (!empty($idLiquidation)) {
+                $listComi = $comisiones->pluck('id');
+                Wallet::whereIn('id', $listComi)->update([
+                    'status' => 1,
+                    'liquidation_id' => $idLiquidation
+                ]);
+            }
+
+            return redirect()->back()->with('msj-success', 'Saldo retirado con exito');
+        } catch (\Throwable $th) {
+            Log::error('Liquidaction - generarLiquidation -> Error: '.$th);
+            abort(403, "Ocurrio un error, contacte con el administrador");
+        }
     }
 }
