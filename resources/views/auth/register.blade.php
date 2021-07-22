@@ -53,8 +53,8 @@ $referred = DB::table('users')
         <div class="col-md-4 col-sm-8 col-12">
             {{-- header --}}
             <div class="col-12 text-center mt-3">
-                <img src="{{asset('assets/img/HDLRS-side.png')}}" alt="logo" height="140" width="190">
-                <h5 class="text-white">Bienvenido a HDLRS</h5>
+                <img src="{{asset('assets/img/BINARYTARGET-white.png')}}" class="mb-2" alt="logo" height="140" width="190">
+                <h5 class="text-white">Bienvenido a BINARY TARGET</h5>
             </div>
             {{-- cuerpo register --}}
             <div class="card mb-0 card-margin">
@@ -116,11 +116,16 @@ $referred = DB::table('users')
                         </div>
 
                         <div class="form-group row">
-
                             <div class="col-md-12">
-                                <input id="email-confirm" type="email" class="form-control"
-                                    name="email_confirmation" required autocomplete="new-email"
-                                    placeholder="confirme su correo electronico">
+                                <input id="email_confirmation" type="email_confirmation" class="form-control @error('email_confirmation') is-invalid @enderror"
+                                    name="email_confirmation" value="{{ old('email_confirmation') }}" required autocomplete="email"
+                                    placeholder="Confirmar Correo Electronico">
+
+                                @error('email_confirmation')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
                             </div>
                         </div>
 

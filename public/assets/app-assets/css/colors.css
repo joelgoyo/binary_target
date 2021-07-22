@@ -1413,13 +1413,13 @@ input:focus ~ .bg-primary {
 }
 
 .btn-outline-primary {
-  border : 1px solid #13192E;
+  border : 1px solid #00BE54;
   background-color : transparent;
-  color : #13192E;
+  color : #fff;
 }
 .btn-outline-primary:hover {
   background-color : rgba(115, 103, 240, 0.08);
-  color : #13192E;
+  color : #fff;
 }
 .btn-outline-primary:active {
   color : #FFFFFF !important;
@@ -7288,4 +7288,8 @@ input:focus ~ .bg-danger {
   background : #640064;
   /* The Fallback */
   background : rgba(100, 0, 100, 0.6);
+}
+
+li.nav-item:active {
+  background-color: #00BE54 !important;
 }

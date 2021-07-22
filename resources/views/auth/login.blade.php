@@ -134,9 +134,9 @@
     <div class="row justify-content-center">
         <div class="col-md-4 col-sm-8 col-12">
             {{-- header --}}
-            <div class="col-12 text-center ">
-                <img src="{{asset('assets/img/BINARYTARGET-white.png')}}" alt="logo" height="100" width="150" class="logobinari">
-                <h5 class="text-white "></h5>
+            <div class="col-12 text-center">
+                <img src="{{asset('assets/img/BINARYTARGET-white.png')}}" class="mb-2" alt="logo" height="140" width="190">
+                <h5 class="text-white">Bienvenido a BINARY TARGET</h5>
             </div>
             {{-- cuerpo login --}}
             <div class="card mb-1 card-margin">
