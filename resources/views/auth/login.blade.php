@@ -13,7 +13,7 @@
         border-radius: 4px;
         width: 417px;
         height: 551px;
-        left: -90px;
+        left: -50px;
         top: 16px;
         background: #011E0C;
     }
@@ -75,8 +75,15 @@
 }
 
 
-
-
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active
+{
+ -webkit-box-shadow: 0 0 0 30px #011E0C inset !important;
+ -webkit-text-fill-color: rgb(255, 255, 255) !important;
+}
+.inputransparente::placeholder { color: rgb(168, 167, 167); font-weight: bold; }
 
 </style>
 @endpush
@@ -116,7 +123,7 @@
                                 <input id="email" type="email"
                                     class=" inputransparente text-white form-control  @error('email') is-invalid @enderror"
                                     name="email" value="{{ old('email') }}" required autocomplete="email" autofocus
-                                    placeholder="">
+                                    placeholder="Ingrese usuario o email">
 
                                 @error('email')
                                 <span class="invalid-feedback" role="alert">
@@ -139,7 +146,7 @@
                                 <input id="password" type="password"
                                     class=" inputransparente form-control text-white  @error('password') is-invalid @enderror"
                                     name="password" required autocomplete="current-password"
-                                    placeholder="">
+                                    placeholder="Contraseña">
                                 @error('password')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>

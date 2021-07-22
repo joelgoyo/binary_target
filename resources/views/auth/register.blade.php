@@ -9,13 +9,12 @@
     }
 
     .text-rosado {
-        color: #13192E;
+        color: #12531d;
     }
 
     .bg-full-screen-image-alt {
-        background: url("{{asset('assets/img/sistema/fondo-registro.png')}}") !important;
-        background-size: 100% 60% !important;
-        background-repeat: no-repeat !important;
+        background: url("{{asset('assets/img/sistema/fondo-iniciar-sesion-binari.png')}}") !important;
+
     }
 
     .btn-login {
@@ -29,9 +28,68 @@
     }
 
     .card {
-        border-radius: 1.5rem;
+        border-radius: 4px;
+        width: 417px;
+        height: 590px;
+        left: -50px;
+        top: 16px;
+        background: #011E0C;
     }
 
+    .terminos{
+    color: #00BE54;
+    text-decoration: none;
+    background-image: linear-gradient(currentColor, currentColor);
+    background-position: 0% 100%;
+    background-repeat: no-repeat;
+    background-size: 0% 2px;
+    transition: background-size .3s;
+}
+
+.terminos:hover, :focus{
+    color:#00ff73;
+    background-size: 100% 2px;
+}
+
+.iniciasesion{
+    color: #00BE54;
+    text-decoration: none;
+    background-image: linear-gradient(currentColor, currentColor);
+    background-position: 0% 100%;
+    background-repeat: no-repeat;
+    background-size: 0% 2px;
+    transition: background-size .3s;
+}
+
+.iniciasesion:hover, :focus{
+    color:#00ff73;
+    background-size: 100% 2px;
+}
+
+.btn-registro{
+        width: 375px;
+        height: 51px;
+        border: 1px solid #00461B;
+        box-sizing: border-box;
+        border-radius: 5px;
+   }
+
+   .inputransparente {
+    background-color: #011E0C;
+    border: 1px solid #00461B;
+    box-sizing: border-box;
+    border-radius: 5px;
+
+}
+
+.inputransparente:focus-within {
+    background-color: #011E0C;
+    border: 1px solid #00461B;
+    box-sizing: border-box;
+    border-radius: 5px;
+
+}
+.inputransparente::placeholder { color: rgb(168, 167, 167); font-weight: bold; }
 </style>
 @endpush
 
@@ -52,14 +110,11 @@ $referred = DB::table('users')
     <div class="row justify-content-center">
         <div class="col-md-4 col-sm-8 col-12">
             {{-- header --}}
-            <div class="col-12 text-center mt-3">
-                <img src="{{asset('assets/img/BINARYTARGET-white.png')}}" class="mb-2" alt="logo" height="140" width="190">
-                <h5 class="text-white">Bienvenido a BINARY TARGET</h5>
-            </div>
+
             {{-- cuerpo register --}}
             <div class="card mb-0 card-margin">
                 <div class="card-header">
-                    <h5 class="card-title text-center col-12 text-input-holder">{{ __('Registrar') }}</h5>
+
                     @if (!empty($referred))
                     <h6 class="text-center col-12">Registro Referido por {{$referred->fullname}}</h6>
                     @endif
@@ -76,6 +131,12 @@ $referred = DB::table('users')
                 @endif
 
                 <div class="card-body">
+                    <div class="col-12 text-center logobinari">
+                        <img src="{{asset('assets/img/BINARYTARGET-white.png')}}" class="mb-2" alt="logo" height="80" width="130">
+                    </div>
+
+                    <h5 class="card-title text-left text-white col-12 text-input-holder">{{ __('Registrar') }}</h5>
+
                     <form method="POST" action="{{ route('register') }}">
                         @csrf
 
@@ -89,7 +150,7 @@ $referred = DB::table('users')
                         <div class="form-group row">
 
                             <div class="col-md-12">
-                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror"
+                                <input id="name" type="text" class="form-control  inputransparente text-white @error('name') is-invalid @enderror"
                                     name="name" value="{{ old('name') }}" required autocomplete="name" autofocus
                                     placeholder="Nombre y Apellido">
 
@@ -103,7 +164,7 @@ $referred = DB::table('users')
 
                         <div class="form-group row">
                             <div class="col-md-12">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror"
+                                <input id="email" type="email" class="form-control inputransparente text-white @error('email') is-invalid @enderror"
                                     name="email" value="{{ old('email') }}" required autocomplete="email"
                                     placeholder="Correo Electronico">
 
@@ -117,7 +178,7 @@ $referred = DB::table('users')
 
                         <div class="form-group row">
                             <div class="col-md-12">
-                                <input id="email_confirmation" type="email_confirmation" class="form-control @error('email_confirmation') is-invalid @enderror"
+                                <input id="email_confirmation" type="email_confirmation" class=" inputransparente text-white form-control @error('email_confirmation') is-invalid @enderror"
                                     name="email_confirmation" value="{{ old('email_confirmation') }}" required autocomplete="email"
                                     placeholder="Confirmar Correo Electronico">
 
@@ -133,7 +194,7 @@ $referred = DB::table('users')
 
                             <div class="col-md-12">
                                 <input id="password" type="password"
-                                    class="form-control @error('password') is-invalid @enderror" name="password"
+                                    class="form-control inputransparente text-white @error('password') is-invalid  @enderror" name="password"
                                     required autocomplete="new-password" placeholder="Ingrese una contraseña">
 
                                 @error('password')
@@ -147,7 +208,7 @@ $referred = DB::table('users')
                         <div class="form-group row">
 
                             <div class="col-md-12">
-                                <input id="password-confirm" type="password" class="form-control"
+                                <input id="password-confirm" type="password" class="form-control inputransparente text-white"
                                     name="password_confirmation" required autocomplete="new-password"
                                     placeholder="confirme su contraseña">
                             </div>
@@ -155,7 +216,7 @@ $referred = DB::table('users')
 
                         <div class="form-group row mb-0">
                             <div class="col-12">
-                                <button type="submit" class="btn bg-fucsia text-white btn-block btn-login">
+                                <button type="submit" class="btn btn-registro text-white btn-block btn-login">
                                     {{ __('Registrarme') }}
                                 </button>
                             </div>
@@ -176,24 +237,25 @@ $referred = DB::table('users')
                                 @enderror
 
                             </div>
-                            <span class="">Acepto los <a href="{{-- {{ route('term') }} --}}">Terminos y
+                            <span class="">Acepto los <a class="terminos" href="{{-- {{ route('term') }} --}}">Terminos y
                                     Condiciones</a></span>
                         </fieldset>
 
                     </form>
+                    <div class="col-12">
+                        <p class="text-center">
+                            <small>
+                                <span>¿Ya tienes una cuenta?</span>
+
+                                <a class="iniciasesion" href="{{ route('login') }}">
+                                    {{ __('Inicia sesión') }}
+                                </a>
+                            </small>
+                        </p>
+                    </div>
                 </div>
             </div>
-            <div class="col-12">
-                <p class="text-center">
-                    <small>
-                        <span>¿Ya tienes una cuenta?</span>
-                        <br>
-                        <a class="text-rosado" href="{{ route('login') }}">
-                            {{ __('Inicia sesión') }}
-                        </a>
-                    </small>
-                </p>
-            </div>
+
         </div>
     </div>
 </div>
