@@ -80,15 +80,26 @@ class User extends Authenticatable
         return $this->belongsTo('App\Models\OrdenPurchases', 'id', 'iduser');
     }
 
-    public function getInversiones()
+    public function getUserInversiones()
     {
         return $this->hasMany('App\Models\Inversion', 'iduser');
     }
 
     public function inversionMasAlta()
     {
-        return $this->getInversiones()->where('status', 1)->orderBy('invertido', 'desc')->first();
+        return $this->getUserInversiones()->where('status', 1)->orderBy('invertido', 'desc')->first();
         //->sortByDesc('invertido')
+    }
+
+    public function montoInvertido()
+    {
+        $monto = 0;
+        foreach($this->getUserInversiones as $inversion){
+            if($inversion->status == 1){
+                $monto+= $inversion->invertido;
+            }
+        }
+        return number_format($monto,2);
     }
 
     public function saldoDisponible()
