@@ -1,235 +1,182 @@
-<div class="row mt-1">
-    {{-- Seccion ayuda --}}
+<div class="row">
 
-    <div class="col-6">
-
-        <div class="card h-100 d-flex justify-content-center align-items-center">
-            <h1><b> Ahorro Circular </b></h1>
-            <div class="row">
-                <div class="card-content col-6">
-                    <div class="card-body">
-                        <div class="card-body text-center">
-                        <img src="{{asset('assets/img/sistema/24-7-support.png')}}" alt="card-img-left">
-                            <h4 class="card-title mt-2">
-                                <strong>
-                                    Reinversion de Comissiones
-                                </strong>
-                                <h4>
-                                    <a class="btn text-white padding-button-short btn-block bg-purple-alt2 mt-1 waves-effect waves-light" data-toggle="modal" data-target="#reinvestment_1"><b>REINVERTIR</b></a href="javascript:;">
-                        </div>
-                    </div>
+    <div class="col-sm-6 col-md-4 col-12 mt-1">
+        <div class="card" style="height: 220px;">
+            <div class="card-body pt-1">
+                <div class="float-right">
+                    <img class="float-right" src="{{ asset('assets/img/icon/Group 130.svg') }}" width="110%"
+                        alt="">
                 </div>
 
-                <div class="card-content col-6">
-                    <div class="card-body">
-                        <div class="card-body text-center">
-                        <img src="{{asset('assets/img/sistema/24-7-support.png')}}" alt="card-img-left">
-                            <h4 class="card-title mt-2">
-                                <strong>
-                                    Reinversion del Capital
-                                </strong>
-                                <h4>
-                                    <a class="btn text-white padding-button-short btn-block bg-purple-alt2 mt-1 waves-effect waves-light" data-toggle="modal" data-target="#reinvestment_2"><b>REINVERTIR</b></a href="javascript:;">
+                <div class="card-header d-flex align-items-center text-right pb-0 pt-0 pl-0 white">
+                    <h6 class="mt-1 mb-0 text-white">Link de referido</h6>
+                </div>
+    
+                <div class="card-sub d-flex align-items-center ">
+                    <h2 class="gold text-bold-700 mb-0">INVITA A<br>PERSONAS<br></h2>
+                </div>
+                <div class="card-header d-flex align-items-center white mt-2">
+                    <button class="btn btn-outline-primary btn-block" style="boder-color=#D6A83E;"
+                        onclick="getlink('{{Auth::user()->binary_side_register}}')"><b>LINK DE
+                            REFERIDO <i class="fa fa-copy"></i></b></button>
+                </div>
+            </div>
+        </div>
+    </div>
 
+    <div class="col-sm-6 col-md-3 col-12 mt-1">
+        <div class="card p-2" style="height: 220px;">
+            
+            <h6 class="mt-1 mb-0 text-white text-center">Paquete de inversión</h6>
+            
+            <h2 class="gold text-bold-700 mb-0 text-center" style="font-size: 40px;">20.000</h2>
+            
+            <div class="d-flex align-items-center mb-2 justify-content-center">
+                <img class="text-center"
+                    src="{{ asset('assets/img/icon/Ellipse 12.svg') }}"
+                    alt="">
+            </div>
+
+        </div>
+    </div>
+
+    <div class="col-sm-6 col-md-5 col-12 mt-1">
+        <div class="card" style="height: 220px;">
+            <div class="card-body pt-1">
+                <div class="float-right">
+                    <img class="float-right" src="{{ asset('assets/img/icon/Group2.svg') }}" width="99" height="91"
+                        alt="">
+                </div>
+
+                <div class="card-header d-flex align-items-center text-right pb-0 pt-0 pl-0 white">
+                    <h6 class="mt-1 mb-0 text-white">Lado Binario</h6>
+                </div>
+
+                <div class="card-sub d-flex align-items-center ">
+                    <h1 class="gold text-bold-700 mb-0">
+                        @if (Auth::user()->binary_side_register == 'I')
+                        IZQUIERDA
+                        @else
+                        DERECHA
+                        @endif
+                    </h1>
+                </div>
+
+                <div class="row" style="margin-top: 100px;">
+                    <div class="col col-6">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="" v-on:click="updateBinarySide('I')" @if (Auth::user()->binary_side_register == 'I') checked @endif>
+                            <label class="form-check-label ml-1" for="inlineRadio1">IZQUIERDO</label>
+                        </div>
+                    </div>
+
+                    <div class="col col-6">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="" v-on:click="updateBinarySide('D')" @if (Auth::user()->binary_side_register == 'D') checked @endif>
+                            <label class="form-check-label ml-1" for="inlineRadio2">DERECHO</label>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
-
-
-          <!-- Modal -->
-<div class="modal fade" id="reinvestment_1" tabindex="-1" role="dialog" aria-labelledby="reinvestment_1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-            ¿ Seguro que quiere reinvertir ingresos por Bono ?
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary">Aceptar</button>
-          <button type="button" class="btn btn-primary">Cancelar</button>
-        </div>
-      </div>
     </div>
-  </div>
+    
+</div>
 
-  <div class="modal fade" id="reinvestment_2" tabindex="-1" role="dialog" aria-labelledby="reinvestment_2" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
+<div class="row">
+    <div class="col-12">
+        <div class="card" style="height: 893px;">
+            <div class="card-body pt-1">
+                <div class="card-header d-flex align-items-center text-right pb-0 pt-0 pl-0 white">
+                    <h6 class="mt-1 mb-0 text-white">Proximo rango</h6>
+                </div>
+
+                {{--<img src="" alt="" style="width: 184.48px; height: 182.26px; left:531px; top: 790.12px;">--}}
+                
+                <div class="row mt-5 text-center no-gutters" style="height: 320.77px;">
+                    <div class="col col-12 col-md-4 align-self-end">
+                        <img src="" alt="" style="width: 184.48px; height: 182.26px;">
+                        <span class="d-block">Rango 1</span>    
+                    </div>
+                    <div class="col-12 col-md-4">
+                        <img src="" alt="" style="width: 228px; height: 228px;">
+                        <span class="d-block">Rango 2</span>
+                    </div>
+                    <div class="col col-12 col-md-4 align-self-end">
+                        <img src="" alt="" style="width: 184.48px; height: 182.26px;">
+                        <span class="d-block">Rango 3</span>
+                    </div>
+                </div>
+                
+                <hr style="margin-top: 6em;">
+                <div class="card-header d-flex align-items-center text-right pb-0 pt-0 pl-0 white">
+                    <h6 class="mt-1 mb-0 text-white">Total puntos:</h6>
+                </div>
+                <div class="card-sub d-flex align-items-center ">
+                    <h2 class="gold text-bold-700 mb-0"><b>2.350</b></h2>
+                </div>
+                <div class="d-flex align-items-center">
+
+                    <div class="progress mb-2 mt-2" style="height: 25px;width: 94%;">
+                        <div id="bar" class="progress-bar active" role="progressbar" aria-valuenow="0"
+                            aria-valuemin="0" aria-valuemax="100" style="width: 10%">
+                        </div>
+                        
+                    </div>
+                    
+                    <div class="card-sub d-flex align-items-center ">
+                        <p class="text-bold-700 mb-0 text-white ml-1">47%
+                        </p>
+                    </div>
+                   
+                </div>
+                <h6 class="my-1 mb-0 text-white">Proximo rango = 5000</h6>
+
+                <h4 class="text-white"><b> Bono de bienvenida</b></h4>
+                <div class="card-header d-flex align-items-center text-right pb-0 pt-0 pl-0 white">
+                    <h6 class="mt-1 mb-0 text-white">Total puntos:</h6>
+                </div>
+                <div class="card-sub d-flex align-items-center ">
+                    <h2 class="gold text-bold-700 mb-0"><b>500</b></h2>
+                </div>
+                <div class="d-flex align-items-center">
+
+                    <div class="progress mb-2 mt-2" style="height: 25px;width: 94%;">
+                        <div id="bar" class="progress-bar active" role="progressbar" aria-valuenow="0"
+                            aria-valuemin="0" aria-valuemax="100" style="width: 10%">
+                        </div>
+                        
+                    </div>
+                    
+                    <div class="card-sub d-flex align-items-center ">
+                        <p class="text-bold-700 mb-0 text-white ml-1">60%
+                        </p>
+                    </div>
+                   
+                </div>
+
+                <h6 class="my-1 mb-0 text-white">Proximo bono = 10000</h6>
+            </div>
         </div>
-        <div class="modal-body">
-            ¿ Reinvertir Ahorro ?
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary">Aceptar</button>
-          <button type="button" class="btn btn-primary">Cancelar</button>
-        </div>
-      </div>
     </div>
-  </div>
+</div>
 
-
-
-
-
-    </div>
-
-    <div class="col-6">
-        <div class="card h-100 d-flex justify-content-center align-items-center">
+{{-- Segundo Cuadros -> Graficas de Comisiones e inversiones --}}
+<div class="row mb-4">
+    <div class="col-lg-6 col-md-12 col-12 mt-1">
+        <div class="card text-white h-100">
             <div class="card-content">
                 <div class="card-body">
-                    <div class="card-body text-center">
-                        <img src="{{asset('assets/img/sistema/24-7-support.png')}}" alt="card-img-left">
-                        <h4 class="card-title mt-2">
-                            <strong>
-                                ¿Necesitas Ayuda?
-                            </strong>
-                            <h4>
-                                <p class="card-text">
-                                    Contacta con nosotros, estaremos <br>
-                                    encantado de ayudarte
-                                </p>
-                                <a href=""
-                                    class="btn text-white padding-button-short btn-block bg-purple-alt2 mt-1 waves-effect waves-light">CONTACTANOS</a
-                                    href="javascript:;">
-                    </div>
+                    <div id="gcomisiones"></div>
                 </div>
             </div>
         </div>
     </div>
-
-
-
-     
-    <div class="col-12 mb-3 mt-3">
-        <div class="card">
+    <div class="col-lg-6 col-md-12 col-12 mt-1">
+        <div class="card h-100">
             <div class="card-content">
-                <div class="card-body card-dashboard">
-                <h1>Inversiones</h1>
-                    <div class="table-responsive">
-                        <table class="table w-100 nowrap scroll-horizontal-vertical myTable table-striped">
-                            <thead class="">
-                                <tr class="text-center text-white bg-purple-alt2">
-                                    <th>ID</th>
-                                    <th>Paquete</th>
-                                    <th>Inversion</th>
-                                    <th>Vence</th>
-                                    <th>Estado</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-
-                                @foreach ($data['packages'] as $item)
-                                <tr class="text-center">
-                                    <td>{{ $item->id }}</td>
-                                    <td>{{ $item->getPackageOrden->name }}</td>
-                                    <td>{{ $item->total }}</td>
-                                    <td>{{ $item->getPackageOrden->expired }}</td>
-                                    @if($item->status == 0)
-                                    <td>En espera</td>
-                                    @elseif($item->status == 1)
-                                    <td>Completada</td>
-                                    @elseif($item->status == 2)
-                                    <td>Rechazada</td>
-                                    @elseif($item->status == 3)
-                                    <td>Cancelada</td>
-                                    @endif
-                                </tr>
-                                @endforeach
-
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-    {{-- Seccion Grafico --}}
-    <div class="col-12">
-        <div class="row">
-            <div class="col-sm-6 col-12 mt-1">
-                <div class="card h-100">
-                    <div class="card-header d-flex align-items-center text-right pb-0 pt-0">
-                        <div class="avatar bg-rgba-primary p-50 m-0">
-                            <div class="avatar-content">
-                                <i class="fa fa-usd text-primary font-medium-5"></i>
-                            </div>
-                        </div>
-                        <div>
-                            <h2 class="text-bold-700 mt-1">$ {{number_format($data['wallet'], '2', ',', '.')}}
-                            </h2>
-                            <p class="mb-0">Tu dinero</p>
-                        </div>
-                    </div>
-                    <div class="card-content">
-                        <div id="line-area-chart-1"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-6 col-12 mt-1">
-                <div class="card h-100">
-                    <div class="card-header d-flex align-items-center text-right pb-0 pt-0">
-                        <div class="avatar bg-rgba-success p-50 m-0">
-                            <div class="avatar-content">
-                                <i class="fa fa-money text-success font-medium-5"></i>
-                            </div>
-                        </div>
-                        <div>
-                            <h2 class="text-bold-700 mt-1">$ {{number_format($data['comisiones'], '2', ',', '.')}}</h2>
-                            <p class="mb-0">Comisiones totales</p>
-                        </div>
-                    </div>
-                    <div class="card-content">
-                        <div id="line-area-chart-2"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-6 col-12 mt-1">
-                <div class="card h-100">
-                    <div class="card-header d-flex align-items-center text-right pb-0 pt-0">
-                        <div class="avatar bg-rgba-warning p-50 m-0">
-                            <div class="avatar-content">
-                                <i class="feather icon-shopping-cart text-warning font-medium-5"></i>
-                            </div>
-                        </div>
-                        <div>
-                            <h2 class="text-bold-700 mt-1">{{$data['ordenes']->count()}}</h2>
-                            <p class="mb-0">Todas las ordenes</p>
-                        </div>
-                    </div>
-                    <div class="card-content">
-                        <div id="line-area-chart-4"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-6 col-12 mt-1">
-                <div class="card h-100">
-                    <div class="card-header d-flex align-items-center text-right pb-0 pt-0">
-                        <div class="avatar bg-rgba-danger p-50 m-0">
-                            <div class="avatar-content">
-                                <i class="fa fa-ticket text-danger font-medium-5"></i>
-                            </div>
-                        </div>
-                        <div>
-                            <h2 class="text-bold-700 mt-1">{{$data['tickets']}}</h2>
-                            <p class="mb-0">Total de tickets</p>
-                        </div>
-                    </div>
-                    <div class="card-content">
-                        <div id="line-area-chart-3"></div>
-                    </div>
+                <div class="card-body">
+                    <h6 class="mt-1 mb-0 text-white">Total de ventas</h6>
                 </div>
             </div>
         </div>

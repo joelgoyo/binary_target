@@ -3,27 +3,131 @@
 @section('content')
 @push('custom_css')
 <style>
+    .logobinari{
+     position: absolute;
+     z-index: 2;
+     top: 90px;
+     left: 60px;
+
+}
+.logotexto{
+    position: absolute;
+     top: 200px;
+     left: -53px;
+
+     z-index: 2;
+
+}
+
+
+.olvideContraseña{
+    position: absolute;
+     top: 320px;
+     left: 300px;
+     color: #00BE54;
+     font-size: 15px;
+     z-index: 2;
+}
+
+.olvideContraseña:hover{
+    color: #05ff2e;
+}
+
+.registratelink:hover{
+    color: #05ff2e;
+}
+
+.registrate{
+    position: absolute;
+     top: -50px;
+     left: 30px;
+     color: #ffffff;
+     font-size: 20px;
+     left: 10px;
+     z-index: 2;
+
+}
+.registratelink{
+    color: #00BE54;
+
+}
+
+.iniciarsesion{
+    position: absolute;
+     top: 170px;
+     left: 1px;
+
+     z-index: 2;
+
+}
     .bg-fucsia {
-        background: transparent linear-gradient(180deg, #13192E 0%, #13192E 100%) 0% 0% no-repeat padding-box;
+        top: 600px;
     }
 
     .text-rosado {
-        color: #13192E;
+        color: #ffffff;
+        top: 100px
+
+
     }
 
     .btn-login {
-        padding: 0.6rem 2rem;
-        border-radius: 1.429rem;
+       position: absolute;
+       width: 416px;
+       height: 51px;
+       top: 450px;
+       left: 30px;
+       border: 1px solid #00461B;
+       box-sizing: border-box;
+       border-radius: 5px;
+       font-weight: 600;
+       font-size: 18px;
+       font-style: normal;
     }
 
     .text-input-holder {
         font-weight: 800;
-        color: #000000;
+
+
     }
 
     .card{
-        border-radius: 1.5rem;
+        position: relative;
+        z-index: 1;
+        border-radius: 4px;
+        width: 487px;
+        height: 701px;
+        left: -90px;
+        top: 16px;
+        background: #011E0C;
     }
+
+    .inputcorreo{
+        position: absolute;
+        top: 250px;
+        left: 30px;
+        width: 415px;
+        height: 50px;
+        border: 1px solid #00461B;
+        box-sizing: border-box;
+        border-radius: 5px;
+        z-index: 60px;
+        background-color:transparent;
+        background: inherit;
+
+    }
+    .inputcontraseña{
+        position: absolute;
+   top: 350px;
+   left: 30px;
+   width: 415px;
+   z-index: 6px;
+
+   height: 50px;
+   }
+
+
+
 </style>
 @endpush
 <div class="container">
@@ -31,13 +135,13 @@
         <div class="col-md-4 col-sm-8 col-12">
             {{-- header --}}
             <div class="col-12 text-center">
-                <img src="{{asset('assets/img/HDLRS-side.png')}}" alt="logo" height="140" width="190">
-                <h5 class="text-white">Bienvenido a HDLRS</h5>
+                <img src="{{asset('assets/img/BINARYTARGET-white.png')}}" class="mb-2" alt="logo" height="140" width="190">
+                <h5 class="text-white">Bienvenido a BINARY TARGET</h5>
             </div>
             {{-- cuerpo login --}}
             <div class="card mb-1 card-margin">
-                <div class="card-header">
-                    <h5 class="card-title text-center col-12 text-input-holder">{{ __('Iniciar Sesión') }}</h5>
+                <div class="card-header iniciarsesion">
+                    <h5 class="text-white card-title text-center col-12 text-input-holder">{{ __('Iniciar Sesión') }}</h5>
                 </div>
 
                 <div class="card-body">
@@ -48,7 +152,7 @@
 
                             <div class="col-md-12">
                                 <input id="email" type="email"
-                                    class="form-control text-input-holder @error('email') is-invalid @enderror"
+                                    class="inputcorreo form-control text-input-holder @error('email') is-invalid @enderror"
                                     name="email" value="{{ old('email') }}" required autocomplete="email" autofocus
                                     placeholder="Ingresa tu email">
 
@@ -63,7 +167,7 @@
                         <div class="form-group row">
                             <div class="col-md-12">
                                 <input id="password" type="password"
-                                    class="form-control text-input-holder @error('password') is-invalid @enderror"
+                                    class="inputcontraseña form-control text-input-holder @error('password') is-invalid @enderror"
                                     name="password" required autocomplete="current-password"
                                     placeholder="Ingresa tu contraseña">
                                 @error('password')
@@ -73,8 +177,8 @@
                                 @enderror
 
                                 @if (Route::has('password.request'))
-                                <a class="text-rosado" href="{{ route('password.request') }}">
-                                    {{ __('Olvidé mi contraseña ->') }}
+                                <a class=" olvideContraseña" href="{{ route('password.request') }}">
+                                    {{ __('Olvidé mi contraseña') }}
                                 </a>
                                 @endif
                             </div>
@@ -88,11 +192,11 @@
                             </div>
                         </div>
 
-                        <fieldset class="checkbox mt-1">
+                        <fieldset class="checkbox  mt-1">
                             <div class="vs-checkbox-con vs-checkbox-danger justify-content-center">
                                 <input type="checkbox" name="remember" id="remember"
                                     {{ old('remember') ? 'checked' : '' }}>
-                                <span class="vs-checkbox">
+                                <span class="vs-checkbox ">
                                     <span class="vs-checkbox--check">
                                         <i class="vs-icon feather icon-check"></i>
                                     </span>
@@ -104,11 +208,11 @@
                 </div>
             </div>
             <div class="col-12">
-                <p class="text-center">
+                <p class="text-center registrate ">
                     <small >
                         <span>¿Aun no tienes una cuenta?</span>
-                        <br>
-                        <a class="text-rosado" href="{{ route('register') }}">
+
+                        <a class="registratelink" href="{{ route('register') }}">
                             {{ __('Registrate') }}
                         </a>
                     </small>

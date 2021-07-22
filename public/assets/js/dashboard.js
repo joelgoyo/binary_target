@@ -38,8 +38,9 @@ var vm_dashboard = new Vue({
             let url = route('ajax.update.side.binary', side)
             axios.get(url).then((response) => {
                 if (response.data == 'bien') {
-            getlink(side)
-            }
+                    window.location.reload();
+                    //getlink(side)
+                }
             }).catch(function (error) {
                 toastr.warning("Ocurrio un error al Actualizar el lado binario", '¡Advertencia!', { "progressBar": true });
             })

@@ -100,7 +100,7 @@ class LiquidactionController extends Controller
     public function store(Request $request)
     {
         if ($request->tipo == 'detallada'){
-            
+
             $validate = $request->validate([
                 'listComisiones' => ['required', 'array'],
                 'iduser' => ['required']
@@ -142,27 +142,27 @@ class LiquidactionController extends Controller
                 ['tipo_transaction', '=', 0],
                 ['iduser', '=', $id]
             ])->get();
-    
+
             foreach ($comiciones as $comi) {
                 $fecha = new Carbon($comi->created_at);
                 $comi->fecha = $fecha->format('Y-m-d');
                 $comi->referido = User::find($comi->referred_id)->only('fullname');
             }
-            
+
             $user = User::find($id);
-    
+
             $detalles = [
                 'iduser' => $id,
                 'fullname' => $user->fullname,
                 'comisiones' => $comiciones,
                 'total' => number_format($comiciones->sum('monto'), 2, ',', '.')
             ];
-    
-            return json_encode($detalles);  
+
+            return json_encode($detalles);
         } catch (\Throwable $th) {
             Log::error('Liquidaction - show -> Error: '.$th);
             abort(403, "Ocurrio un error, contacte con el administrador");
-        }   
+        }
     }
 
     /**
@@ -337,7 +337,7 @@ class LiquidactionController extends Controller
             ];
 
             $this->walletController->saveWallet($arrayWallet);
-            
+
             if (!empty($idLiquidation)) {
                 $listComi = $comisiones->pluck('id');
                 Wallet::whereIn('id', $listComi)->update([
@@ -391,7 +391,7 @@ class LiquidactionController extends Controller
                     $accion = 'Aprobada';
                     $this->aprovarLiquidacion($idliquidation, $request->hash);
                 }
-    
+
                 if ($accion != 'No Procesada') {
                     $arrayLog = [
                         'idliquidation' => $idliquidation,
@@ -400,7 +400,7 @@ class LiquidactionController extends Controller
                     ];
                     DB::table('log_liquidations')->insert($arrayLog);
                 }
-                
+
                 return redirect()->back()->with('msj-success', 'La Liquidacion fue '.$accion.' con exito');
             }
         } catch (\Throwable $th) {
@@ -436,7 +436,7 @@ class LiquidactionController extends Controller
     public function reversarLiquidacion($idliquidation, $comentario)
     {
         $liquidacion = Liquidaction::find($idliquidation);
-        
+
         Wallet::where('liquidation_id', $idliquidation)->update([
             'status' => 0,
             'liquidation_id' => null,

@@ -62,7 +62,7 @@ body {
   font-size : 1rem;
   font-weight : 400;
   line-height : 1.45;
-  color : #626262;
+  color : #fff;
   text-align : left;
   background-color : #F8F8F8;
 }
@@ -334,7 +334,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
   font-family : inherit;
   font-weight : 500;
   line-height : 1.2;
-  color : #2C2C2C;
+  color : #00BE54;
 }
 
 h1, .h1 {
@@ -395,6 +395,7 @@ hr {
   margin-bottom : 1rem;
   border : 0;
   border-top : 1px solid rgba(34, 41, 47, 0.1);
+  background-color: #00BE54;
 }
 
 small, .small {
@@ -5223,7 +5224,7 @@ a.badge-dark:focus, a.badge-dark.focus {
   height : 0.357rem;
   overflow : hidden;
   font-size : 0.75rem;
-  background-color : #EDEDED;
+  background-color : #02371E;
   border-radius : 1.28rem;
 }
 
@@ -5244,7 +5245,7 @@ a.badge-dark:focus, a.badge-dark.focus {
   color : #FFFFFF;
   text-align : center;
   white-space : nowrap;
-  background-color : #13192E;
+  background-color : #00BE54;
   -webkit-transition : width 0.6s ease;
           transition : width 0.6s ease;
 }

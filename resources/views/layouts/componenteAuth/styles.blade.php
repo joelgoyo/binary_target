@@ -24,15 +24,11 @@
 @stack('custom_css')
 <style>
     .bg-full-screen-image-alt{
-        background: url("{{asset('assets/img/sistema/fondo-iniciar-sesion.png')}}");
-        background-size: 100% 60%;
-        background-repeat: no-repeat;
+        background: url("{{asset('assets/img/sistema/fondo-iniciar-sesion-binari.png')}}");
+        background-size: 100%
+
     }
-    @media screen and (max-width: 600px){
-        .card-margin{
-            margin: 0px 30px;
-        }
-    }
+
 
     .app-content.content{
         overflow-y: scroll !important;

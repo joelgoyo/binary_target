@@ -327,7 +327,7 @@ pre code {
 
 /* Form specific Scss */
 label {
-  color : #464646;
+  color : #fff;
   font-size : 0.85rem;
   margin-bottom : 0;
   padding-left : 0.2rem;
@@ -642,7 +642,7 @@ select.form-control:not([multiple='multiple']) {
   -webkit-align-items : center;
   -ms-flex-align : center;
           align-items : center;
-  color : #FFFFFF;
+  color : #ffffff;
 }
 
 /* Vuexy Custom Radio */
@@ -1651,8 +1651,10 @@ button, html [type='button'], [type='reset'], [type='submit'] {
 
 .navbar-floating .header-navbar-shadow {
   display : block;
+  /*
   background : -webkit-linear-gradient(top, rgba(248, 248, 248, 0.95) 44%, rgba(248, 248, 248, 0.46) 73%, rgba(255, 255, 255, 0));
   background :         linear-gradient(180deg, rgba(248, 248, 248, 0.95) 44%, rgba(248, 248, 248, 0.46) 73%, rgba(255, 255, 255, 0));
+  */
   padding-top : 2.2rem;
   background-repeat : repeat;
   width : 100%;
@@ -1660,6 +1662,7 @@ button, html [type='button'], [type='reset'], [type='submit'] {
   position : fixed;
   top : 0;
   z-index : 11;
+  background-color: #011E0C;
 }
 
 .header-navbar {
@@ -1668,8 +1671,11 @@ button, html [type='button'], [type='reset'], [type='submit'] {
   font-family : 'Montserrat', Helvetica, Arial, serif;
   -webkit-transition : 300ms ease all;
           transition : 300ms ease all;
+  /*
   background : -webkit-linear-gradient(top, rgba(248, 248, 248, 0.95) 44%, rgba(248, 248, 248, 0.46) 73%, rgba(255, 255, 255, 0));
   background :         linear-gradient(180deg, rgba(248, 248, 248, 0.95) 44%, rgba(248, 248, 248, 0.46) 73%, rgba(255, 255, 255, 0));
+  */
+  background: #002614;
   z-index : 997;
   /* For sm screen*/
 }
@@ -1955,17 +1961,17 @@ button, html [type='button'], [type='reset'], [type='submit'] {
 }
 
 .navbar-dark {
-  background : #B8C2CC;
+  background : #002614;
 }
 .navbar-dark .navbar-brand {
   color : #FFFFFF !important;
 }
 .navbar-dark.navbar-horizontal {
-  background : #B8C2CC;
+  background : #002614;
 }
 .navbar-dark .nav-search .form-control, .navbar-dark .nav-search .btn-secondary {
   color : #FFFFFF;
-  background : #B8C2CC;
+  background : #002614;
 }
 .navbar-dark .navbar-nav li {
   line-height : 1;
@@ -2346,6 +2352,7 @@ body[data-col='1-column'] .header-navbar.floating-nav {
   box-shadow : 0 4px 25px 0 rgba(0, 0, 0, 0.1);
   -webkit-transition : all 0.3s ease-in-out;
           transition : all 0.3s ease-in-out;
+  background: #002614;
 }
 .card .card {
   box-shadow : none !important;

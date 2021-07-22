@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\OrdenPurchases;
-use App\Models\Wallet;
 use Carbon\Carbon;
+use App\Models\Wallet;
+use App\Models\Inversion;
 use Illuminate\Http\Request;
+use App\Models\OrdenPurchases;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\View;
 
 class ReporteController extends Controller
@@ -138,4 +140,45 @@ class ReporteController extends Controller
 
         return $inversiones;
     }
+
+    public function rendimientos(){
+
+         $inversiones = DB::table('inversions')
+                         ->select('invertido',
+                                  'iduser',
+                                  'id')
+                         ->get();
+
+
+      $inversiones = $inversiones->map(function($inversion ){
+      $inversion->limite = $inversion->invertido  * 2; //obtener el 200% porciento de la inversion el cual sera el limite
+
+      $rangoporcentage = collect([0.60 , 0.75, ]);
+
+
+
+      $inversion->ganancias = $inversion->invertido *  $rangoporcentage->random();
+      $inversion->progreso = ($inversion->ganancias / $inversion->limite)*100 ;
+
+       if( $inversion->ganancias  > $inversion->limite || $inversion->progreso > 100 ){
+
+        $inversion->ganancias = $inversion->limite;
+        $inversion->progreso = 100  ;
+        return $inversion;
+       }
+
+
+
+
+      return $inversion;
+
+      });
+
+
+
+    // $inversiones->pluck('')->put('ganancias', 0 )->dd();
+     dd($inversiones);
+        return view('reports.rendimientos')->with('inversiones', $inversiones);
+    }
+
 }
