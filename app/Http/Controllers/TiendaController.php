@@ -182,30 +182,32 @@ class TiendaController extends Controller
         // $hayData = $data? $data->id+1 : 1;
 
         $infoOrden = [
-            'user_id' => Auth::user()->id,
-            'product_id' => $product->id,
-            'amount' => $product->price,
+            'iduser' => Auth::user()->id,
+            'package_id' => $product->id,
+            'total' => $product->price,
             'status' => '0'
         ];
 
-        // $transacion = [
-        //     'amountTotal' => $product->price,
-        //     'note' => 'Compra de paquete: '.$product->name.' por un precio de '.$product->price,
-        //     'order_id' => $this->guardarOrden($infoOrden),
-        //     'tipo' => 'Compra de un paquete',
-        //     'tipo_transacion' => 3,
-        //     'buyer_name' => Auth::user()->firstname,
-        //     'buyer_email' => Auth::user()->email,
-        //     'redirect_url' => url('/'),
-        //     'cancel_url' => url('/')
-        // ];
-        // $transacion['items'][] = [
-        //     'itemDescription' => 'Compra de paquete '.$product->name,
-        //     'itemPrice' => $product->price, // USD
-        //     'itemQty' => (INT) 1,
-        //     'itemSubtotalAmount' => $product->price // USD
-        // ];
-        $ruta = \CoinPayment::generatelink($infoOrden);
+        $transacion = [
+            'amountTotal' => $product->price,
+            'note' => 'Compra de paquete: '.$product->name.' por un precio de '.$product->price,
+            'order_id' => $this->saveOrden($infoOrden),
+            'tipo' => 'Compra de un paquete',
+            'tipo_transacion' => 3,
+            'buyer_name' => Auth::user()->name,
+            'buyer_email' => Auth::user()->email,
+            'redirect_url' => url('/'),
+            'cancel_url' => url('/')
+        ];
+        $transacion['items'][] = [
+            'itemDescription' => 'Compra de paquete '.$product->name,
+            'itemPrice' => $product->price, // USD
+            'itemQty' => (INT) 1,
+            'itemSubtotalAmount' => $product->price // USD
+        ];
+        // dd($transacion);
+        $ruta = CoinPayment::generatelink($transacion);
+        // dd($ruta);
         return redirect($ruta);
 
         // try{
@@ -243,63 +245,6 @@ class TiendaController extends Controller
 
     }
 
-    public function linkCoinPayMent(object $producto, int $idcompra, int $abono)
-    {
-        try {
-            $iduser = Auth::user()->id;
-
-            // $checkRentabilidad1 = DB::table('log_rentabilidad')->where([
-            //     ['iduser', '=', $iduser],
-            //     ['progreso', '<', 100],
-            //     ['nivel_minimo_cobro', '=', 0]
-            // ])->first();
-
-            // $resta = 0;
-            // if ($checkRentabilidad1 != null) {
-            //     $resta = $checkRentabilidad1->precio;
-            // }
-            
-            $controllerWallet = new WalletController();
-            $subtotal = (FLOAT) ($producto->meta_value);
-            $total = 0;
-            $wallet = 0;
-            $fee = $result = 0;
-            if ($abono == 1) {
-                $wallet = Auth::user()->wallet_amount;
-                $fee = ($subtotal * 0.045);
-                $result = ($subtotal + $fee);
-                $total = ($result - $wallet);
-            }else{
-                $total = $subtotal;
-            }
-            if ($total > 0) {
-                if ($wallet > 0) {
-                    $descripcion = 'Descuento del paquete con el saldo de la wallet';
-                    $controllerWallet->saveRetiro(Auth::user()->ID, $wallet, $descripcion, 0, $wallet);
-                }
-                $transaction['order_id'] = $idcompra; // invoice number
-                $transaction['amountTotal'] = $total;
-                $transaction['note'] = $producto->post_content;
-                $transaction['buyer_name'] = Auth::user()->display_name;
-                $transaction['buyer_email'] = Auth::user()->user_email;
-                $transaction['redirect_url'] = route('tienda.estado', ['pendiente']); // When Transaction was comleted
-                $transaction['cancel_url'] = route('tienda.estado', ['cancelada']); // When user click cancel link
-                $transaction['items'][] = [
-                    'itemDescription' => 'Producto '.$producto->post_title,
-                    'itemPrice' => (FLOAT) $total, // USD
-                    'itemQty' => (INT) 1,
-                    'itemSubtotalAmount' => (FLOAT) $total // USD
-                ];
-                return CoinPayment::generatelink($transaction);
-            }else{
-                $descripcion = 'Renovacion de nuevo paquete';
-                $controllerWallet->saveRetiro(Auth::user()->ID, $result, $descripcion, $result, $result);
-                return 'pagado';
-            }
-        } catch (\Throwable $th) {
-            Log::error('LinkCoinpayment -> '.$th);
-        }        
-    }
 
     /**
      * Guarda la informacion de las ordenes nuevas 
