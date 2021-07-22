@@ -13,7 +13,7 @@
                                 <tr class="text-center text-white bg-purple-alt2">
                                     <th>ID</th>
                                     <th>Usuario</th>
-                                    <th>Referido</th>
+                                    <th>invertido</th>
                                     <th>Descripcion</th>
                                     <th>Monto</th>
                                     <th>Estado</th>
@@ -23,10 +23,17 @@
                             </thead>
                             <tbody>
 
-                                @foreach ($wallets as $wallet)
+                                @foreach ($inversiones as $wallet)
                                 <tr class="text-center">
                                     <td>{{$wallet->id}}</td>
-                                    <td>{{$wallet->name}}</td>
+                                    <td>{{$wallet->iduser}}</td>
+                                    <td>{{$wallet->invertido}}</td>
+                                @endforeach
+
+                           {{--    @foreach ($u as $wallet)
+                                <tr class="text-center">
+                                    <td>{{$wallet->iduser}}</td>
+                                    <td>{{$wallet->invertido}}</td>
                                     <td>{{$wallet->referido}}</td>
                                     <td>{{$wallet->descripcion}}</td>
                                     <td>{{$wallet->monto}}</td>
@@ -44,7 +51,7 @@
                                     <td>{{date('Y-M-d', strtotime($wallet->created_at))}}</td>
                                 </tr>
                                 @endforeach
-
+                               --}}
                             </tbody>
                         </table>
                     </div>

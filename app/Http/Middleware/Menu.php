@@ -363,7 +363,7 @@ class Menu
                     [
                         'name' => 'Rendimientos',
                         'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
-                        'ruta' => '',
+                        'ruta' => route('reports.rendimientos'),
                         'complementoruta' => ''
                     ],
                 ],
@@ -372,7 +372,7 @@ class Menu
              // Fin Informes
 
 
-         /*   'Crons' => [
+           'Crons' => [
                 'submenu' => 1,
                 'ruta' => 'javascript:;',
                 'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
@@ -392,7 +392,7 @@ class Menu
                         'complementoruta' => ''
                     ]
                 ]
-            ],*/
+            ],
             //Billetera
             'Wallet' => [
                 'submenu' => 0,
