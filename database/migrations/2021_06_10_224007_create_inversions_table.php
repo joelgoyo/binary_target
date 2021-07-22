@@ -16,17 +16,17 @@ class CreateInversionsTable extends Migration
         Schema::create('inversions', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('iduser')->unsigned();;
-            $table->foreign('iduser')->references('id')->on('users');
+            $table->foreign('iduser')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
             $table->bigInteger('package_id')->unsigned();
-            $table->foreign('package_id')->references('id')->on('packages');
+            $table->foreign('package_id')->references('id')->on('packages')->onUpdate('cascade')->onDelete('cascade');
             $table->bigInteger('orden_id')->unsigned();
-            $table->foreign('orden_id')->references('id')->on('orden_purchases');
+            $table->foreign('orden_id')->references('id')->on('orden_purchases')->onUpdate('cascade')->onDelete('cascade');
             $table->double('invertido');
             $table->double('ganacia');
             $table->double('retiro');
             $table->double('capital');
             $table->double('progreso');
-            $table->date('fecha_vencimiento');
+            $table->date('fecha_vencimiento')->nullable();
             $table->decimal('porcentaje_fondo')->nullable();
             $table->tinyInteger('status')->default(1)->comment('1 - activo , 2 - culminada');
             $table->tinyInteger('status_por_pagar')->default(1)->comment('1 - por Pagar , 0 - Pagado');
