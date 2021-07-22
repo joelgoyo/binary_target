@@ -32,8 +32,8 @@
         <div class="col-md-4 col-sm-8 col-12">
             {{-- header --}}
             <div class="col-12 text-center mb-2">
-                <img src="{{asset('assets/img/HDLRS--vertical-blanco.png')}}" alt="logo" height="150" width="190">
-                <h5 class="text-white">Bienvenido a HDLRS</h5>
+                <img src="{{asset('assets/img/BINARYTARGET-white.png')}}" alt="logo" height="150" width="190">
+                <h5 class="text-white">Bienvenido a BINARY TARGET</h5>
             </div>
             {{-- cuerpo login --}}
             <div class="card card-margin">
