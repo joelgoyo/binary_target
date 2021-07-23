@@ -30,7 +30,7 @@ class TiendaController extends Controller
         try {
             // title
             View::share('titleg', 'Tienda');
-            $invertido = User::find(Auth::user()->id)->getInversiones->where('status', 1)->sortBy('invertido')->last();
+            $invertido = User::find(Auth::user()->id)->getUserInversiones->where('status', 1)->sortBy('invertido')->last();
             // dd($invertido); 
             $packages = Packages::orderBy('id', 'desc')->paginate();
             //$shopmail = ['name' => 'J'];
@@ -105,7 +105,7 @@ class TiendaController extends Controller
     //     //try {
     //         if ($validate) {
     //             $paquete = Packages::find($request->idproduct);
-    //             $inv = User::find(Auth::user()->id)->getInversiones->where('status', 1)->sortBy('invertido')->last();
+    //             $inv = User::find(Auth::user()->id)->getUserInversiones->where('status', 1)->sortBy('invertido')->last();
     //             if(isset($inv->invertido)){
                     
     //                 $inversion = $inv;

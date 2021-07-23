@@ -1418,7 +1418,8 @@ input:focus ~ .bg-primary {
   color : #fff;
 }
 .btn-outline-primary:hover {
-  background-color : rgba(115, 103, 240, 0.08);
+  border-color: #002614 !important;
+  background-color: #00BE54 !important;
   color : #fff;
 }
 .btn-outline-primary:active {
@@ -3325,8 +3326,8 @@ input:focus ~ .bg-success {
 }
 
 .btn-success {
-  border-color : #1F9D57 !important;
-  background-color : #28C76F !important;
+  border-color : #002614 !important;
+  background-color : #00BE54 !important;
   color : #FFFFFF;
 }
 .btn-success:hover {
