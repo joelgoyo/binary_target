@@ -23,14 +23,15 @@ class CreateWalletsTable extends Migration
             $table->foreign('orden_purchase_id')->references('id')->on('orden_purchases');
             $table->bigInteger('liquidation_id')->unsigned()->nullable();
             $table->foreign('liquidation_id')->references('id')->on('liquidactions');
-            // $table->decimal('monto')->default(0)->comment('entrada de cash');
-            $table->decimal('debito')->default(0)->comment('entrada de cash');
-            $table->decimal('credito')->default(0)->comment('salida de cash');
-            $table->decimal('balance')->nullable()->comment('balance del cash');
+            $table->decimal('monto')->default(0)->comment('entrada de cash');
+            //$table->decimal('debito')->default(0)->comment('entrada de cash');
+            //$table->decimal('credito')->default(0)->comment('salida de cash');
+            //$table->decimal('balance')->nullable()->comment('balance del cash');
             $table->string('descripcion');
             $table->tinyInteger('status')->default(0)->comment('0 - En espera, 1 - Pagado (liquidado), 2 - Cancelado');
             $table->tinyInteger('tipo_transaction')->default(0)->comment('0 - comision, 1 - retiro');
             $table->tinyInteger('liquidado')->default(0)->comment('0 - sin liquidar, 1 - liquidado');
+            $table->tinyInteger('tipo_comision')->default(0)->comment('0 - Rendimiento, 1 - Directo, 2 - Binario')->nullable();
             $table->timestamps();
         });
     }

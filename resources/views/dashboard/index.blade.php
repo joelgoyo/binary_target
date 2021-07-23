@@ -91,6 +91,8 @@
     {{-- Tercera Seccion --}}
     {{--@include('dashboard.componente.thirdsection')--}}
     {{-- Fin Tercera Seccion --}}
+    {{--Modal retirar saldo disponible--}}
+    @include('layouts.componenteDashboard.modalRetirar')
     @endif
 
     {{-- link de referido --}}
