@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\View;
 use App\Http\Controllers\InversionController;
 use Hexters\CoinPayment\CoinPayment;
 use Hexters\CoinPayment\Helpers\CoinPaymentHelper;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\shopmail;
 
 
 class TiendaController extends Controller
@@ -31,12 +33,13 @@ class TiendaController extends Controller
             $invertido = User::find(Auth::user()->id)->getInversiones->where('status', 1)->sortBy('invertido')->last();
             // dd($invertido); 
             $packages = Packages::orderBy('id', 'desc')->paginate();
-            
+            //$shopmail = ['name' => 'J'];
+           // Mail::to(Auth::user('email'))->send(new shopmail($shopmail));
             // $invertido = Auth::user()->inversionMasAlta();
             if(isset($invertido)){
                 $invertido = $invertido->invertido;
             }
-            
+           
             return view('shop.index', compact('packages', 'invertido'));
         } catch (\Throwable $th) {
             Log::error('Tienda - Index -> Error: '.$th);
