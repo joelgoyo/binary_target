@@ -22,9 +22,8 @@ class TreeController extends Controller
     {
         try {
             //Titulo
-            View::share('titleg', 'Arbol '.ucfirst($type));
+            // View::share('titleg', 'Arbol '.ucfirst($type));
             $trees = $this->getDataEstructura(Auth::id(), $type);
-
             $type = ucfirst($type);
             $base = Auth::user();
             $base->logoarbol = asset('assets/img/sistema/favicon.png');
