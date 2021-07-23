@@ -19,7 +19,7 @@
                     <div class="row">
                         @foreach ($packages as $items)
                             <div class="col col-md-4">
-                                <div class="card text-center" style="background:#13192E">
+                                <div class="card text-center" style="background:#011E0C">
                                     <div class="card-body">
                                         <div class="card-header d-flex align-items-center">
                                             <img src="{{asset('assets/img/packages/'.$items->price.'.jpeg')}}" alt="" style="width: 100%; heigh:100%;">
