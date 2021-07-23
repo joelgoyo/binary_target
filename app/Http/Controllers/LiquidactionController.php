@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\View;
 use App\Http\Controllers\WalletController;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Arr;
 
 class LiquidactionController extends Controller
 {
@@ -471,26 +472,42 @@ class LiquidactionController extends Controller
                 ['iduser', '=', $user->id],
                 ['status', '=', 0],
                 ['tipo_transaction', '=', 0],
-            ])->get();
+            ])->whereNotIn('tipo_comision', [0])->get();
 
-            $bruto = $comisiones->whereNotIn('tipo_comision', [0])->sum('monto');
-            $bruto2 = $comisiones->where('tipo_comision', 0);
-            if($bruto2 != null){
-                foreach($bruto2 as $valores){
+            $comisiones_rendimiento = Wallet::where([
+                ['iduser', '=', $user->id],
+                ['status', '=', 0],
+                ['tipo_transaction', '=', 0],
+                ['tipo_comision', '=', 0],
+            ])->get();
+            
+            $bruto = $comisiones->sum('monto');
+            $bruto2 = 0;
+            $listComi2 = collect();
+            if($comisiones_rendimiento != null){
+                foreach($comisiones_rendimiento as $valores){
                     $fecha = $valores->created_at->addMonths(3);
-                    dump($fecha);
+                    //Solo se puede empezar a retirar apartir del 3 mes.
+                    if(Carbon::now()->gte($fecha)){
+                        //dd("hoy es mayor a la fecha de la wallet");
+                        $bruto2+= $valores->monto;
+                        $listComi2[] = $valores->id;
+                    }else{
+                        //dd("hoy es menor a la fecha de la wallet");
+                    }
+                    
                 }
             }
-            dd($bruto2);
+           
             $bruto = $bruto + $bruto2;
-            dd($bruto);
+            /*
             if ($bruto < 50) {
                 return redirect()->back()->with('msj-danger', 'El monto minimo de retirar es 60 Usd');
             }
-
+            */
             $feed = ($bruto * 0.05);
             $total = ($bruto - $feed);
-          
+
             $arrayLiquidation = [
                 'iduser' => $user->id,
                 'total' => $total,
@@ -504,6 +521,9 @@ class LiquidactionController extends Controller
             
             if (!empty($idLiquidation)) {
                 $listComi = $comisiones->pluck('id');
+            
+                $listComi = Arr::collapse([$listComi, $listComi2]);
+            
                 Wallet::whereIn('id', $listComi)->update([
                     'status' => 1,
                     'liquidation_id' => $idLiquidation

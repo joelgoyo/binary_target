@@ -104,7 +104,7 @@ class User extends Authenticatable
 
     public function saldoDisponible()
     {
-        return number_format($this->getWallet->where('status', 0)->where('tipo_transaction', 0)->sum('monto'), 2);
+        return $this->getWallet->where('status', 0)->where('tipo_transaction', 0)->sum('monto');
     }
 
     public function gananciaActual()
