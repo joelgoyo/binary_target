@@ -21,7 +21,6 @@
 <!-- BEGIN: Custom CSS-->
 
 {{-- ticket --}}
-<link rel="stylesheet" type="text/css" href="{{asset('assets/css/ticket/chat-list.min.css')}}">
 <link rel="stylesheet" type="text/css" href="{{asset('assets/css/ticket/chat-ticket.css')}}">
 <link rel="stylesheet" type="text/css" href="{{asset('assets/css/ticket/dashboard-style.css')}}">
 

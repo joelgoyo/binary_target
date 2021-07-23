@@ -49,7 +49,7 @@
                                          <section class="chat-app-window mb-2 rounded-0">
                                              <div class="active-chat">
                                                  <div class="user-chats ps ps--active-y ">
-                                                     <div class="chats chat-thread">
+                                                     <div class="chats chat-thread p-2">
 
                                     
                                                             {{-- admin --}}
