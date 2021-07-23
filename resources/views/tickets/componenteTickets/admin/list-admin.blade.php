@@ -2,44 +2,41 @@
 
 @section('content')
 
-<div id="record">
+<div id="">
     <div class="col-12">
-        <div class="card" style="">
+        <div class="card">
             <div class="card-content">
                 <div class="card-body card-dashboard">
                     <div class="table-responsive">
-                        <h1 class="">Historial de Tickets</h1>
-
+                        <h1 class="text-white">Historial de Tickets</h1>
+                        
                         <table class="table w-100 nowrap scroll-horizontal-vertical myTable table-striped">
-                            <thead class="">
 
+                            <thead>
                                 <tr class="text-center text-white bg-purple-alt2">
                                     <th>ID</th>
                                     <th>Usuario</th>
-                                    <th>Estado</th>
+                                    <th>Email</th>
+                                    <th>Estado</th>                                 
                                     <th>Prioridad</th>
-                                    <th></th>
+                                    <th>fecha de creacion</th>
                                     <th>Accion</th>
                                 </tr>
-
                             </thead>
 
                             <tbody>
-
                                  @foreach ($ticket as $item)
-                                <tr class="text-center ">
+                                <tr class="text-center text-dark">
                                     <td>{{ $item->id}}</td>
                                     <td>{{ $item->getUser->fullname}}</td>
-                                    {{-- <td>{{ $item->estado}}</td>
-                                    <td>{{ $item->prioridad}}</td>
-                                    <td>{{ $item->issue}}</td>
- --}}
+                                    <td>{{ $item->getUser->email}}</td>
+        
                                     @if ($item->status == '0')
-                                    <td> <a class=" btn btn-success text-white text-bold-600">Abierto</a></td>
+                                    <td> <a class=" btn btn-success text-dark text-bold-600">Abierto</a></td>
                                     @elseif($item->status == '1')
-                                    <td> <a class=" btn btn-danger text-white text-bold-600">Cerrado</a></td>
+                                    <td> <a class=" btn btn-danger text-dark text-bold-600">Cerrado</a></td>
                                     @endif
-
+                                    
                                     @if ($item->priority == '0')
                                     <td> <a class="text-uppercase">Alto</a></td>
                                     @elseif($item->priority == '1')
@@ -47,13 +44,15 @@
                                     @elseif($item->priority == '2')
                                     <td> <a class="text-uppercase">Bajo</a></td>
                                     @endif
-
+                                    
                                     <td>{{ $item->created_at}}</td>
-                                    <td><a href="{{ route('ticket.edit-admin',$item->id) }}" class="btn btn-secondary text-bold-600">Revisar</a></td>
+                                    <td><a href="{{ route('ticket.edit-admin',$item->id) }}" class="btn btn-primary text-bold-600">Revisar</a></td>
                                 </tr>
                                 @endforeach
                             </tbody>
+
                         </table>
+
                     </div>
                 </div>
             </div>
@@ -62,6 +61,7 @@
 </div>
 
 @endsection
+
 {{-- permite llamar a las opciones de las tablas --}}
 @include('layouts.componenteDashboard.optionDatatable')
 

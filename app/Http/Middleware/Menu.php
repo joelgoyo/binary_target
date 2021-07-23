@@ -149,15 +149,15 @@ class Menu
             ],
             // Fin Financiero
 
-            //Soporte
+            // Soporte
             'Soporte' => [
                 'submenu' => 0,
                 'ruta' => route('ticket.list-user'),
                 'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
-                'icon' => '',
+                'icon' => 'feather icon-help-circle',
                 'complementoruta' => '',
             ],
-
+            // Fin Soporte
         ];
     }
 
@@ -414,15 +414,15 @@ class Menu
             ],
             //Fin Billetera
 
-            //Soporte
+            // Soporte
             'Soporte' => [
                 'submenu' => 0,
                 'ruta' => route('ticket.list-admin'),
                 'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
-                'icon' => 'feather icon-file-text',
+                'icon' => 'feather icon-help-circle',
                 'complementoruta' => '',
             ],
-
+            // Fin Soporte
         ];
     }
 }

@@ -167,6 +167,5 @@ Route::prefix('dashboard')->middleware('menu', 'auth')->group(function ()
         Route::get('ticket-show-admin/{id}','TicketsController@showAdmin')->name('ticket.show-admin');
     });
     
-    Route::resource('/soporte', 'SoporteController')->except(['edit', 'update']);
 });
 

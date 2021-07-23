@@ -3,12 +3,12 @@
 @section('content')
 <div id="record">
     <div class="col-12">
-        <div class="card" style="">
+        <div class="card ">
             <div class="card-content">
                 <div class="card-body card-dashboard">
                     <div class="table-responsive">
-                        <h1 class="">Historial de Tickets</h1>
-
+                        <h1 class="text-white">Historial de Tickets</h1>
+                        
                         <a href="{{ route('ticket.create')}}" class="btn btn-primary mb-2 waves-effect waves-light"><i class="feather icon-plus"></i>&nbsp; Crear Ticket</a>
                         <table class="table w-100 nowrap scroll-horizontal-vertical myTable table-striped">
                             <thead class="">
@@ -16,43 +16,31 @@
                                 <tr class="text-center text-white bg-purple-alt2">
                                     <th>ID</th>
                                     <th>Usuario</th>
-                                    <th>Estado</th>
-                                    <th>Prioridad</th>
-                                    <th></th>
-                                    <th>Accion</th>
-                                 {{--    <th>ID</th>
-                                    <th>Whatsapp</th>
                                     <th>Email</th>
-                                    <th>Asunto</th>
-                                    <th>Descripción</th>
-                                    <th>Estado</th>
-                                    <th>Fecha de Creacion</th>
-                                    <th>Accion</th> --}}
+                                    <th>Estado</th>                                 
+                                    <th>Prioridad</th>
+                                    <th>fecha de creacion</th>
+                                    <th>Accion</th>
                                 </tr>
 
                             </thead>
 
-                            <tbody>
+                            <tbody >
 
                                  @foreach ($ticket as $item)
-                                <tr class="text-center ">
+                                <tr class="text-center text-dark">
                                     <td>{{ $item->id}}</td>
                                     <td>{{ $item->getUser->fullname}}</td>
-                                    {{-- <td>{{ $item->estado}}</td> --}}
-                                   {{--  <td>{{ $item->prioridad}}</td> --}}
-                                 {{--    <td>{{ $item->issue}}</td> --}}
-                                    {{-- <td>{{ $item->Descripcion}}</td> --}}
-
-
-
-
+                                    <td>{{ $item->getUser->email}}</td>
+                                   
+                                                                                                       
 
                                     @if ($item->status == '0')
-                                    <td> <a class=" btn btn-success text-white text-bold-600">Abierto</a></td>
+                                    <td> <a class=" btn btn-success text-dark text-bold-600">Abierto</a></td>
                                     @elseif($item->status == '1')
-                                    <td> <a class=" btn btn-danger text-white text-bold-600">Cerrado</a></td>
+                                    <td> <a class=" btn btn-danger text-dark text-bold-600">Cerrado</a></td>
                                     @endif
-
+                                    
 
                                     @if ($item->priority == '0')
                                     <td> <a class="text-uppercase">Alto</a></td>
@@ -63,12 +51,12 @@
                                     @endif
 
                                     <td>{{ $item->created_at}}</td>
-
+                                    
 
                                     @if ($item->status == '0')
-                                    <td><a href="{{ route('ticket.edit-user',$item->id) }}" class="btn btn-secondary text-bold-600">Editar</a></td>
+                                    <td><a href="{{ route('ticket.edit-user',$item->id) }}" class="btn btn-primary text-bold-600">Editar</a></td>
                                     @else
-                                    <td><a href="{{ route('ticket.show-user',$item->id) }}" class="btn btn-secondary text-bold-600">Revisar</a></td>
+                                    <td><a href="{{ route('ticket.show-user',$item->id) }}" class="btn btn-primary text-bold-600">Revisar</a></td>
                                     @endif
                                 </tr>
                                 @endforeach
@@ -87,8 +75,8 @@
 @include('layouts.componenteDashboard.optionDatatable')
 
 
-
-
+ 
+                                
 
 
 
