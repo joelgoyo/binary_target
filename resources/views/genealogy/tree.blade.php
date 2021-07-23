@@ -41,27 +41,28 @@
 
         <div class="col-md-4 col-sm-12 art" id="tarjeta">
 
-            <div class="container">
+            <div class="container p-2">
                 <div class="row">
+
                     <div class="col-4">
-                        <img id="imagen" class="p-1" style="width: 118%;margin-top: 7px;padding-top: 15px;" height="80px">
+                        <img id="imagen" class="rounded-circle" width="110px" height="110px">
                     </div>
-                    <div class="col-6 ml-1">
-                        <div class="white mt-1">
-                            <p>Nombre: <span id="nombre"></span></p>
+
+                    <div class="col-8">
+                        <div class="white">
+                            <p><b>Fecha de Ingreso:</b> <span id="fecha_ingreso"></span></p>
                         </div>
                         <div class="white">
-                            <p>Estado: <span id="estado"></span></p>
+                            <p><b>Email:</b> <span id="email"></span></p>
                         </div>
                         <div class="white">
-                            <p>Inversión: <span id="inversion"></span></p>
+                            <p><b>Patrocinador:</b> <span id="patrocinador"></span></p>
                         </div>
+                    </div>
+                    <div class="d-flex white mb-2 col-12" style="margin-left: 66px;">
+                        <a class="white btn-tree text-center" style="margin-left: 72px;" id="ver_arbol" href=> Ver Arbol</a>
                     </div>
                 </div>
-            </div>
-
-            <div class="d-flex white mb-2" style="margin-left: 66px;margin-right: 63px;">
-                <a class="white btn-tree text-center" style="margin-left: 72px;" id="ver_arbol" href=> Ver Arbol</a>
             </div>
 
         </div>
@@ -78,11 +79,11 @@
                 {{-- usuario principal --}}
                 <a class="base" href="#">
                     @if (empty($base->photoDB))
-                    <img src="{{asset('assets/img/sistema/favicon.png')}}" alt="{{$base->name}}" title="{{$base->name}}"
-                        class="pt-1 rounded-circle" style="width: 95%;height: 107%;margin-left: 0px;margin-top: -8px;">
+                    <img src="{{asset('img/tree/tree.svg')}}" alt="{{$base->name}}" title="{{$base->name}}"
+                        class="pt-1 rounded-circle" style="height: 107%;margin-left: 0px;margin-top: -8px;">
                     @else
-                    <img src="{{asset('storage/photo/'.$base->photoDB)}}" alt="{{$base->name}}" title="{{$base->name}}"
-                        class="pt-1 rounded-circle" style="width: 95%;height: 107%;margin-left: 0px;margin-top: -8px;">                        
+                    <img src="{{asset('storage/'.$base->photoDB)}}" alt="{{$base->name}}" title="{{$base->name}}"
+                        class="rounded-circle" width="97px" height="100px" style="border: 2px solid #095526">                        
                     @endif
                 </a>
                 
@@ -164,27 +165,34 @@
 
 <script type="text/javascript">
     function tarjeta(data, url) {
-        //console.log('assets/img/sistema/favicon.png');
-        $('#nombre').text(data.fullname);
+
         if (data.photoDB == null) {
-            $('#imagen').attr('src', "{{asset('assets/img/sistema/favicon.png')}}");
+            $('#imagen').attr('src', "{{asset('img/tree/tree.svg')}}");
         } else {
-            $('#imagen').attr('src', '/storage/photo/' + data.photoDB);
+            $('#imagen').attr('src', '/storage/' + data.photoDB);
         }
 
+        $('#fecha_ingreso').text(data.created_at);
+
+        $('#email').text(data.email);
+
+        $('#patrocinador').text(data.email);
+        
+       
+        // if (data.status == 0) {
+        //     $('#estado').html('<span class="badge badge-warning">Inactivo</span>');
+        // } else if (data.status == 1) {
+        //     $('#estado').html('<span class="badge badge-success">Activo</span>');
+        // } else if (data.status == 2) {
+        //     $('#estado').html('<span class="badge badge-danger">Eliminado</span>');
+        // }
+
+        // $('#inversion').text(data.inversion);
+
         $('#ver_arbol').attr('href', url);
-        $('#inversion').text(data.inversion);
-        if (data.status == 0) {
-            $('#estado').html('<span class="badge badge-warning">Inactivo</span>');
-        } else if (data.status == 1) {
-            $('#estado').html('<span class="badge badge-success">Activo</span>');
-        } else if (data.status == 2) {
-            $('#estado').html('<span class="badge badge-danger">Eliminado</span>');
-        }
 
         $('#tarjeta').removeClass('d-none');
     }
-
 </script>
 
 @endsection

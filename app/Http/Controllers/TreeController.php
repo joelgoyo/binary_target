@@ -26,7 +26,7 @@ class TreeController extends Controller
             $trees = $this->getDataEstructura(Auth::id(), $type);
             $type = ucfirst($type);
             $base = Auth::user();
-            $base->logoarbol = asset('assets/img/sistema/favicon.png');
+            $base->logoarbol = asset('img/tree/tree.svg');
             return view('genealogy.tree', compact('trees', 'type', 'base'));
         } catch (\Throwable $th) {
             Log::error('Tree - index -> Error: '.$th);
@@ -112,7 +112,7 @@ class TreeController extends Controller
     {
         try {
             // titulo
-            View::share('titleg', 'Arbol '.ucfirst($type));
+            // View::share('titleg', 'Arbol '.ucfirst($type));
             $id = base64_decode($id);
             $base = User::find($id);
             if ($base == null) {
@@ -120,7 +120,7 @@ class TreeController extends Controller
             }
             $trees = $this->getDataEstructura($id, $type);
             $type = ucfirst($type);
-            $base->logoarbol = asset('assets/img/sistema/favicon.png');
+            $base->logoarbol = asset('img/tree/tree.svg');
             return view('genealogy.tree', compact('trees', 'type', 'base'));
         } catch (\Throwable $th) {
             Log::error('Tree - moretree -> Error: '.$th);
@@ -169,8 +169,11 @@ class TreeController extends Controller
 
             foreach ($resul as $user) {
                 $user->nivel = $nivel;
-                $user->logoarbol = asset('assets/img/sistema/favicon.png');
+                $user->logoarbol = asset('img/tree/tree.svg');
                 $user->inversion = $user->montoInvertido();
+
+                $userdata = User::find($id);
+                $sponsor = User::where('id',$userdata->referred_id > 0);
             
             }
             return $resul;
