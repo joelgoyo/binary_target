@@ -10,13 +10,21 @@
                         <table class="table w-100 nowrap scroll-horizontal-vertical myTable table-striped">
                             <thead class="">
 
+                                <div class="col-12 col-md-4">
+                                    <form action="{{route('reports.actualizarganancias')}}" method="post">
+                                        @csrf
+
+                                        <input type="hidden" name="tipo" value="user">
+                                        <button type="submit" class="btn btn-primary">Actualizar</button>
+                                    </form>
+
                                 <tr class="text-center text-white bg-purple-alt2">
                                     <th>ID</th>
                                     <th>Usuario</th>
                                     <th>invertido</th>
-                                    <th>Descripcion</th>
-                                    <th>Monto</th>
-                                    <th>Estado</th>
+                                    <th>ganancia</th>
+                                    <th>progreso</th>
+                                    <th>limite de ganancia</th>
                                     <th>Fecha de Creación</th>
                                 </tr>
 
@@ -26,8 +34,11 @@
                                 @foreach ($inversiones as $wallet)
                                 <tr class="text-center">
                                     <td>{{$wallet->id}}</td>
-                                    <td>{{$wallet->iduser}}</td>
+                                    <td>{{$wallet->ganacia}}</td>
                                     <td>{{$wallet->invertido}}</td>
+                                    <td>{{$wallet->ganacia}}</td>
+                                    <td>{{$wallet->progreso}}%</td>
+                                    <td>{{$wallet->limite}}</td>
                                 @endforeach
 
                            {{--    @foreach ($u as $wallet)

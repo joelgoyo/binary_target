@@ -73,7 +73,7 @@ Route::prefix('dashboard')->middleware('menu', 'auth')->group(function ()
 
     //Ruta para los usuarios
     Route::prefix('user')->group(function(){
-    
+
         Route::get('kyc', 'UserController@kyc')->name('kyc');
 
         Route::get('profile', 'UserController@editProfile')->name('profile');
@@ -138,6 +138,8 @@ Route::prefix('dashboard')->middleware('menu', 'auth')->group(function ()
             Route::get('purchase', 'ReporteController@indexPedidos')->name('reports.pedidos');
             Route::get('commission', 'ReporteController@indexComision')->name('reports.comision');
             Route::get('Rendimientos', 'ReporteController@rendimientos')->name('reports.rendimientos');
+            Route::post('actualizar', 'ReporteController@tareaProgramadaActualizarInversion')->name('reports.actualizarganancias');
+
 
 
         });
@@ -164,7 +166,7 @@ Route::prefix('dashboard')->middleware('menu', 'auth')->group(function ()
         Route::get('ticket-list-admin','TicketsController@listAdmin')->name('ticket.list-admin');
         Route::get('ticket-show-admin/{id}','TicketsController@showAdmin')->name('ticket.show-admin');
     });
-    
+
     Route::resource('/soporte', 'SoporteController')->except(['edit', 'update']);
 });
 

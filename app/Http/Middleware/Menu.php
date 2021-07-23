@@ -335,16 +335,9 @@ class Menu
                         'complementoruta' => ''
                     ],
                     [
-                        'name' => 'Pagar Comisiones',
+                        'name' => 'Rendimientos',
                         'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
-                        'ruta' => route('pagarComisiones'),
-                        'complementoruta' => ''
-                    ],
-
-                    [
-                        'name' => 'Cambiar estatus inversion',
-                        'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
-                        'ruta' => route('inversiones.checkStatus'),
+                        'ruta' => route('reports.rendimientos'),
                         'complementoruta' => ''
                     ],
                     [
@@ -354,11 +347,21 @@ class Menu
                         'complementoruta' => ''
                     ],
                     [
-                        'name' => 'Rendimientos',
+                        'name' => 'Pagar Comisiones',
                         'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
-                        'ruta' => route('reports.rendimientos'),
+                        'ruta' => route('pagarComisiones'),
                         'complementoruta' => ''
                     ],
+
+
+                    [
+                        'name' => 'Cambiar estatus inversion',
+                        'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
+                        'ruta' => route('inversiones.checkStatus'),
+                        'complementoruta' => ''
+                    ],
+
+
                 ],
             ],
 
