@@ -35,7 +35,7 @@ class TiendaController extends Controller
             $packages = Packages::orderBy('id', 'desc')->paginate();
             //$shopmail = ['name' => 'J'];
            // Mail::to(Auth::user('email'))->send(new shopmail($shopmail));
-            // $invertido = Auth::user()->inversionMasAlta();
+             $invertido = Auth::user()->inversionMasAlta();
             if(isset($invertido)){
                 $invertido = $invertido->invertido;
             }
