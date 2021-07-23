@@ -8,7 +8,7 @@
 @stack('page_vendor_js')
 <!-- END: Page Vendor JS-->
 
-<!-- BEGIN: Theme JS--
+<!-- BEGIN: Theme JS-->
 
 <script src="{{asset('assets/app-assets/js/core/app-menu.js')}}"></script>
 <script src="{{asset('assets/app-assets/js/core/app.js')}}"></script>

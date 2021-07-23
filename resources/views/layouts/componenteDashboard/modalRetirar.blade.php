@@ -50,7 +50,7 @@
                 
             </div>
             <div class="modal-footer">
-            <button type="button" class="btn btn-success" data-dismiss="modal">cerrar</button>
+            <button type="button" class="btn btn-success" data-dismiss="modal">Cerrar</button>
             <button type="submit" class="btn btn-outline-primary">Retirar</button>
             </div>
         </form>

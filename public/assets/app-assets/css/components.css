@@ -3563,9 +3563,10 @@ table.dataTable thead .sorting:after, table.dataTable thead .sorting_asc:after, 
 table.dataTable.table-striped tbody tr:nth-of-type(even) {
   background-color : #F8F8F8;
 }
+/*
 table.dataTable.table-striped tbody tr:nth-of-type(odd) {
   background-color : #FFFFFF;
-}
+}*/
 table.dataTable.complex-headers {
   border : 1px solid #DAE1E7;
 }

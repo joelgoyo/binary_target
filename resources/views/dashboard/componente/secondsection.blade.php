@@ -29,12 +29,10 @@
             
             <h6 class="mt-1 mb-0 text-white text-center">Paquete de inversión</h6>
             
-            <h2 class="gold text-bold-700 mb-0 text-center" style="font-size: 40px;">20.000</h2>
+            <div class="text-center" style="width: 100%; height: 100%;">
+               
+                <img class="img" src="{{Auth::user()->inversionMasAlta() != null ?Auth::user()->inversionMasAlta()->getPackageOrden->img() : asset('assets/img/sistema/favicon.png')}}" alt="binary_target" style="width: 70%; height:90%">
             
-            <div class="d-flex align-items-center mb-2 justify-content-center">
-                <img class="text-center"
-                    src="{{ asset('assets/img/icon/Ellipse 12.svg') }}"
-                    alt="">
             </div>
 
         </div>
