@@ -500,11 +500,11 @@ class LiquidactionController extends Controller
             }
            
             $bruto = $bruto + $bruto2;
-            /*
-            if ($bruto < 50) {
+            
+            if ($bruto < 100) {
                 return redirect()->back()->with('msj-danger', 'El monto minimo de retirar es 60 Usd');
             }
-            */
+            
             $feed = ($bruto * 0.05);
             $total = ($bruto - $feed);
 
