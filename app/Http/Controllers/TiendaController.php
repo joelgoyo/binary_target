@@ -14,7 +14,7 @@ use Hexters\CoinPayment\CoinPayment;
 use Hexters\CoinPayment\Helpers\CoinPaymentHelper;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\shopmail;
-
+use App\Mail\PaymentMail;
 
 class TiendaController extends Controller
 {
@@ -27,24 +27,19 @@ class TiendaController extends Controller
      */ 
     public function index()
     {
-        try {
+       
             // title
             View::share('titleg', 'Tienda');
             $invertido = User::find(Auth::user()->id)->getUserInversiones->where('status', 1)->sortBy('invertido')->last();
             // dd($invertido); 
             $packages = Packages::orderBy('id', 'desc')->paginate();
-            //$shopmail = ['name' => 'J'];
-           // Mail::to(Auth::user('email'))->send(new shopmail($shopmail));
              $invertido = Auth::user()->inversionMasAlta();
             if(isset($invertido)){
                 $invertido = $invertido->invertido;
             }
-           
+            
             return view('shop.index', compact('packages', 'invertido'));
-        } catch (\Throwable $th) {
-            Log::error('Tienda - Index -> Error: '.$th);
-            abort(403, "Ocurrio un error, contacte con el administrador");
-        }
+       
     }
 
 
@@ -209,10 +204,13 @@ class TiendaController extends Controller
             'itemSubtotalAmount' => $product->price // USD
         ];
         // dd($transacion);
-        $ruta = CoinPayment::generatelink($transacion);
+            //Mail::to(Auth::user('email'))->send(new shopmail($user)); 
+            $ruta = CoinPayment::generatelink($transacion);
         // dd($ruta);
+      
         return redirect($ruta);
-
+        
+      
         // try{
         //     $product = ProductWarehouse::find($id);
         //     $user = Auth::user()->id;
@@ -276,7 +274,7 @@ class TiendaController extends Controller
         if ($status == 'Completada') {
             $this->registeInversion($orden);
         }
-
+        
         return redirect()->route('shop')->with('msj-'.$type, $msj);
     }
 

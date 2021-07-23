@@ -20,7 +20,7 @@
               <table role="presentation" style="width:100%;border-collapse:collapse;border:0;border-spacing:0;">
                 <tr>
                   <td style="padding:0 0 36px 0;color:#ffffff;">
-                    <h1 style="font-size:24px;margin:0 0 20px 0;font-family:Arial,sans-serif;">Se a realizado una Compra</h1>
+                    <h1 style="font-size:24px;margin:0 0 20px 0;font-family:Arial,sans-serif;">Se a realizado un retiro</h1>
                     <p style="margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;">MONTO: {{$orden->total}}</p>
                     <p style="margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;">PAQUETE: {{$orden->getPackageOrden->name}}</p>
                     <p style="margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;">USUARIO: {{$user->name}}</p>
