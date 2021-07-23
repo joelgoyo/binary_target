@@ -44,6 +44,8 @@ Route::prefix('dashboard')->middleware('menu', 'auth')->group(function ()
     Route::prefix('wallet')->group(function ()
     {
         Route::get('/', 'WalletController@index')->name('wallet.index');
+        Route::post('wallet/RetirarFondo', 'WalletController@RetirarFondo')->name('RetirarFondo');
+          Route::post('liquidation/retirarSaldo', 'LiquidactionController@retirarSaldo')->name('retirarSaldo');
     });
 
     // Ruta para la pagos
