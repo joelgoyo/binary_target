@@ -228,6 +228,23 @@ class Menu
                         'complementoruta' => '',
                     ],
                     [
+                        'name' => 'Arbol Binario',
+                        'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
+                        'ruta' => route('genealogy_type', 'tree'),
+                        'complementoruta' => ''
+                    ],
+                ],
+            ],
+            // Fin red
+            // Informes
+            'Informes' => [
+                'submenu' => 1,
+                'ruta' => 'javascript:;',
+                'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
+                'icon' => 'feather icon-file-text',
+                'complementoruta' => '',
+                'submenus' => [
+                    [
                         'name' => 'Arbol binario',
                         'ruta' => route('genealogy_type', 'tree') ,
                         'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
