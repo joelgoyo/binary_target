@@ -15,6 +15,7 @@ use Hexters\CoinPayment\Helpers\CoinPaymentHelper;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\shopmail;
 use App\Mail\PaymentMail;
+use App\Mail\RankMail;
 
 class TiendaController extends Controller
 {

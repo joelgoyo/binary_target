@@ -6,11 +6,9 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-use App\Models\User;
 use Illuminate\Support\Facades\Auth;
-use App\Models\OrdenPurchases;
 
-class PaymentMail extends Mailable
+class RankMail extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -19,10 +17,10 @@ class PaymentMail extends Mailable
      *
      * @return void
      */
-    public $payment;
-    public function __construct($payment)
+    public $Rank;
+    public function __construct($Rank)
     {
-        $this->payment = $payment;
+        $this->Rank = $Rank;
     }
 
     /**
@@ -35,9 +33,9 @@ class PaymentMail extends Mailable
         $user = Auth::user();
        
         return $this->from(env('MAIL_FROM_ADDRESS'),env('MAIL_FROM_NAME'))
-        ->view('mails.payment')
-        ->subject('Se ha realizado un retiro')
+        ->view('mails.rank')
+        ->subject('Felicidades has alcanzado una nueva meta')
         ->with(compact('user'))
-        ->with($this->payment);
+        ->with($this->Rank);
     }
 }
