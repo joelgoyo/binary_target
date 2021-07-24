@@ -345,6 +345,7 @@ textarea.form-control {
 .form-control {
   border : 1px solid #00BE54;
   color : #fff;
+  background-color: transparent;
 }
 
 .form-section {

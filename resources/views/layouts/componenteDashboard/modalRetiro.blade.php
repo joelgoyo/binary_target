@@ -1,6 +1,6 @@
 <!-- MODAL PARA RETIRAR SALDO DISPONILE -->
 
-<div class="modal fade" id="modalSaldoDisponible" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="modalSaldo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
     <div class="modal-content">
         <div class="modal-header">
@@ -9,7 +9,7 @@
             <span aria-hidden="true">&times;</span>
         </button>
         </div>
-        <form method="POST" action="{{route('retirarSaldo')}}">
+        <form method="POST" action="{{route('RetirarFondo')}}">
             @csrf 
      
             <div class="modal-body text-center">
@@ -50,7 +50,7 @@
                 
             </div>
             <div class="modal-footer">
-            <button type="button" class="btn btn-success" data-dismiss="modal">Cerrar</button>
+            <button type="button" class="btn btn-success" data-dismiss="modal">cerrar</button>
             <button type="submit" class="btn btn-outline-primary">Retirar</button>
             </div>
         </form>

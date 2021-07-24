@@ -1766,7 +1766,7 @@ pre code {
 .table {
   width : 100%;
   margin-bottom : 1rem;
-  color : #626262;
+  /*color : #626262;*/
 }
 .table th, .table td {
   padding : 0.75rem;
@@ -2054,9 +2054,9 @@ pre code {
   border : 0;
 }
 .form-control:focus {
-  color : #4E5154;
-  background-color : #FFFFFF;
-  border-color : #13192E;
+  color : #fff;
+  background-color : transparent;
+  border-color : #00BE54;
   outline : 0;
   box-shadow : 0 3px 10px 0 rgba(0, 0, 0, 0.15);
 }
