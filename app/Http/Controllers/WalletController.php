@@ -330,4 +330,79 @@ class WalletController extends Controller
             abort(403, "Ocurrio un error, contacte con el administrador");
         }
     }
+     public function RetirarFondo(Request $request) 
+    {
+        try {  
+            $user = Auth::user();
+    
+            $comisiones = Wallet::where([
+                ['iduser', '=', $user->id],
+                ['status', '=', 0],
+                ['tipo_transaction', '=', 0],
+            ])->whereNotIn('tipo_comision', [0])->get();
+
+            $comisiones_rendimiento = Wallet::where([
+                ['iduser', '=', $user->id],
+                ['status', '=', 0],
+                ['tipo_transaction', '=', 0],
+                ['tipo_comision', '=', 0],
+            ])->get();
+            
+            $bruto = $comisiones->sum('monto');
+            $bruto2 = 0;
+            $listComi2 = collect();
+            // if($comisiones_rendimiento != null){
+            //     foreach($comisiones_rendimiento as $valores){
+            //     $fecha = $valores->created_at->addDay(6);
+            //         //Solo se puede empezar a retirar apartir del 3 mes.
+            //         if(Carbon::now()->gte($fecha)){
+            //             //dd("hoy es mayor a la fecha de la wallet");
+            //             $bruto2+= $valores->monto;
+            //             $listComi2[] = $valores->id;
+            //         }else{
+            //             //dd("hoy es menor a la fecha de la wallet");
+            //         }
+                    
+            //     }
+            // }
+           
+            // $bruto = $bruto + $bruto2;
+            
+            if ($bruto < 100) {
+                return redirect()->back()->with('msj-danger', 'El monto minimo de retirar es 100 Usd');
+            }
+            
+            $feed = ($bruto * 0.05);
+            $total = ($bruto - $feed);
+
+            $arrayLiquidation = [
+                'iduser' => $user->id,
+                'total' => $total,
+                'monto_bruto' => $bruto,
+                'feed' => $feed,
+                'hash',
+                'wallet_used' => $user->wallet_address,
+                'status' => 0,
+            ];
+            $idLiquidation = $this->saveLiquidation($arrayLiquidation);
+            
+            if (!empty($idLiquidation)) {
+                $listComi = $comisiones->pluck('id');
+            
+                $listComi = Arr::collapse([$listComi, $listComi2]);
+            
+                Wallet::whereIn('id', $listComi)->update([
+                    'status' => 1,
+                    'liquidation_id' => $idLiquidation
+                ]);
+            }
+
+            return redirect()->back()->with('msj-success', 'Saldo retirado con exito');
+        } catch (\Throwable $th) {
+            Log::error('Liquidaction - generarLiquidation -> Error: '.$th);
+            abort(403, "Ocurrio un error, contacte con el administrador");
+        }
+    }
 }
+
+
