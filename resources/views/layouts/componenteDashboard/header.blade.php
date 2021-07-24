@@ -34,7 +34,7 @@
 
                                 @else
                                 <span class="user-name text-bold-600">{{Auth::user()->fullname}}</span>
-                                <span class="user-name headerBalance">Saldo Disponible: {{Auth::user()->wallet}} $</span>
+                                <span class="user-name headerBalance">Saldo Disponible: {{ number_format(Auth::user()->saldoDisponible(),2) }} $</span>
                                 @endif
                             </div>
 

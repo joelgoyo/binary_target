@@ -62,7 +62,7 @@ class Menu
             // Organización
             'Negocio' => [
                 'submenu' => 1,
-                'ruta' => 'javascript:;',
+                'ruta' => 'javascript:',
                 'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
                 'icon' => 'feather icon-users',
                 'complementoruta' => '',
