@@ -28,7 +28,7 @@ class TiendaController extends Controller
         try {
             // title
             View::share('titleg', 'Tienda');
-            $invertido = User::find(Auth::user()->id)->getInversiones->where('status', 1)->sortBy('invertido')->last();
+            $invertido = User::find(Auth::user()->id)->getUserInversiones->where('status', 1)->sortBy('invertido')->last();
             // dd($invertido); 
             $packages = Packages::orderBy('id', 'desc')->paginate();
             
@@ -102,7 +102,7 @@ class TiendaController extends Controller
     //     //try {
     //         if ($validate) {
     //             $paquete = Packages::find($request->idproduct);
-    //             $inv = User::find(Auth::user()->id)->getInversiones->where('status', 1)->sortBy('invertido')->last();
+    //             $inv = User::find(Auth::user()->id)->getUserInversiones->where('status', 1)->sortBy('invertido')->last();
     //             if(isset($inv->invertido)){
                     
     //                 $inversion = $inv;
@@ -175,41 +175,46 @@ class TiendaController extends Controller
 
     public function procesarOrden($id)
     {
-        // dd($id);
-        $product = Packages::find($id);
-        $user = Auth::user()->id;
-        // $data = Order::latest('id')->first();
-        // $hayData = $data? $data->id+1 : 1;
+        try {
+            // dd($id);
+            $product = Packages::find($id);
+            $user = Auth::user()->id;
+            // $data = Order::latest('id')->first();
+            // $hayData = $data? $data->id+1 : 1;
 
-        $infoOrden = [
-            'iduser' => Auth::user()->id,
-            'package_id' => $product->id,
-            'total' => $product->price,
-            'status' => '0'
-        ];
+            $infoOrden = [
+                'iduser' => Auth::user()->id,
+                'package_id' => $product->id,
+                'total' => $product->price,
+                'status' => '0'
+            ];
 
-        $transacion = [
-            'amountTotal' => $product->price,
-            'note' => 'Compra de paquete: '.$product->name.' por un precio de '.$product->price,
-            'order_id' => $this->saveOrden($infoOrden),
-            'tipo' => 'Compra de un paquete',
-            'tipo_transacion' => 3,
-            'buyer_name' => Auth::user()->name,
-            'buyer_email' => Auth::user()->email,
-            'redirect_url' => url('/'),
-            'cancel_url' => url('/')
-        ];
-        $transacion['items'][] = [
-            'itemDescription' => 'Compra de paquete '.$product->name,
-            'itemPrice' => $product->price, // USD
-            'itemQty' => (INT) 1,
-            'itemSubtotalAmount' => $product->price // USD
-        ];
-        // dd($transacion);
-        $ruta = CoinPayment::generatelink($transacion);
-        // dd($ruta);
-        return redirect($ruta);
+            $transacion = [
+                'amountTotal' => $product->price,
+                'note' => 'Compra de paquete: '.$product->name.' por un precio de '.$product->price,
+                'order_id' => $this->saveOrden($infoOrden),
+                'tipo' => 'Compra de un paquete',
+                'tipo_transacion' => 3,
+                'buyer_name' => Auth::user()->name,
+                'buyer_email' => Auth::user()->email,
+                'redirect_url' => url('/'),
+                'cancel_url' => url('/')
+            ];
+            $transacion['items'][] = [
+                'itemDescription' => 'Compra de paquete '.$product->name,
+                'itemPrice' => $product->price, // USD
+                'itemQty' => (INT) 1,
+                'itemSubtotalAmount' => $product->price // USD
+            ];
+            // dd($transacion);
+            $ruta = CoinPayment::generatelink($transacion);
+            // dd($ruta);
+            return redirect($ruta);
 
+        } catch (\Throwable $th) {
+            Log::error('Tienda - procesarOrden -> Error: '.$th);
+            abort(403, "Ocurrio un error (1) , contacte con el administrador");
+        }
         // try{
         //     $product = ProductWarehouse::find($id);
         //     $user = Auth::user()->id;

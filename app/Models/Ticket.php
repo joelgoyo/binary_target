@@ -9,14 +9,14 @@ class Ticket extends Model
 {
     protected $table = 'tickets';
 
-    public $timestamps = false;
-
+    public $timestamps = true;
+    
     protected $fillable = [
-         'iduser', 'status', 'priority','issue','note'
+         'iduser','status', 'priority','issue'
     ];
 
     public function getUser()
     {
         return $this->belongsTo('App\Models\User', 'iduser', 'id');
     }
-}
+ }

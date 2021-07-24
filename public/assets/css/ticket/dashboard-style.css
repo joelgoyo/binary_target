@@ -1,0 +1,27 @@
+/* estilo de los inputs */
+/* input[type=text]:hover:not([disabled]), 
+input[type=text]:focus, 
+input[type=text]:read-only, 
+input[type=password]:hover:not([disabled]), 
+input[type=password]:focus, 
+input[type=password]:read-only, 
+input[type=search], 
+input[type=search]:focus, 
+input[type=search]:active, 
+label:hover ~ input[type=text], 
+label:hover ~ input[type=password]{
+  color: #ffffff;
+} */
+
+/* scroll principal */
+
+body::-webkit-scrollbar {
+    width: 5px !important;
+    overflow: visible !important;
+}
+  
+body::-webkit-scrollbar-thumb {
+    background: #00BE54 !important;
+    border-radius: 7px !important;
+ }
+

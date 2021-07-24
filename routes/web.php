@@ -44,6 +44,8 @@ Route::prefix('dashboard')->middleware('menu', 'auth')->group(function ()
     Route::prefix('wallet')->group(function ()
     {
         Route::get('/', 'WalletController@index')->name('wallet.index');
+        Route::post('wallet/RetirarFondo', 'WalletController@RetirarFondo')->name('RetirarFondo');
+          Route::post('liquidation/retirarSaldo', 'LiquidactionController@retirarSaldo')->name('retirarSaldo');
     });
 
     // Ruta para la pagos
@@ -93,6 +95,8 @@ Route::prefix('dashboard')->middleware('menu', 'auth')->group(function ()
 
         Route::get('/impersonate/stop', 'ImpersonateController@stop')->name('impersonate.stop');
         Route::post('/impersonate/{user}/start', 'ImpersonateController@start')->name('impersonate.start');
+
+        Route::post('liquidation/retirarSaldo', 'LiquidactionController@retirarSaldo')->name('retirarSaldo');
     });
 
     Route::prefix('inversiones')->group(function ()
@@ -166,7 +170,6 @@ Route::prefix('dashboard')->middleware('menu', 'auth')->group(function ()
         Route::get('ticket-list-admin','TicketsController@listAdmin')->name('ticket.list-admin');
         Route::get('ticket-show-admin/{id}','TicketsController@showAdmin')->name('ticket.show-admin');
     });
-
-    Route::resource('/soporte', 'SoporteController')->except(['edit', 'update']);
+    
 });
 

@@ -145,7 +145,7 @@ class Menu
             ],
             // Fin Financiero
 
-            //Soporte
+            // Soporte
             'Soporte' => [
                 'submenu' => 0,
                 'ruta' => route('ticket.list-user'),
@@ -153,7 +153,7 @@ class Menu
                 'icon' => 'feather icon-help-circle',
                 'complementoruta' => '',
             ],
-
+            // Fin Soporte
         ];
     }
 
@@ -399,7 +399,7 @@ class Menu
             ],
             //Fin Billetera
 
-            //Soporte
+            // Soporte
             'Soporte' => [
                 'submenu' => 0,
                 'ruta' => route('ticket.list-admin'),
@@ -407,7 +407,7 @@ class Menu
                 'icon' => 'feather icon-help-circle',
                 'complementoruta' => '',
             ],
-
+            // Fin Soporte
         ];
     }
 }

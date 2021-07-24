@@ -1,0 +1,80 @@
+/* lado derecha */
+.chat-app-window .chats .chat-avatar {
+  float: right
+}
+
+.chat-app-window .chats .chat-body {
+  display: block;
+  margin: 10px 30px 0 0;
+  overflow: hidden
+}
+
+.chat-app-window .chats .chat-body .chat-content {
+  float: right;
+  padding: .7rem 1rem;
+  clear: both;
+  color: #FFF;
+  background-image: linear-gradient(80deg, #058c4d, #024324);
+  border-radius: .357rem;
+  box-shadow: 0 4px 8px 0 rgba(34, 41, 47, .12);
+  max-width: 75%
+}
+
+.chat-app-window .chats .chat-body .chat-content p {
+  margin: 0
+}
+
+/* lado izquierdo */
+.chat-app-window .chats .chat-left .chat-avatar {
+  float: left
+}
+
+.chat-app-window .chats .chat-left .chat-body .chat-content {
+  float: left;
+  margin: 1px 30px 0 0;
+  color: #fff;
+  background: #02502c
+}
+
+
+
+
+/* scroll chat */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-track {
+  /* border-radius: 10px; */
+  background-color:  rgba(27, 27, 27, 0.255);
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: #00BE54;
+}
+
+.chat-thread {
+  margin: 24px auto 0 auto;
+  padding: 0 20px 0 0;
+  list-style: none;
+  overflow-y: scroll;
+  background-color: #011E0C;
+  overflow-x: hidden;
+}
+
+/* Small screens */
+@media all and (max-width: 767px) {
+  .chat-thread {
+    width: 90%;
+    height: 260px;
+  }
+
+}
+/* Medium and large screens */
+@media all and (min-width: 768px) {
+  .chat-thread {
+    /* width: 50%; */
+    height: 320px;
+  }
+}

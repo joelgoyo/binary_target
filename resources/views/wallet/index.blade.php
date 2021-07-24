@@ -13,23 +13,31 @@
                     <div class="col-md-4 col-12">
                         $ {{number_format($saldoDisponible,2)}}
                     </div>
+
                     <div class="col-12 col-md-4">
-                        <form action="{{route('liquidation.store')}}" method="post">
+                          @if(\Carbon\Carbon::now()->isFriday())
+                        <button class="btn btn-outline-primary" id="retiro" data-toggle="modal"
+                        data-target="#modalSaldo"><b>RETIRAR</b></button> @endif
+
+                            <form action="{{route('liquidation.store')}}" method="GET">
                             @csrf
+                           
                             <input type="hidden" name="listUsers[]" value="{{Auth::user()->id}}">
                             <input type="hidden" name="tipo" value="user">
-                            <button type="submit" class="btn btn-primary">Retirar Todo</button>
                         </form>
                     </div>
                 </div>
                 <div class="table-responsive">
                     @include('wallet.component.tableWallet')
+                    {{--Modal retirar saldo disponible--}}
+                    @include('layouts.componenteDashboard.modalRetiro')
+
                 </div>
             </div>
         </div>
     </div>
 </div>
 @endsection
-
 {{-- permite llamar a las opciones de las tablas --}}
 @include('layouts.componenteDashboard.optionDatatable')
+

@@ -1,4 +1,4 @@
-{{-- Primeros cuadros -> Agregar paqutes - link Refedos --}}
+ {{-- Primeros cuadros -> Agregar paqutes - link Refedos --}}
 <div class="row">
     <div class="col col-12 col-md-6">
         <div class="card text-white" style="height: 85%">
