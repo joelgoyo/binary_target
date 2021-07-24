@@ -18,25 +18,22 @@
                 <div class="card-body card-dashboard">
                     <div class="row">
                         @foreach ($packages as $items)
+                        
+                        
                             <div class="col col-md-4">
-                                <div class="card text-center" style="background:#011E0C">
+                                <div class="card text-center">
                                     <div class="card-body">
-                                        <div class="card-header d-flex align-items-center">
+                                        <div class="card-header d-flex align-items-center p-2" style="background: #141414;">
                                             <img src="{{asset('assets/img/packages/'.$items->price.'.jpeg')}}" alt="" style="width: 100%; heigh:100%;">
                                         </div>
-                                        {{-- <form action="{{route('shop.procces', $items->id)}}" method="GET" target="_blank" class="d-inline"> --}}
-                                        @csrf
-                                        <button type="submit" style="background: #cb9b32;" class="btn btn-block text-white" @if($invertido >= $items->price) disabled @endif>
-                                            <a target="_blank" href="{{route('shop.procces', $items->id)}}">
+                                        <a target="_blank" href="{{route('shop.procces', $items->id)}}" style="background: #cb9b32; border-radius: 0px;" class="btn btn-block text-white waves-effect waves-light" @if($invertido >= $items->price) disabled @endif>
+                                            
                                                 @if($invertido == null)
                                                 Comprar
                                             @else
                                                 Upgrade
                                             @endif
-                                            </a>
-                                        </button>    
-                                      
-                                        {{-- </form> --}}
+                                            </a>  
                                     </div>
                                 </div>
                             </div>  
