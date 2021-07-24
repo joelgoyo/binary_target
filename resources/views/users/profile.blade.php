@@ -107,8 +107,8 @@ $(document).ready(function() {
                 </div>
 
                 <!-- right content section -->
-                <div class="col-md-9">
-                    <div class="card">
+                <div class="col-md-12">
+                    <div class="card ">
                         <div class="card-content">
                             <div class="card-body">
                                 <div class="tab-content">

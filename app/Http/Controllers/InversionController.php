@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Inversion;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Auth;
+use App\Models\Inversion;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 use App\Models\PorcentajeUtilidad;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
 
 class InversionController extends Controller
 {
@@ -167,4 +168,46 @@ class InversionController extends Controller
 
         return redirect()->back()->with('msj-success', 'Porcentaje actualizado correctamente');
     }
+
+    /*public function tareProgramadaActualizarInversion(){
+           $inversiones = Inversion::all();
+          dd($inversiones);
+        $inversiones = DB::table('inversions')
+                        ->select('invertido',
+                                 'iduser',
+                                 'id')
+                        ->get();
+
+
+     $inversiones = $inversiones->map(function($inversion ){
+     $inversion->limite = $inversion->invertido  * 2; //obtener el 200% porciento de la inversion el cual sera el limite
+
+     $rangoporcentage = collect([0.60 , 0.75, ]);
+
+
+
+     $inversion->ganancias = $inversion->invertido *  $rangoporcentage->random();
+     $inversion->progreso = ($inversion->ganancias / $inversion->limite)*100 ;
+
+      if( $inversion->ganancias  > $inversion->limite || $inversion->progreso > 100 ){
+
+       $inversion->ganancias = $inversion->limite;
+       $inversion->progreso = 100  ;
+       return $inversion;
+      }
+
+
+
+
+     return $inversion;
+
+     });
+
+
+
+   // $inversiones->pluck('')->put('ganancias', 0 )->dd();
+    dd($inversiones);
+       return view('reports.rendimientos')->with('inversiones', $inversiones);
+
+   } */
 }
