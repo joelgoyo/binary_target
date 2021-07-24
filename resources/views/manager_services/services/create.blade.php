@@ -26,11 +26,7 @@
         <div class="card">
             <div class="card-content">
                 <div class="card-body card-dashboard">
-                    <div class="col-12">
-                        <button class="btn btn-primary" data-toggle="modal" data-target="#modalNewServices">
-                            <i class="fa fa-plus"> Nuevo Paquete</i>
-                        </button>
-                    </div>
+                 
                     {{-- <div class="col-12 mt-1">
                         <form action="{{route('package.index')}}" method="get" id="filtro">
                             <fieldset class="form-group">
@@ -50,16 +46,12 @@
                         </form>
                     </div> --}}
                     <div class="table-responsive mt-2">
-                        <table class="table w-100 nowrap scroll-horizontal-vertical myTable table-striped">
+                        <table class="table w-100 nowrap scroll-horizontal-vertical myTable">
                             <thead class="">
                                 <tr class="text-center text-white bg-purple-alt2">
                                     <th>ID</th>
                                     <th>Nombre</th>
                                     <th>Price</th>
-                                    {{-- <th>Fecha Vencimiento</th> --}}
-                                    {{-- <th>Description</th> --}}
-                                    <th>Estado</th>
-                                    <th>Acción</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -68,31 +60,6 @@
                                     <td>{{$service->id}}</td>
                                     <td>{{$service->name}}</td>
                                     <td>{{$service->price}}</td>
-                                    {{-- <td>{{date('d-m-Y', strtotime($service->expired))}}</td> --}}
-                                    {{-- <td>
-                                        <button class="btn btn-info" onclick="vm_adminService.getDescription('{{$service->id}}')">
-                                            <i class="fa fa-eye"></i>
-                                        </button>
-                                    </td> --}}
-                                    <td>
-                                        @if ($service->status == 1)
-                                            <span class="badge badge-success text-white">Activo</span>
-                                        @else
-                                            <span class="badge badge-warning text-white">Desactivado</span>
-                                        @endif
-                                    </td>
-                                    <td>
-                                        <button class="btn btn-info" onclick="vm_adminService.getEditData('{{$service->id}}')">
-                                            <i class="fa fa-edit"></i>
-                                        </button>
-                                        <button class="btn btn-danger" onclick="vm_adminService.deleteData('{{$service->id}}')">
-                                            <form action="{{route('package.destroy', $service->id)}}" method="post" id="delete{{$service->id}}">
-                                                @csrf
-                                                @method('DELETE')
-                                            </form>
-                                            <i class="fa fa-trash"></i>
-                                        </button>
-                                    </td>
                                 </tr>
                                 @endforeach
                             </tbody>

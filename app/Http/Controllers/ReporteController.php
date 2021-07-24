@@ -141,44 +141,60 @@ class ReporteController extends Controller
         return $inversiones;
     }
 
+
+
+
     public function rendimientos(){
 
-         $inversiones = DB::table('inversions')
-                         ->select('invertido',
-                                  'iduser',
-                                  'id')
-                         ->get();
-
-
-      $inversiones = $inversiones->map(function($inversion ){
-      $inversion->limite = $inversion->invertido  * 2; //obtener el 200% porciento de la inversion el cual sera el limite
-
-      $rangoporcentage = collect([0.60 , 0.75, ]);
+        $inversiones = Inversion::all();
 
 
 
-      $inversion->ganancias = $inversion->invertido *  $rangoporcentage->random();
-      $inversion->progreso = ($inversion->ganancias / $inversion->limite)*100 ;
 
-       if( $inversion->ganancias  > $inversion->limite || $inversion->progreso > 100 ){
+      return view('reports.rendimientos')->with('inversiones', $inversiones);
+    }
 
-        $inversion->ganancias = $inversion->limite;
+
+
+    public function tareaProgramadaActualizarInversion(){
+        $inversiones = Inversion::all();
+        try{
+            foreach($inversiones as $inversion){
+                $this->actualizarInversiones($inversion);
+
+
+            }
+        } catch (\Throwable $th){
+            return 'error';
+        }
+
+
+
+             return view('reports.rendimientos')->with('inversiones', $inversiones);
+    }
+
+    public function actualizarInversiones($inversion){
+
+        $inversion::find($inversion->id);
+
+       $inversion->limite = $inversion->invertido * 2;
+
+       $rangoporcentage = collect([0.60 , 0.75, ]);
+
+       $inversion->ganacia = $inversion->invertido *   $rangoporcentage->random();
+
+       $inversion->progreso = ($inversion->ganacia / $inversion->limite)*100 ;
+
+       if( $inversion->ganacia  > $inversion->limite || $inversion->progreso > 100 ){
+
+        $inversion->ganacia = $inversion->limite;
         $inversion->progreso = 100  ;
-        return $inversion;
+
+
        }
 
-
-
-
-      return $inversion;
-
-      });
-
-
-
-    // $inversiones->pluck('')->put('ganancias', 0 )->dd();
-     dd($inversiones);
-        return view('reports.rendimientos')->with('inversiones', $inversiones);
+        $inversion->update();
+        return $inversion;
     }
 
 }

@@ -36,7 +36,7 @@ class PackagesController extends Controller
     {
         try {
             // title
-            View::share('titleg', 'Paquetes - Agregar');
+            View::share('titleg', 'Paquetes');
 
             // $categories = Groups::all()->where('status', 1);
             // if (!empty(request()->category)) {

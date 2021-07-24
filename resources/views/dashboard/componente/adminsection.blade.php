@@ -1,4 +1,4 @@
-{{-- Primeros cuadros -> Agregar paqutes - link Refedos --}}
+ {{-- Primeros cuadros -> Agregar paqutes - link Refedos --}}
 <div class="row">
     <div class="col col-12 col-md-6">
         <div class="card text-white" style="height: 85%">
@@ -9,27 +9,27 @@
                     </div>
 
                     <div class="card-sub d-flex align-items-center ">
-                        <h2 class="gold text-bold-700 mb-0"><b>$ 1306.6</b></h2>
+                        <h2 class="gold text-bold-700 mb-0"><b>$ {{Auth::user()->gananciaActual()}}</b></h2>
                     </div>
 
                     <div class="d-flex align-items-center">
 
                         <div class="progress ml-2 mb-2 mt-2" style="height: 25px;width: 80%;">
                             <div id="bar" class="progress-bar active" role="progressbar" aria-valuenow="0"
-                                aria-valuemin="0" aria-valuemax="100" style="width: 10%">
+                                aria-valuemin="0" aria-valuemax="100" style="width: {{Auth::user()->progreso()}}%">
                             </div>
                             
                         </div>
                         
                         <div class="card-sub d-flex align-items-center ">
-                            <p class="text-bold-700 mb-0 text-white ml-1">% 150
+                            <p class="text-bold-700 mb-0 text-white ml-1">% {{number_format(Auth::user()->progreso() * 2,2)}}
                             </p>
                         </div>
                        
                     </div>
 
                     <div class="card-header text-left pb-0 pt-0 white">
-                        <h6 class="mt-1 mb-0 text-white">Activo 2021-07-10</h6>
+                        <h6 class="mt-1 mb-0 text-white">Activo {{Auth::user()->fechaActivo()}}</h6>
                     </div>
                 </div>
             </div>
@@ -47,7 +47,7 @@
                     </div>
                     <div class="card-sub">
                         <h2 class="mb-0"><b>$
-                                125.25</b></h2>
+                            {{ number_format(Auth::user()->saldoDisponible(),2) }}</b></h2>
                     </div>
                 </div>
 
@@ -100,12 +100,10 @@
             
             <h6 class="mt-1 mb-0 text-white text-center">Paquete de inversión</h6>
             
-            <h2 class="gold text-bold-700 mb-0 text-center" style="font-size: 40px;">20.000</h2>
+            <div class="text-center" style="width: 100%; height: 100%;">
+               
+                <img class="img" src="{{Auth::user()->inversionMasAlta() != null ?Auth::user()->inversionMasAlta()->getPackageOrden->img() : asset('assets/img/sistema/favicon.png')}}" alt="binary_target" style="width: 70%; height:90%">
             
-            <div class="d-flex align-items-center mb-2 justify-content-center">
-                <img class="text-center"
-                    src="{{ asset('assets/img/icon/Ellipse 12.svg') }}"
-                    alt="">
             </div>
 
         </div>

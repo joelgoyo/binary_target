@@ -108,10 +108,7 @@ input:-webkit-autofill:active
                         <h5 class="text-white card-title   ">{{ __('Iniciar Sesión') }}
                         </h5>
                          </div>
-                      <h6 class="text-white" >
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent non sapien non nunc
-                         ultricies varius eu vel sem.
-                      </h6>
+
                       <br>
                     <form method="POST" action="{{ route('login') }}" novalidate>
                         @csrf

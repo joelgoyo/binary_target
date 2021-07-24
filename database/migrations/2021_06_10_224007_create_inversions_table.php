@@ -25,6 +25,7 @@ class CreateInversionsTable extends Migration
             $table->double('ganacia');
             $table->double('retiro');
             $table->double('capital');
+            $table->double('limite');
             $table->double('progreso');
             $table->date('fecha_vencimiento')->nullable();
             $table->decimal('porcentaje_fondo')->nullable();

@@ -109,5 +109,6 @@ $new = \App\Models\News::where('status', '1')->get();
 @include('layouts.componenteDashboard.linkReferido')
 {{--Modal retirar saldo disponible--}}
 @include('layouts.componenteDashboard.modalRetirar')
+@include('layouts.componenteDashboard.modalRetiro')
 
 @endsection

@@ -8,27 +8,27 @@
                     </div>
 
                     <div class="card-sub d-flex align-items-center ">
-                        <h2 class="gold text-bold-700 mb-0">$ <b>1306.6</b></h2>
+                        <h2 class="gold text-bold-700 mb-0">$ <b>{{Auth::user()->gananciaActual()}}</b></h2>
                     </div>
 
                     <div class="d-flex align-items-center">
 
                         <div class="progress ml-2 mb-2 mt-2" style="height: 25px;width: 80%;">
                             <div id="bar" class="progress-bar active" role="progressbar" aria-valuenow="0"
-                                aria-valuemin="0" aria-valuemax="100" style="width: 10%">
+                                aria-valuemin="0" aria-valuemax="100" style="width: {{Auth::user()->progreso()}}%">
                             </div>
                             
                         </div>
                         
                         <div class="card-sub d-flex align-items-center ">
-                            <p class="text-bold-700 mb-0 text-white ml-1">% 150
+                            <p class="text-bold-700 mb-0 text-white ml-1">% {{number_format(Auth::user()->progreso() * 2,2)}}
                             </p>
                         </div>
                        
                     </div>
 
                     <div class="card-header text-left pb-0 pt-0 white">
-                        <h6 class="mt-1 mb-0 text-white">Activo 2021-07-10</h6>
+                        <h6 class="mt-1 mb-0 text-white">Activo {{Auth::user()->fechaActivo()}}</h6>
                     </div>
                 </div>
             </div>
@@ -46,7 +46,7 @@
                     </div>
                     <div class="card-sub">
                         <h2 class="mb-0"><b>$
-                                125.25</b></h2>
+                            {{ number_format(Auth::user()->saldoDisponible(),2) }}</b></h2>
                     </div>
                 </div>
 
